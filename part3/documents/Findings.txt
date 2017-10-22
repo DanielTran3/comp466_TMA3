@@ -1,0 +1,50 @@
+Online stores such as Bestbuy.ca, Amazon.ca, and MemoryExpress.com all have a 
+similar design format, along with similar functionalities. Generally, the main 
+page of these websites contain a search bar at the top that allows users to 
+browse for items by the name or category of the item. Alongside this search bar, 
+there is usually a bar next to (in the case of Bestbuy.ca) or underneath (in the )
+case of Amazon.ca and MemoryExpress.ca) that contains dropdown menus containing 
+different categories of items. These drop down menus are quick ways to filter out 
+searches, especially if the website sells a plethora of different items. For 
+Bestbuy and Amazon, they sell lots of different categories of items, such as 
+electronics, movies, large appliances, toys, car components, and much more. Thus, 
+these categories are more broad. When looking at an online store such as 
+MemoryExpress, which specializes in computers, laptops, and computer components, 
+we see that the categories are less broad. There are different categories for 
+specific computer parts, such as Power Supplies (PSU), Central Processing Units 
+(CPU), Graphics Processing Units (GPU), Memory, and more. These categories would 
+generally be a subcategory of the computer category for Amazon or Bestbuy. A 
+direct example can be shown through Bestbuy, where computer components are 
+categorized in the Computers, Tablets &amp; Accessories Tab, and within that, the 
+Computer Accessories &amp; Components inside the Video Cards &amp; PC Components 
+section. Once a category is chosen, there is usually a gridview that displays small 
+images of the items, along with their associated price and 5-Star rating value. 
+Generally, these websites also provide a side panel that provides extra options 
+for filtering the items in the selected category. Looking specifically at computer 
+parts as a case study, (as the possible filtering values can vary drastically 
+depending on the item selected), we might see things such as the brand (AMD vs Intel 
+would be an example for CPUs), Memory (such as 2x4GB for RAM (Random-Access
+Memory)), or Type (such as Desktop or Server). On more general websites such as 
+Bestbuy or Amazon, we would generally see some sort of price filtering, where the 
+user can set a price range for the items they would see. Above the gridview, there 
+is usually another bar that allows for sorting or changing the view of how the items 
+are displayed. There is generally a number count of the number of items that are 
+in the category or result a search if a search was performed, a dropdown 
+&quot;Sort By&quot; menu to sort the items, and buttons that can change if the 
+images are displayed in a list view or a grid view. General options for the sort 
+by menu are &quot;Best Seller&quot;, &quot;Price: Low to High&quot;, 
+&quot;Price: High to Low&quot;, &quot;Title: (A-Z)&quot;, &quot;Title: (Z-A)&quot;,
+&quot;Highest Rated&quot;, and &quot;Newest&quot;. Upon clicking on one of the 
+items in the gridview/listview, the general layout of the proceeding page is 
+the full name of the item, followed by the items price, number of items in stock, 
+shipping costs (if they apply), any in-store locations with their associated 
+quantity (if they apply, examples are Bestbuy and MemoryExpress, but not Amazon).
+There is also a larger image of the item with different images that show any 
+accessories or different angles of the items. Using the computer components use 
+case one more, there is an overivew of the item along with more details specs. 
+Online stores such as Bestbuy and Amazon like having multiple recommened or 
+associated items following the details section. Below all of that, there is 
+reviews section that displays other buyers 5 star review rating and any comments 
+they have about the product. All of the online stores also have tabs for contacting 
+the different stores or for online support, as well as tabs that provide more 
+information about the store.
