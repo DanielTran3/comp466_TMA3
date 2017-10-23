@@ -8,6 +8,7 @@
         Welcome to Digital Electronics!
     </h1>
     <p>
-        Some information about the site.   
+        Here at Digital Electronics, you can begin by starting with a pre-built computer or an empty computer
+        and customize it by switching out or adding any parts you want!  
     </p>
 </asp:Content>

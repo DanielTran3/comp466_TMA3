@@ -144,8 +144,8 @@ first child of the left and right table columns */
 
 div.hideSkiplink
 {
-    background-color:#000000;
-    width:100%;
+    background-color: #FFFFFF !important;
+    width: 100%;
 }
 
 div.menu
@@ -331,4 +331,8 @@ div.accountInfo
     background-color: #000000;
     color: #FFFFFF;
     transition-duration: 0.5s;
+}
+
+.gridView {
+    width: 100% !important;
 }

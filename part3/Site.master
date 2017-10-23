@@ -40,10 +40,15 @@
                         <asp:MenuItem NavigateUrl="~/Feedback.aspx" Text="Feedback" Value="Feedback"></asp:MenuItem>
                     </Items>
                 </asp:Menu>
+                <br />
+                Cost of Current Configuration:
+                <asp:Label ID="TotalCostLabel" runat="server"></asp:Label>
             </div>
         </div>
         <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                <h2>&nbsp;</h2>
+            </asp:ContentPlaceHolder>
         </div>
         <div class="clear">
         </div>
