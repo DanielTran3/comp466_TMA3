@@ -100,6 +100,11 @@ public class SoundCard
         return -1;
     }
 
+    public double GetPrice()
+    {
+        return Convert.ToDouble(this._price.Replace("$", ""));
+    }
+
     public bool EqualSoundCards(SoundCard soundCard)
     {
         if (this._brand == soundCard.Brand && this._model == soundCard.Model && this._price == soundCard.Price)

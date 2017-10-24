@@ -12,7 +12,7 @@
     <h3>
         <asp:Label ID="ProcessorLabel" runat="server" Text="Processor"></asp:Label>
     </h3>
-    <asp:GridView ID="ProcessorsGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True">
+    <asp:GridView ID="ProcessorsGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True" OnSelectedIndexChanged="ProcessorsGridView_SelectedIndexChanged">
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>

@@ -146,6 +146,11 @@ public class Display
         return -1;
     }
 
+    public double GetPrice()
+    {
+        return Convert.ToDouble(this._price.Replace("$", ""));
+    }
+
     public bool EqualDisplays(Display d)
     {
         if (this._brand == d.Brand && this._model == d.Model && this._size == d.Size &&

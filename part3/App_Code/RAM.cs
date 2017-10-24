@@ -132,6 +132,11 @@ public class RAM
         return -1;
     }
 
+    public double GetPrice()
+    {
+        return Convert.ToDouble(this._price.Replace("$", ""));
+    }
+
     public bool EqualRAMs(RAM r)
     {
         if (this._brand == r.Brand && this._model == r.Model && this._speed == r.Speed &&

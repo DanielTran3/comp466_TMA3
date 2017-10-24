@@ -163,6 +163,11 @@ public class HardDrive
         return -1;
     }
 
+    public double GetPrice()
+    {
+        return Convert.ToDouble(this._price.Replace("$", ""));
+    }
+
     public bool EqualHardDrives(HardDrive hdd)
     {
         if (this._brand == hdd.Brand && this._model == hdd.Model && this._type == hdd.Type &&

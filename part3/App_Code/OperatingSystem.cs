@@ -96,6 +96,11 @@ public class OperatingSystem
         return -1;
     }
 
+    public double GetPrice()
+    {
+        return Convert.ToDouble(this._price.Replace("$", ""));
+    }
+
     public bool EqualOperatingSystems(OperatingSystem os)
     {
         if (this._brand == os.Brand && this._brand == os.Brand && this._price == os.Price)

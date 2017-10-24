@@ -159,6 +159,11 @@ public class Processor
         return -1;
     }
 
+    public double GetPrice()
+    {
+        return Convert.ToDouble(this._price.Replace("$", ""));
+    }
+
     public bool EqualProcessors(Processor p)
     {
         if (this._brand == p.Brand && this._model == p.Model && this._clock == p.Clock &&

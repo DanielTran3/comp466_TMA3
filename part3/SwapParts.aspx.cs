@@ -50,7 +50,7 @@ public partial class SwapParts : System.Web.UI.Page
             this.DisplayGridView.SelectRow(Display.GetIndexOfDisplay(Session["display"] as Display, listOfDisplays));
             this.SoundCardGridView.SelectRow(SoundCard.GetIndexOfSoundCard(Session["soundCard"] as SoundCard, listOfSoundCards));
 
-            this.SelectPreBuiltComputerFirstLabel.Visible = true;
+            this.SelectPreBuiltComputerFirstLabel.Visible = false;
             this.ProcessorLabel.Visible = true;
             this.RAMLabel.Visible = true;
             this.HardDriveLabel.Visible = true;
@@ -60,7 +60,7 @@ public partial class SwapParts : System.Web.UI.Page
         }
         else
         {
-            this.SelectPreBuiltComputerFirstLabel.Visible = false;
+            this.SelectPreBuiltComputerFirstLabel.Visible = true;
             this.ProcessorLabel.Visible = false;
             this.RAMLabel.Visible = false;
             this.HardDriveLabel.Visible = false;
@@ -75,53 +75,167 @@ public partial class SwapParts : System.Web.UI.Page
         GridView gridView = sender as GridView;
         gridView.PageIndex = e.NewPageIndex;
         gridView.DataBind();
+
+        if (gridView.DataSource as List<Processor> != null)
+        {
+            List<Processor> tempList = gridView.DataSource as List<Processor>;
+            int index = Processor.GetIndexOfProcessor(Session["processor"] as Processor, tempList);
+
+            if (index - (gridView.PageSize * gridView.PageIndex) >= 0)
+            {
+                this.ProcessorsGridView.SelectRow(index - (gridView.PageSize * gridView.PageIndex));
+                Session.Add("processor", tempList[index]);
+            }
+            else
+            {
+                this.ProcessorsGridView.SelectRow(-1);
+            }
+        }
+        else if (gridView.DataSource as List<RAM> != null)
+        {
+            List<RAM> tempList = gridView.DataSource as List<RAM>;
+            int index = RAM.GetIndexOfRAM(Session["ram"] as RAM, tempList);
+
+            if (index - (gridView.PageSize * gridView.PageIndex) >= 0)
+            {
+                this.RAMGridView.SelectRow(index - (gridView.PageSize * gridView.PageIndex));
+                Session.Add("ram", tempList[index]);
+            }
+            else
+            {
+                this.RAMGridView.SelectRow(-1);
+            }
+        }
+        else if (gridView.DataSource as List<HardDrive> != null)
+        {
+            List<HardDrive> tempList = gridView.DataSource as List<HardDrive>;
+            int index = HardDrive.GetIndexOfHardDrive(Session["hardDrive"] as HardDrive, tempList);
+
+            if (index - (gridView.PageSize * gridView.PageIndex) >= 0)
+            {
+                this.HardDriveGridView.SelectRow(index - (gridView.PageSize * gridView.PageIndex));
+                Session.Add("hardDrive", tempList[index]);
+            }
+            else
+            {
+                this.HardDriveGridView.SelectRow(-1);
+            }
+        }
+        else  if (gridView.DataSource as List<OperatingSystem> != null)
+        {
+            List<OperatingSystem> tempList = gridView.DataSource as List<OperatingSystem>;
+            int index = OperatingSystem.GetIndexOfOperatingSystem(Session["operatingSystem"] as OperatingSystem, tempList);
+
+            if (index - (gridView.PageSize * gridView.PageIndex) >= 0)
+            {
+                this.OSGridView.SelectRow(index - (gridView.PageSize * gridView.PageIndex));
+                Session.Add("operatingSystem", tempList[index]);
+            }
+            else
+            {
+                this.OSGridView.SelectRow(-1);
+            }
+        }
+        else if (gridView.DataSource as List<Display> != null)
+        {
+            List<Display> tempList = gridView.DataSource as List<Display>;
+            int index = Display.GetIndexOfDisplay(Session["display"] as Display, tempList);
+
+            if (index - (gridView.PageSize * gridView.PageIndex) >= 0)
+            {
+                this.DisplayGridView.SelectRow(index - (gridView.PageSize * gridView.PageIndex));
+                Session.Add("display", tempList[index]);
+            }
+            else
+            {
+                this.DisplayGridView.SelectRow(-1);
+            }
+        }
+        else if (gridView.DataSource as List<SoundCard> != null)
+        {
+            List<SoundCard> tempList = gridView.DataSource as List<SoundCard>;
+            int index = SoundCard.GetIndexOfSoundCard(Session["soundCard"] as SoundCard, tempList);
+
+            if (index - (gridView.PageSize * gridView.PageIndex) >= 0)
+            {
+                this.SoundCardGridView.SelectRow(index - (gridView.PageSize * gridView.PageIndex));
+                Session.Add("soundCard", tempList[index]);
+            }
+            else
+            {
+                this.SoundCardGridView.SelectRow(-1);
+            }
+        }
     }
 
     protected void ProcessorsGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
-        List<Processor> processorList = gv.DataSource as List<Processor>;
-        Processor processor = processorList[gv.SelectedIndex];
-        Session.Add("processor", processor);
+        if (gv.SelectedIndex >= 0)
+        {
+            List<Processor> processorList = gv.DataSource as List<Processor>;
+            Processor processor = processorList[gv.SelectedIndex];
+            Processor oldProcessor = Session["processor"] as Processor;
+
+            double totalPrice = Convert.ToDouble(((string) Session["totalPrice"]).Replace("$",""));
+            totalPrice -= oldProcessor.GetPrice();
+            totalPrice += processor.GetPrice();
+
+            Session.Add("processor", processor);
+        }
     }
 
     protected void RAMGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
-        List<RAM> ramList = gv.DataSource as List<RAM>;
-        RAM ram = ramList[gv.SelectedIndex];
-        Session.Add("ram", ram);
+        if (gv.SelectedIndex >= 0)
+        {
+            List<RAM> ramList = gv.DataSource as List<RAM>;
+            RAM ram = ramList[gv.SelectedIndex];
+            Session.Add("ram", ram);
+        }
     }
 
     protected void HardDriveGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
-        List<HardDrive> hardDriveList = gv.DataSource as List<HardDrive>;
-        HardDrive hardDrive = hardDriveList[gv.SelectedIndex];
-        Session.Add("hardDrive", hardDrive);
+        if (gv.SelectedIndex >= 0)
+        {
+            List<HardDrive> hardDriveList = gv.DataSource as List<HardDrive>;
+            HardDrive hardDrive = hardDriveList[gv.SelectedIndex];
+            Session.Add("hardDrive", hardDrive);
+        }
     }
 
     protected void OSGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
-        List<OperatingSystem> operatingSystemList = gv.DataSource as List<OperatingSystem>;
-        OperatingSystem operatingSystem = operatingSystemList[gv.SelectedIndex];
-        Session.Add("operatingSystem", operatingSystem);
+        if (gv.SelectedIndex >= 0)
+        {
+            List<OperatingSystem> operatingSystemList = gv.DataSource as List<OperatingSystem>;
+            OperatingSystem operatingSystem = operatingSystemList[gv.SelectedIndex];
+            Session.Add("operatingSystem", operatingSystem);
+        }
     }
-
     protected void DisplayGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
-        List<Display> displayList = gv.DataSource as List<Display>;
-        Display display = displayList[gv.SelectedIndex];
-        Session.Add("display", display);
+        if (gv.SelectedIndex >= 0)
+        {
+            List<Display> displayList = gv.DataSource as List<Display>;
+            Display display = displayList[gv.SelectedIndex];
+            Session.Add("display", display);
+        }
     }
 
     protected void SoundCardGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
-        List<SoundCard> soundCardList = gv.DataSource as List<SoundCard>;
-        SoundCard soundCard = soundCardList[gv.SelectedIndex];
-        Session.Add("soundCard", soundCard);
+        if (gv.SelectedIndex >= 0)
+        {
+            List<SoundCard> soundCardList = gv.DataSource as List<SoundCard>;
+            SoundCard soundCard = soundCardList[gv.SelectedIndex];
+            Session.Add("soundCard", soundCard);
+        }
     }
 }
