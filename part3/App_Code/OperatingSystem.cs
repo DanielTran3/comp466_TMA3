@@ -74,6 +74,37 @@ public class OperatingSystem
         return operatingSystems;
     }
 
+    public static int GetIndexOfOperatingSystem(OperatingSystem os, List<OperatingSystem> listOfOperatingSystems = null)
+    {
+        List<OperatingSystem> osList;
+        if (listOfOperatingSystems == null)
+        {
+            osList = new List<OperatingSystem>();
+        }
+        else
+        {
+            osList = listOfOperatingSystems;
+        }
+
+        for (int i = 0; i < osList.Count; i++)
+        {
+            if (osList[i].EqualOperatingSystems(os))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public bool EqualOperatingSystems(OperatingSystem os)
+    {
+        if (this._brand == os.Brand && this._brand == os.Brand && this._price == os.Price)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override string ToString()
     {
         return "Operating System: " + this._brand + " " + this._version + " " + this._price;

@@ -6,29 +6,43 @@
     <h1>
         Swap Parts
     </h1>
+    <h1>
+        <asp:Label ID="SelectPreBuiltComputerFirstLabel" runat="server" Text="Please Select A Pre-Built Computer First" Visible="False"></asp:Label>
+    </h1>
     <h3>
-        Processor</h3>
+        <asp:Label ID="ProcessorLabel" runat="server" Text="Processor"></asp:Label>
+    </h3>
     <asp:GridView ID="ProcessorsGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True">
-        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="#CCCCCC" />
+        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
-        RAM</h3>
-    <asp:GridView ID="RAMGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True">
-        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="#CCCCCC" />
+        <asp:Label ID="RAMLabel" runat="server" Text="RAM"></asp:Label>
+    </h3>
+    <asp:GridView ID="RAMGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True" OnSelectedIndexChanged="RAMGridView_SelectedIndexChanged">
+        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
-        OS</h3>
-    <asp:GridView ID="OSGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True">
-        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="#CCCCCC" />
+        <asp:Label ID="HardDriveLabel" runat="server" Text="Hard Drive"></asp:Label>
+    </h3>
+    <asp:GridView ID="HardDriveGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True" OnSelectedIndexChanged="HardDriveGridView_SelectedIndexChanged">
+        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
-        Display</h3>
-    <asp:GridView ID="DisplayGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True">
-        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="#CCCCCC" />
+        <asp:Label ID="OSLabel" runat="server" Text="Operating System"></asp:Label>
+    </h3>
+    <asp:GridView ID="OSGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True" OnSelectedIndexChanged="OSGridView_SelectedIndexChanged">
+        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
-        Sound Card</h3>
-    <asp:GridView ID="SoundCardGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True">
-        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="#CCCCCC" />
+        <asp:Label ID="DisplayLabel" runat="server" Text="Display"></asp:Label>
+    </h3>
+    <asp:GridView ID="DisplayGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True" OnSelectedIndexChanged="DisplayGridView_SelectedIndexChanged">
+        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
+    </asp:GridView>
+    <h3>
+        <asp:Label ID="SoundCardLabel" runat="server" Text="Sound Card"></asp:Label>
+    </h3>
+    <asp:GridView ID="SoundCardGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" AllowSorting="True" OnSelectedIndexChanged="SoundCardGridView_SelectedIndexChanged">
+        <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     </asp:Content>

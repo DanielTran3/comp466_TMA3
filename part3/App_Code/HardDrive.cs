@@ -141,6 +141,39 @@ public class HardDrive
         return hardDriveDetails;
     }
 
+    public static int GetIndexOfHardDrive(HardDrive hardDrive, List<HardDrive> listOfHardDrives = null)
+    {
+        List<HardDrive> hardDriveList;
+        if (listOfHardDrives == null)
+        {
+            hardDriveList = new List<HardDrive>();
+        }
+        else
+        {
+            hardDriveList = listOfHardDrives;
+        }
+
+        for (int i = 0; i < hardDriveList.Count; i++)
+        {
+            if (hardDriveList[i].EqualHardDrives(hardDrive))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public bool EqualHardDrives(HardDrive hdd)
+    {
+        if (this._brand == hdd.Brand && this._model == hdd.Model && this._type == hdd.Type &&
+            this._size == hdd.Size && this._readSpeed == hdd.ReadSpeed && 
+            this._writeSpeed == hdd.WriteSpeed && this._price == hdd.Price)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override string ToString()
     {
         return "Hard Drive: " + "Brand: " + this._brand + "Model: " + this._model + "Type: " + this._type + "Size: " + this._size + "Read/Write Speed: " + this._readSpeed + " " + this._writeSpeed + "Price: " + this._price;

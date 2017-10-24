@@ -110,6 +110,38 @@ public class RAM
         return ramDetails;
     }
 
+    public static int GetIndexOfRAM(RAM ram, List<RAM> listOfRAMs = null)
+    {
+        List<RAM> ramList;
+        if (listOfRAMs == null)
+        {
+            ramList = new List<RAM>();
+        }
+        else
+        {
+            ramList = listOfRAMs;
+        }
+
+        for (int i = 0; i < ramList.Count; i++)
+        {
+            if (ramList[i].EqualRAMs(ram))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public bool EqualRAMs(RAM r)
+    {
+        if (this._brand == r.Brand && this._model == r.Model && this._speed == r.Speed &&
+            this._memoryType == r.MemoryType && this._price == r.Price)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override string ToString()
     {
         return "RAM: " + this._brand + " " + this._model + " " + this._speed + " " + this._memoryType + " " + this._price;

@@ -10,12 +10,23 @@ public partial class PreBuiltComputers : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.PreBuiltComputersGridView.DataSource = Session["prebuiltSystems"];
-        this.PreBuiltComputersGridView.DataBind();
-        if (IsPostBack)
+        // CHECK IF "selectedPreBuiltComputerRowIndex" and "prebuiltSystems" exist in the session, if they do load
+        // up the correct index and the data
+        if (Session["prebuiltSystems"] != null)
         {
-
+            this.PreBuiltComputersGridView.DataSource = Session["prebuiltSystems"];
         }
+        else
+        {
+            this.PreBuiltComputersGridView.DataSource = PreBuiltSystem.GetAllPreBuiltSystems();
+            Session.Add("prebuiltSystems", this.PreBuiltComputersGridView.DataSource);
+        }
+        if (Session["selectedPreBuiltComputerRowIndex"] != null)
+        {
+            this.PreBuiltComputersGridView.SelectRow((int)Session["selectedPreBuiltComputerRowIndex"]);
+        }
+        
+        this.PreBuiltComputersGridView.DataBind();
     }
 
     protected void GridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -43,5 +54,7 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         {
             totalCostLabel.Text = pbs.Price;
         }
+
+        Session.Add("selectedPreBuiltComputerRowIndex", gv.SelectedIndex);
     }
 }

@@ -78,6 +78,37 @@ public class SoundCard
         return soundDetails;
     }
 
+    public static int GetIndexOfSoundCard(SoundCard soundCard, List<SoundCard> listOfSoundCards = null)
+    {
+        List<SoundCard> soundCardList;
+        if (listOfSoundCards == null)
+        {
+            soundCardList = new List<SoundCard>();
+        }
+        else
+        {
+            soundCardList = listOfSoundCards;
+        }
+
+        for (int i = 0; i < soundCardList.Count; i++)
+        {
+            if (soundCardList[i].EqualSoundCards(soundCard))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public bool EqualSoundCards(SoundCard soundCard)
+    {
+        if (this._brand == soundCard.Brand && this._model == soundCard.Model && this._price == soundCard.Price)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override string ToString()
     {
         return "Sound Card: " + this._brand + " " + this._model + " " + this._price;

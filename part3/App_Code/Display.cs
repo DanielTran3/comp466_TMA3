@@ -43,6 +43,19 @@ public class Display
         }
     }
 
+    public string Model
+    {
+        get
+        {
+            return _model;
+        }
+
+        set
+        {
+            _model = value;
+        }
+    }
+
     public string Size
     {
         get
@@ -109,6 +122,39 @@ public class Display
         displayDetails.Add(new Display("ASUS", "ROG SWIFT PG279Q", "27in", "2560 x 1440", "4ms (GTG)", "$1059.99"));
         displayDetails.Add(new Display("ACER", "Predator XB241H", "24in", "1920x1080", "1ms", "$549.99"));
         return displayDetails;
+    }
+
+    public static int GetIndexOfDisplay(Display display, List<Display> listOfDisplays = null)
+    {
+        List<Display> displayList;
+        if (listOfDisplays == null)
+        {
+            displayList = new List<Display>();
+        }
+        else
+        {
+            displayList = listOfDisplays;
+        }
+
+        for (int i = 0; i < displayList.Count; i++)
+        {
+            if (displayList[i].EqualDisplays(display))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public bool EqualDisplays(Display d)
+    {
+        if (this._brand == d.Brand && this._model == d.Model && this._size == d.Size &&
+            this._resolution == d.Resolution && this._responseTime == d.ResponseTime && 
+            this._price == d.Price)
+        {
+            return true;
+        }
+        return false;
     }
 
     public override string ToString()

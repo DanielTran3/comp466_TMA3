@@ -122,6 +122,8 @@ public class Processor
         processorDetails.Add(new Processor("AMD", "Ryzen 3 1300X", "3.50 GHz", "8MB Cache", "PGA 1331 ", "$169.99"));
         return processorDetails;
     }
+
+
     public static List<Processor> GetAllProcessorsBasedOnSocket(string socket)
     {
         List<Processor> processorDetails = new List<Processor>();
@@ -133,6 +135,38 @@ public class Processor
             }
         }
         return processorDetails;
+    }
+
+    public static int GetIndexOfProcessor(Processor processor, List<Processor> listOfProcessors = null)
+    {
+        List<Processor> processorList;
+        if (listOfProcessors == null)
+        {
+            processorList = new List<Processor>();
+        }
+        else
+        {
+            processorList = listOfProcessors;
+        }
+
+        for (int i = 0; i < processorList.Count; i++)
+        {
+            if (processorList[i].EqualProcessors(processor))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public bool EqualProcessors(Processor p)
+    {
+        if (this._brand == p.Brand && this._model == p.Model && this._clock == p.Clock &&
+            this._cache == p.Cache && this._socket == p.Socket && this._price == p.Price)
+        {
+            return true;
+        }
+        return false;
     }
 
     public override string ToString()
