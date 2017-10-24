@@ -37,11 +37,7 @@ public partial class SwapParts : System.Web.UI.Page
             this.SoundCardGridView.DataSource = listOfSoundCards;
             this.SoundCardGridView.DataBind();
 
-            Label totalCostLabel = (Label)Master.FindControl("TotalCostLabel");
-            if (totalCostLabel != null)
-            {
-                totalCostLabel.Text = Session["totalPrice"] as string;
-            }
+            UpdateTotalCostLabel();
 
             this.ProcessorsGridView.SelectRow(Processor.GetIndexOfProcessor(Session["processor"] as Processor, listOfProcessors));
             this.RAMGridView.SelectRow(RAM.GetIndexOfRAM(Session["ram"] as RAM, listOfRAMs));
@@ -170,19 +166,26 @@ public partial class SwapParts : System.Web.UI.Page
 
     protected void ProcessorsGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
-        GridView gv = sender as GridView;
-        if (gv.SelectedIndex >= 0)
+        try
         {
-            List<Processor> processorList = gv.DataSource as List<Processor>;
-            Processor processor = processorList[gv.SelectedIndex];
-            Processor oldProcessor = Session["processor"] as Processor;
+            GridView gv = sender as GridView;
+            if (gv.SelectedIndex >= 0)
+            {
+                List<Processor> processorList = gv.DataSource as List<Processor>;
+                Processor processor = processorList[(gv.SelectedIndex % gv.PageSize) + (gv.PageSize * gv.PageIndex)];
+                Processor oldProcessor = Session["processor"] as Processor;
 
-            double totalPrice = Convert.ToDouble(((string) Session["totalPrice"]).Replace("$",""));
-            totalPrice -= oldProcessor.GetPrice();
-            totalPrice += processor.GetPrice();
+                double totalPrice = (double) Session["totalPrice"];
+                totalPrice -= oldProcessor.GetPrice();
+                totalPrice += processor.GetPrice();
 
-            Session.Add("processor", processor);
+                Session.Add("processor", processor);
+                Session.Add("totalPrice", totalPrice);
+                UpdateTotalCostLabel();
+                //Need to have something like the page index change
+            }
         }
+        catch { }
     }
 
     protected void RAMGridView_SelectedIndexChanged(object sender, EventArgs e)
@@ -191,8 +194,16 @@ public partial class SwapParts : System.Web.UI.Page
         if (gv.SelectedIndex >= 0)
         {
             List<RAM> ramList = gv.DataSource as List<RAM>;
-            RAM ram = ramList[gv.SelectedIndex];
+            RAM ram = ramList[(gv.SelectedIndex % gv.PageSize) + (gv.PageSize * gv.PageIndex)];
+            RAM oldRAM = Session["ram"] as RAM;
+
+            double totalPrice = (double)Session["totalPrice"];
+            totalPrice -= oldRAM.GetPrice();
+            totalPrice += ram.GetPrice();
+
             Session.Add("ram", ram);
+            Session.Add("totalPrice", totalPrice);
+            UpdateTotalCostLabel();
         }
     }
 
@@ -202,8 +213,16 @@ public partial class SwapParts : System.Web.UI.Page
         if (gv.SelectedIndex >= 0)
         {
             List<HardDrive> hardDriveList = gv.DataSource as List<HardDrive>;
-            HardDrive hardDrive = hardDriveList[gv.SelectedIndex];
+            HardDrive hardDrive = hardDriveList[(gv.SelectedIndex % gv.PageSize) + (gv.PageSize * gv.PageIndex)];
+            HardDrive oldHardDrive = Session["hardDrive"] as HardDrive;
+
+            double totalPrice = (double)Session["totalPrice"];
+            totalPrice -= oldHardDrive.GetPrice();
+            totalPrice += hardDrive.GetPrice();
+
             Session.Add("hardDrive", hardDrive);
+            Session.Add("totalPrice", totalPrice);
+            UpdateTotalCostLabel();
         }
     }
 
@@ -213,8 +232,16 @@ public partial class SwapParts : System.Web.UI.Page
         if (gv.SelectedIndex >= 0)
         {
             List<OperatingSystem> operatingSystemList = gv.DataSource as List<OperatingSystem>;
-            OperatingSystem operatingSystem = operatingSystemList[gv.SelectedIndex];
+            OperatingSystem operatingSystem = operatingSystemList[(gv.SelectedIndex % gv.PageSize) + (gv.PageSize * gv.PageIndex)];
+            OperatingSystem oldOperatingSystem = Session["operatingSystem"] as OperatingSystem;
+
+            double totalPrice = (double)Session["totalPrice"];
+            totalPrice -= oldOperatingSystem.GetPrice();
+            totalPrice += operatingSystem.GetPrice();
+
             Session.Add("operatingSystem", operatingSystem);
+            Session.Add("totalPrice", totalPrice);
+            UpdateTotalCostLabel();
         }
     }
     protected void DisplayGridView_SelectedIndexChanged(object sender, EventArgs e)
@@ -223,8 +250,16 @@ public partial class SwapParts : System.Web.UI.Page
         if (gv.SelectedIndex >= 0)
         {
             List<Display> displayList = gv.DataSource as List<Display>;
-            Display display = displayList[gv.SelectedIndex];
+            Display display = displayList[(gv.SelectedIndex % gv.PageSize) + (gv.PageSize * gv.PageIndex)];
+            Display oldDisplay = Session["display"] as Display;
+
+            double totalPrice = (double)Session["totalPrice"];
+            totalPrice -= oldDisplay.GetPrice();
+            totalPrice += display.GetPrice();
+
             Session.Add("display", display);
+            Session.Add("totalPrice", totalPrice);
+            UpdateTotalCostLabel();
         }
     }
 
@@ -234,8 +269,25 @@ public partial class SwapParts : System.Web.UI.Page
         if (gv.SelectedIndex >= 0)
         {
             List<SoundCard> soundCardList = gv.DataSource as List<SoundCard>;
-            SoundCard soundCard = soundCardList[gv.SelectedIndex];
+            SoundCard soundCard = soundCardList[(gv.SelectedIndex % gv.PageSize) + (gv.PageSize * gv.PageIndex)];
+            SoundCard oldSoundCard = Session["soundCard"] as SoundCard;
+
+            double totalPrice = (double)Session["totalPrice"];
+            totalPrice -= oldSoundCard.GetPrice();
+            totalPrice += soundCard.GetPrice();
+
             Session.Add("soundCard", soundCard);
+            Session.Add("totalPrice", totalPrice);
+            UpdateTotalCostLabel();
+        }
+    }
+
+    public void UpdateTotalCostLabel()
+    {
+        Label totalCostLabel = (Label)Master.FindControl("TotalCostLabel");
+        if (totalCostLabel != null)
+        {
+            totalCostLabel.Text = "$" + Session["totalPrice"];
         }
     }
 }

@@ -47,7 +47,8 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         Session.Add("display", pbs.Display);
         Session.Add("operatingSystem", pbs.OperatingSystem);
         Session.Add("soundCard", pbs.SoundCard);
-        Session.Add("totalPrice", pbs.Price);
+        // Keep the totalPrice stored as a double
+        Session.Add("totalPrice", Convert.ToDouble(pbs.Price.Replace("$","")));
 
         Label totalCostLabel = (Label)Master.FindControl("TotalCostLabel");
         if (totalCostLabel != null)
