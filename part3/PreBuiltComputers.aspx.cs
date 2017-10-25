@@ -41,12 +41,12 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         GridView gv = sender as GridView;
         List<PreBuiltSystem> pbsList = gv.DataSource as List<PreBuiltSystem>;
         PreBuiltSystem pbs = pbsList[gv.SelectedIndex];
-        Session.Add("processor", pbs.Processor);
-        Session.Add("ram", pbs.Ram);
-        Session.Add("hardDrive", pbs.HardDrive);
-        Session.Add("display", pbs.Display);
-        Session.Add("operatingSystem", pbs.OperatingSystem);
-        Session.Add("soundCard", pbs.SoundCard);
+        Session.Add("processor", pbs.ProcessorPart);
+        Session.Add("ram", pbs.RamPart);
+        Session.Add("hardDrive", pbs.HardDrivePart);
+        Session.Add("display", pbs.DisplayPart);
+        Session.Add("operatingSystem", pbs.OperatingSystemPart);
+        Session.Add("soundCard", pbs.SoundCardPart);
         // Keep the totalPrice stored as a double
         Session.Add("totalPrice", Convert.ToDouble(pbs.Price.Replace("$","")));
 

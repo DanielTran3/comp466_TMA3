@@ -10,22 +10,22 @@ public class PreBuiltSystem
 {
     private string _system;
     private string _price;
-    private Processor _processor;
-    private RAM _ram;
-    private HardDrive _hardDrive;
-    private Display _display;
-    private OperatingSystem _operatingSystem;
-    private SoundCard _soundCard;
+    private Components _processorPart;
+    private Components _ramPart;
+    private Components _hardDrivePart;
+    private Components _displayPart;
+    private Components _operatingSystemPart;
+    private Components _soundCardPart;
 
-    public PreBuiltSystem(Processor processor, RAM ram, HardDrive hardDrive, Display display, OperatingSystem os, SoundCard soundCard)
+    public PreBuiltSystem(Components processor, Components ram, Components hardDrive, Components display, Components os, Components soundCard)
     {
         _system = processor.ToString() + "\r\n" + ram.ToString() + "\r\n" + hardDrive.ToString() + "\r\n" + display.ToString() + "\r\n" + os.ToString() + "\r\n" + soundCard.ToString();
-        _processor = processor;
-        _ram = ram;
-        _hardDrive = hardDrive;
-        _display = display;
-        _operatingSystem = os;
-        _soundCard = soundCard;
+        _processorPart = processor;
+        _ramPart = ram;
+        _hardDrivePart = hardDrive;
+        _displayPart = display;
+        _operatingSystemPart = os;
+        _soundCardPart = soundCard;
 
         TotalPrice();
     }
@@ -57,93 +57,93 @@ public class PreBuiltSystem
         }
     }
 
-    public Processor Processor
+    public Components ProcessorPart
     {
         get
         {
-            return _processor;
+            return _processorPart;
         }
 
         set
         {
-            _processor = value;
+            _processorPart = value;
         }
     }
 
-    public RAM Ram
+    public Components RamPart
     {
         get
         {
-            return _ram;
+            return _ramPart;
         }
 
         set
         {
-            _ram = value;
+            _ramPart = value;
         }
     }
 
-    public HardDrive HardDrive
+    public Components HardDrivePart
     {
         get
         {
-            return _hardDrive;
+            return _hardDrivePart;
         }
 
         set
         {
-            _hardDrive = value;
+            _hardDrivePart = value;
         }
     }
 
-    public Display Display
+    public Components DisplayPart
     {
         get
         {
-            return _display;
+            return _displayPart;
         }
 
         set
         {
-            _display = value;
+            _displayPart = value;
         }
     }
 
-    public OperatingSystem OperatingSystem
+    public Components OperatingSystemPart
     {
         get
         {
-            return _operatingSystem;
+            return _operatingSystemPart;
         }
 
         set
         {
-            _operatingSystem = value;
+            _operatingSystemPart = value;
         }
     }
 
-    public SoundCard SoundCard
+    public Components SoundCardPart
     {
         get
         {
-            return _soundCard;
+            return _soundCardPart;
         }
 
         set
         {
-            _soundCard = value;
+            _soundCardPart = value;
         }
     }
     #endregion
 
     public static List<PreBuiltSystem> GetAllPreBuiltSystems()
     {
-        List<Processor> processors = Processor.GetAllProcessors();
-        List<RAM> ram = RAM.GetAllRAMs();
-        List<HardDrive> hardDrives = HardDrive.GetAllHardDrives();
-        List<Display> displays = Display.GetAllDisplays();
-        List<OperatingSystem> operatingSystems = OperatingSystem.GetAllOperatingSystems();
-        List<SoundCard> soundCards = SoundCard.GetAllSoundCards();
+        List<Components> processors = ComponentsFactory.GetAllProcessors();
+        List<Components> ram = ComponentsFactory.GetAllRAMs();
+        List<Components> hardDrives = ComponentsFactory.GetAllHardDrives();
+        List<Components> displays = ComponentsFactory.GetAllDisplays();
+        List<Components> operatingSystems = ComponentsFactory.GetAllOperatingSystems();
+        List<Components> soundCards = ComponentsFactory.GetAllSoundCards();
         List<PreBuiltSystem> preBuiltSystem = new List<PreBuiltSystem>();
         preBuiltSystem.Add(new PreBuiltSystem(processors[0], ram[0], hardDrives[0], displays[0], operatingSystems[0], soundCards[0]));
         preBuiltSystem.Add(new PreBuiltSystem(processors[1], ram[3], hardDrives[4], displays[1], operatingSystems[1], soundCards[2]));
@@ -161,7 +161,7 @@ public class PreBuiltSystem
 
     public void TotalPrice()
     {
-        _price = "$" + (GetPrice(_processor.Price) + GetPrice(_ram.Price) + GetPrice(_hardDrive.Price) + GetPrice(_display.Price) + 
-                        GetPrice(_operatingSystem.Price) + GetPrice(_soundCard.Price)).ToString();
+        _price = "$" + (GetPrice(_processorPart.Price) + GetPrice(_ramPart.Price) + GetPrice(_hardDrivePart.Price) + GetPrice(_displayPart.Price) + 
+                        GetPrice(_operatingSystemPart.Price) + GetPrice(_soundCardPart.Price)).ToString();
     }
 }

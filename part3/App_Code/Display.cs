@@ -6,56 +6,24 @@ using System.Web;
 /// <summary>
 /// Summary description for Display
 /// </summary>
-public class Display
+public class Display : Components
 {
     #region Data
-    private string _brand;
-    private string _model;
     private string _size;
     private string _resolution;
     private string _responseTime;
-    private string _price;
     #endregion
 
     #region Constructors
-    public Display(string brand, string model, string size, string resolution, string responseTime, string price)
+    public Display(string brand, string model, string size, string resolution, string responseTime, string price) : base(brand, model, price)
     {
-        _brand = brand;
-        _model = model;
         _size = size;
         _resolution = resolution;
         _responseTime = responseTime;
-        _price = price;
     }
     #endregion
 
     #region Getters and Setters
-    public string Brand
-    {
-        get
-        {
-            return _brand;
-        }
-
-        set
-        {
-            _brand = value;
-        }
-    }
-
-    public string Model
-    {
-        get
-        {
-            return _model;
-        }
-
-        set
-        {
-            _model = value;
-        }
-    }
-
     public string Size
     {
         get
@@ -94,68 +62,13 @@ public class Display
             _responseTime = value;
         }
     }
-
-    public string Price
-    {
-        get
-        {
-            return _price;
-        }
-
-        set
-        {
-            _price = value;
-        }
-    }
     #endregion
 
     #region Public Methods
-    public static List<Display> GetAllDisplays()
+    public bool EqualComponent(Display d)
     {
-        List<Display> displayDetails = new List<Display>();
-        displayDetails.Add(new Display("BenQ", "GW2765HT", "27in", "2560 x 1440", "4ms (GTG)", "$379.99"));
-        displayDetails.Add(new Display("BenQ", "GL2760H", "27in", "1920 x 1080", "2ms (GTG)", "$179.99"));
-        displayDetails.Add(new Display("BenQ", "GW2270", "21.5in", "1920 x 1080", "5ms (GTG)", "$119.99"));
-        displayDetails.Add(new Display("LG", "24M38D-B", "23.6in", "1920 x 1080", "5ms", "$159.99"));
-        displayDetails.Add(new Display("LG", "22MP48HQ-P", "21.5in", "1920 x 1080", "5ms", "$169.99"));
-        displayDetails.Add(new Display("ASUS", "VP239H-P", "23in", "1920 x 1080", "5ms (GTG)", "$184.99"));
-        displayDetails.Add(new Display("ASUS", "ROG SWIFT PG279Q", "27in", "2560 x 1440", "4ms (GTG)", "$1059.99"));
-        displayDetails.Add(new Display("ACER", "Predator XB241H", "24in", "1920x1080", "1ms", "$549.99"));
-        return displayDetails;
-    }
-
-    public static int GetIndexOfDisplay(Display display, List<Display> listOfDisplays = null)
-    {
-        List<Display> displayList;
-        if (listOfDisplays == null)
-        {
-            displayList = new List<Display>();
-        }
-        else
-        {
-            displayList = listOfDisplays;
-        }
-
-        for (int i = 0; i < displayList.Count; i++)
-        {
-            if (displayList[i].EqualDisplays(display))
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public double GetPrice()
-    {
-        return Convert.ToDouble(this._price.Replace("$", ""));
-    }
-
-    public bool EqualDisplays(Display d)
-    {
-        if (this._brand == d.Brand && this._model == d.Model && this._size == d.Size &&
-            this._resolution == d.Resolution && this._responseTime == d.ResponseTime && 
-            this._price == d.Price)
+        if (base.EqualComponent(d) && this._size == d.Size &&
+            this._resolution == d.Resolution && this._responseTime == d.ResponseTime)
         {
             return true;
         }

@@ -65,7 +65,6 @@ public abstract class Components
     #endregion
 
     #region Abstract Methods
-    public abstract bool EqualComponent(Components component);
     #endregion
 
     #region Public Methods
@@ -74,7 +73,17 @@ public abstract class Components
         return Convert.ToDouble(this._price.Replace("$", ""));
     }
 
-    public int GetIndexOfComponent(Components component, List<Components> listOfComponents = null)
+    protected bool EqualComponent(Components component)
+    {
+        if (this._brand == component.Brand && this._model == component.Model && this._price == component.Price)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    public static int GetIndexOfComponent(Components component, List<Components> listOfComponents = null)
     {
         List<Components> displayList;
         if (listOfComponents == null)
