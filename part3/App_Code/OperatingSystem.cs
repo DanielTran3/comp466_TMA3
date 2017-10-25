@@ -47,4 +47,16 @@ public class OperatingSystem : Components
         return "Operating System: " + this._brand + " " + this._model + " " + this._price;
     }
     #endregion
+
+    #region Abstract Implementations
+    public override string GetGridView()
+    {
+        return "OperatingSystemGridView";
+    }
+
+    public override string GetSessionName()
+    {
+        return "OperatingSystem";
+    }
+    #endregion
 }

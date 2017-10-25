@@ -9,6 +9,7 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
+        Session.Timeout = 60;
     }
 }

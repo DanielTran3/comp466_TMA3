@@ -65,6 +65,8 @@ public abstract class Components
     #endregion
 
     #region Abstract Methods
+    public abstract string GetGridView();
+    public abstract string GetSessionName();
     #endregion
 
     #region Public Methods

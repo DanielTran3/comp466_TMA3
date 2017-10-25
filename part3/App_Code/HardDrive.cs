@@ -96,4 +96,16 @@ public class HardDrive : Components
         return "Hard Drive: " + "Brand: " + this._brand + "Model: " + this._model + "Type: " + this._type + "Size: " + this._size + "Read/Write Speed: " + this._readSpeed + " " + this._writeSpeed + "Price: " + this._price;
     }
     #endregion
+
+    #region Abstract Implementations
+    public override string GetGridView()
+    {
+        return "HardDriveGridView";
+    }
+
+    public override string GetSessionName()
+    {
+        return "hardDrive";
+    }
+    #endregion
 }

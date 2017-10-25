@@ -64,4 +64,16 @@ public class RAM : Components
         return "RAM: " + this._brand + " " + this._model + " " + this._speed + " " + this._memoryType + " " + this._price;
     }
     #endregion
+
+    #region Abstract Implementations
+    public override string GetGridView()
+    {
+        return "RAMGridView";
+    }
+
+    public override string GetSessionName()
+    {
+        return "ram";
+    }
+    #endregion
 }

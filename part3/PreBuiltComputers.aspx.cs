@@ -29,24 +29,17 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         this.PreBuiltComputersGridView.DataBind();
     }
 
-    protected void GridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        GridView gridView = sender as GridView;
-        gridView.PageIndex = e.NewPageIndex;
-        gridView.DataBind();
-    }
-
     protected void PreBuiltComputersGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
         List<PreBuiltSystem> pbsList = gv.DataSource as List<PreBuiltSystem>;
         PreBuiltSystem pbs = pbsList[gv.SelectedIndex];
-        Session.Add("processor", pbs.ProcessorPart);
-        Session.Add("ram", pbs.RamPart);
-        Session.Add("hardDrive", pbs.HardDrivePart);
-        Session.Add("display", pbs.DisplayPart);
-        Session.Add("operatingSystem", pbs.OperatingSystemPart);
-        Session.Add("soundCard", pbs.SoundCardPart);
+        Session.Add(pbs.ProcessorPart.GetSessionName(), pbs.ProcessorPart);
+        Session.Add(pbs.RamPart.GetSessionName(), pbs.RamPart);
+        Session.Add(pbs.HardDrivePart.GetSessionName(), pbs.HardDrivePart);
+        Session.Add(pbs.DisplayPart.GetSessionName(), pbs.DisplayPart);
+        Session.Add(pbs.OperatingSystemPart.GetSessionName(), pbs.OperatingSystemPart);
+        Session.Add(pbs.SoundCardPart.GetSessionName(), pbs.SoundCardPart);
         // Keep the totalPrice stored as a double
         Session.Add("totalPrice", Convert.ToDouble(pbs.Price.Replace("$","")));
 

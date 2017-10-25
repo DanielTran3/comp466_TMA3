@@ -16,8 +16,6 @@ public class SoundCard : Components
     {
 
     }
-
-
     #endregion
 
     #region Getters and Setters
@@ -32,6 +30,18 @@ public class SoundCard : Components
     public override string ToString()
     {
         return "Sound Card: " + this._brand + " " + this._model + " " + this._price;
+    }
+    #endregion
+
+    #region Abstract Implementations
+    public override string GetGridView()
+    {
+        return "SoundCardGridView";
+    }
+
+    public override string GetSessionName()
+    {
+        return "soundCard";
     }
     #endregion
 }

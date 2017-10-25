@@ -94,4 +94,16 @@ public class Processor : Components
         return "Processor: " + this._brand + " " + this._model + " " + this._clock + " " + this._cache+ " " + this._socket + " " + this._price;
     }
     #endregion
+
+    #region Abstract Implementations
+    public override string GetGridView()
+    {
+        return "ProcessorGridView";
+    }
+
+    public override string GetSessionName()
+    {
+        return "processor";
+    }
+    #endregion
 }

@@ -27,7 +27,7 @@
                         [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
                     </LoggedInTemplate>
                 </asp:LoginView>
-                <asp:Image ID="ShoppingCart" runat="server" Height="45px" ImageAlign="Middle" ImageUrl="~/Resources/shopping_cart.png" Width="45px" />
+                <asp:ImageButton ID="CartButton" runat="server" Height="45px" ImageUrl="~/Resources/shopping_cart.png" PostBackUrl="Cart.aspx" Width="46px" />
             </div>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
@@ -41,8 +41,8 @@
                     </Items>
                 </asp:Menu>
                 <br />
-                Cost of Current Configuration:
-                <asp:Label ID="TotalCostLabel" runat="server"></asp:Label>
+                <asp:Label ID="CostOfCurrentConfigurationLabel" runat="server" Text="Cost of Current Configuration:"></asp:Label>
+&nbsp;<asp:Label ID="TotalCostLabel" runat="server"></asp:Label>
             </div>
         </div>
         <div class="main">

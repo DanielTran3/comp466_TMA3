@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Summary description for Display
@@ -78,6 +79,18 @@ public class Display : Components
     public override string ToString()
     {
         return "Monitor: " + this._brand + " " + this._model + " " + this._size + " " + this._resolution + " " + this._responseTime + " " + this._price;
+    }
+    #endregion
+
+    #region Abstract Implementations
+    public override string GetGridView()
+    {
+        return "DisplayGridView";
+    }
+
+    public override string GetSessionName()
+    {
+        return "display";
     }
     #endregion
 }
