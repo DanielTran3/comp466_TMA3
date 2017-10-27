@@ -312,6 +312,7 @@ div.accountInfo
 #feedbackTextbox {
     width: 300px;
     height: 100px;
+    overflow: auto;
 }
 
 .whiteButton {
@@ -342,4 +343,8 @@ div.accountInfo
 
 .floatRight {
     float: right;
+}
+
+.centerText {
+    text-align: center;
 }

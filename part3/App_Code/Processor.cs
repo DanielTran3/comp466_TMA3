@@ -91,7 +91,8 @@ public class Processor : Components
 
     public override string ToString()
     {
-        return "Processor: " + this._brand + " " + this._model + " " + this._clock + " " + this._cache+ " " + this._socket + " " + this._price;
+        return "<b>Processor: </b>" + this._brand + " " + this._model + " " + this._clock + " " + 
+               this._cache + " " + this._socket + " " + "(" + this._price + ")";
     }
     #endregion
 

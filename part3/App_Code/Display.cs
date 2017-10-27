@@ -78,7 +78,8 @@ public class Display : Components
 
     public override string ToString()
     {
-        return "Monitor: " + this._brand + " " + this._model + " " + this._size + " " + this._resolution + " " + this._responseTime + " " + this._price;
+        return "<b>Monitor: </b>" + this._brand + " " + this._model + " " + this._size + 
+               " " + this._resolution + " " + this._responseTime + " " + "(" + this._price + ")";
     }
     #endregion
 

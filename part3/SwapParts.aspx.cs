@@ -48,6 +48,7 @@ public partial class SwapParts : System.Web.UI.Page
                 this.DisplayGridView.SelectRow(Components.GetIndexOfComponent(Session["display"] as Display, listOfDisplays));
                 this.SoundCardGridView.SelectRow(Components.GetIndexOfComponent(Session["soundCard"] as SoundCard, listOfSoundCards));
             }
+            this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = true;
             this.SelectPreBuiltComputerFirstLabel.Visible = false;
             this.ProcessorLabel.Visible = true;
             this.RAMLabel.Visible = true;
@@ -59,6 +60,7 @@ public partial class SwapParts : System.Web.UI.Page
         }
         else
         {
+            this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
             this.SelectPreBuiltComputerFirstLabel.Visible = true;
             this.ProcessorLabel.Visible = false;
             this.RAMLabel.Visible = false;
@@ -140,9 +142,19 @@ public partial class SwapParts : System.Web.UI.Page
             else
             {
                 List<PreBuiltSystem> cartContents = Session["cart"] as List<PreBuiltSystem>;
-                Session.Clear();
-                cartContents.Add(newSystem);
-                Session["cart"] = cartContents;
+                if (Session["EditingRow"] != null)
+                {
+                    int rowToEdit = (int) Session["EditingRow"];
+                    Session.Clear();
+                    cartContents[rowToEdit] = newSystem;
+                    Session["cart"] = cartContents;
+                }
+                else
+                {
+                    Session.Clear();
+                    cartContents.Add(newSystem);
+                    Session["cart"] = cartContents;
+                }
             }
         }
         Response.Redirect("Cart.aspx");

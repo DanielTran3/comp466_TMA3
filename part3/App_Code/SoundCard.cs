@@ -29,7 +29,7 @@ public class SoundCard : Components
 
     public override string ToString()
     {
-        return "Sound Card: " + this._brand + " " + this._model + " " + this._price;
+        return "<b>Sound Card: </b>" + this._brand + " " + this._model + " " + "(" + this._price + ")";
     }
     #endregion
 

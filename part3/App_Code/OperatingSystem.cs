@@ -44,7 +44,7 @@ public class OperatingSystem : Components
 
     public override string ToString()
     {
-        return "Operating System: " + this._brand + " " + this._model + " " + this._price;
+        return "<b>Operating System: </b>" + this._brand + " " + this._model + " " + "(" + this._price + ")";
     }
     #endregion
 

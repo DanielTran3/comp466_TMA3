@@ -61,7 +61,7 @@ public class RAM : Components
 
     public override string ToString()
     {
-        return "RAM: " + this._brand + " " + this._model + " " + this._speed + " " + this._memoryType + " " + this._price;
+        return "<b>RAM: </b>" + this._brand + " " + this._model + " " + this._speed + " " + this._memoryType + " " + "(" + this._price + ")";
     }
     #endregion
 

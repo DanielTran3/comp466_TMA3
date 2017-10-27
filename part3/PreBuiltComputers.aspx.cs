@@ -34,6 +34,7 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         GridView gv = sender as GridView;
         List<PreBuiltSystem> pbsList = gv.DataSource as List<PreBuiltSystem>;
         PreBuiltSystem pbs = pbsList[gv.SelectedIndex];
+        pbs.PreBuiltIndex = gv.SelectedIndex;
         Session.Add(pbs.ProcessorPart.GetSessionName(), pbs.ProcessorPart);
         Session.Add(pbs.RamPart.GetSessionName(), pbs.RamPart);
         Session.Add(pbs.HardDrivePart.GetSessionName(), pbs.HardDrivePart);
@@ -49,6 +50,6 @@ public partial class PreBuiltComputers : System.Web.UI.Page
             totalCostLabel.Text = pbs.Price;
         }
 
-        Session.Add("selectedPreBuiltComputerRowIndex", gv.SelectedIndex);
+        Session.Add("selectedPreBuiltComputerRowIndex", pbs.PreBuiltIndex);
     }
 }

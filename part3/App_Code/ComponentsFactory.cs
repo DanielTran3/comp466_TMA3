@@ -48,11 +48,11 @@ public class ComponentsFactory
         hardDriveDetails.Add(new HardDrive("Seagate", "BarraCuda", "Hard Drive (HDD)", "2TB", "156MB/sec", "156MB/sec", "$109.99"));
         hardDriveDetails.Add(new HardDrive("Western Digital", "Blue", "Hard Drive (HDD)", "2TB", "150MB/sec", "150MB/sec", "$109.99"));
         hardDriveDetails.Add(new HardDrive("Seagate", "BarraCuda", "Hard Drive (HDD)", "3TB", "156MB/sec", "156MB/sec", "$139.99"));
-        hardDriveDetails.Add(new HardDrive("Samsung", "850 EVO", "Solid State Drive(SSD)", "250GB", "540MB/sec", "520MB/sec", "$149.99"));
-        hardDriveDetails.Add(new HardDrive("Kingston", "SSDNow UV400", "Solid State Drive(SSD)", "240GB", "550MB/sec", "490MB/sec", "$129.99"));
-        hardDriveDetails.Add(new HardDrive("ADATA", "Ultimate SU800", "Solid State Drive(SSD)", "256GB", "560MB/sec", "520MB/sec", "$139.99"));
-        hardDriveDetails.Add(new HardDrive("Samsung", "850 EVO", "Solid State Drive(SSD)", "500GB", "540MB/sec", "520MB/sec", "$249.99"));
-        hardDriveDetails.Add(new HardDrive("ADATA", "Premier SP580", "Solid State Drive(SSD)", "120GB", "560MB/sec", "410MB/sec", "$79.99"));
+        hardDriveDetails.Add(new HardDrive("Samsung", "850 EVO", "Solid State Drive (SSD)", "250GB", "540MB/sec", "520MB/sec", "$149.99"));
+        hardDriveDetails.Add(new HardDrive("Kingston", "SSDNow UV400", "Solid State Drive (SSD)", "240GB", "550MB/sec", "490MB/sec", "$129.99"));
+        hardDriveDetails.Add(new HardDrive("ADATA", "Ultimate SU800", "Solid State Drive (SSD)", "256GB", "560MB/sec", "520MB/sec", "$139.99"));
+        hardDriveDetails.Add(new HardDrive("Samsung", "850 EVO", "Solid State Drive (SSD)", "500GB", "540MB/sec", "520MB/sec", "$249.99"));
+        hardDriveDetails.Add(new HardDrive("ADATA", "Premier SP580", "Solid State Drive (SSD)", "120GB", "560MB/sec", "410MB/sec", "$79.99"));
         return hardDriveDetails;
     }
 

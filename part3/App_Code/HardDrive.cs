@@ -93,7 +93,8 @@ public class HardDrive : Components
 
     public override string ToString()
     {
-        return "Hard Drive: " + "Brand: " + this._brand + "Model: " + this._model + "Type: " + this._type + "Size: " + this._size + "Read/Write Speed: " + this._readSpeed + " " + this._writeSpeed + "Price: " + this._price;
+        return "<b>Hard Drive: </b>" + this._brand + " " + this._model + " " + this._size + " " + this._type + 
+               " Read Speed:" + this._readSpeed + " Write Speed:" + this._writeSpeed + " " + "(" + this._price + ")";
     }
     #endregion
 

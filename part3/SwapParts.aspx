@@ -6,9 +6,10 @@
     <h1>
         Swap Parts
     </h1>
-    <h1>
+    <hr />
+    <h2>
         <asp:Label ID="SelectPreBuiltComputerFirstLabel" runat="server" Text="Please Select A Pre-Built Computer First" Visible="False"></asp:Label>
-    </h1>
+    </h2>
     <h3>
         <asp:Label ID="ProcessorLabel" runat="server" Text="Processor"></asp:Label>
     </h3>

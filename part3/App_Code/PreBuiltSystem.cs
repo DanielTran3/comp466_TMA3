@@ -16,10 +16,11 @@ public class PreBuiltSystem
     private Components _displayPart;
     private Components _operatingSystemPart;
     private Components _soundCardPart;
-
+    private int _preBuiltIndex;
     public PreBuiltSystem(Components processor, Components ram, Components hardDrive, Components display, Components os, Components soundCard)
     {
-        _system = processor.ToString() + "\r\n" + ram.ToString() + "\r\n" + hardDrive.ToString() + "\r\n" + display.ToString() + "\r\n" + os.ToString() + "\r\n" + soundCard.ToString();
+        _system = processor.ToString() + "<br />" + ram.ToString() + "<br />" + hardDrive.ToString() + 
+                  "<br />" + display.ToString() + "<br />" + os.ToString() + "<br />" + soundCard.ToString();
         _processorPart = processor;
         _ramPart = ram;
         _hardDrivePart = hardDrive;
@@ -132,6 +133,19 @@ public class PreBuiltSystem
         set
         {
             _soundCardPart = value;
+        }
+    }
+
+    public int PreBuiltIndex
+    {
+        get
+        {
+            return _preBuiltIndex;
+        }
+
+        set
+        {
+            _preBuiltIndex = value;
         }
     }
     #endregion

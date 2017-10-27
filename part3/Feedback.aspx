@@ -6,7 +6,7 @@
             width: 440px;
         }
         .auto-style2 {
-            width: 82%;
+            width: 67%;
         }
         .auto-style3 {
             width: 440px;
@@ -37,6 +37,7 @@
     <h1>
         Feedback
     </h1>
+    <hr />
     <div>
         <div>
             <div>
@@ -51,7 +52,7 @@
                 <td class="auto-style3">
                     <asp:Label ID="Label1" runat="server" Text="Name:" CssClass="labelsRight"></asp:Label>
                 </td>
-                <td class="auto-style4"><asp:TextBox ID="TextBox1" runat="server" Height="16px" Width="300px"></asp:TextBox>
+                <td class="auto-style4"><asp:TextBox ID="NameTextbox" runat="server" Height="16px" Width="300px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -59,15 +60,26 @@
                     <asp:Label ID="Label2" runat="server" CssClass="labelsRight" Text="Your Feedback:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="feedbackTextbox" runat="server" Rows="10" TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="FeedbackTextbox" runat="server" Rows="10" TextMode="MultiLine" Width="300px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style5"></td>
                 <td class="auto-style5">
-                    <asp:Button ID="Button1" runat="server" CssClass="auto-style6" Height="30px" Text="Submit" Width="301px" />
+                    <asp:Button ID="FeedbackSubmitButton" runat="server" CssClass="auto-style6" Height="30px" Text="Submit" Width="301px" OnClick="FeedbackSubmitButton_Click" />
                 </td>
             </tr>
         </table>
+    </p>
+    <h2>
+        <asp:Label ID="NoFeedbackLabel" runat="server" Text="There is Currently No Feedback Available"></asp:Label>
+    </h2>
+    <p>
+        <asp:GridView ID="FeedbackGridView" runat="server" CssClass="gridView" AutoGenerateColumns="False">
+            <Columns>
+                <asp:BoundField DataField="Name" HeaderText="Name" />
+                <asp:BoundField DataField="Comment" HeaderText="Comment" HtmlEncode="false"/>
+            </Columns>
+        </asp:GridView>
     </p>
     </asp:Content>
