@@ -40,7 +40,7 @@ public partial class Account_Login : System.Web.UI.Page
                 }
             }
 
-            using (MySqlCommand checkCredentialsCommand = new MySqlCommand("SELECT username, password FROM users WHERE username=@username AND password=@password", con))
+            using (MySqlCommand checkCredentialsCommand = new MySqlCommand("SELECT username, password FROM users WHERE username=@username", con))
             {
                 checkCredentialsCommand.Parameters.AddWithValue("@username", this.UsernameTextbox.Text);
                 checkCredentialsCommand.Parameters.AddWithValue("@password", this.PasswordTextBox.Text);
@@ -52,7 +52,6 @@ public partial class Account_Login : System.Web.UI.Page
                         this.LoginErrorLabel.Text = string.Empty;
                         this.LoginErrorLabel.Visible = false;
                         Session.Add("username", this.UsernameTextbox.Text);
-                        Session.Add("password", this.PasswordTextBox.Text);
                         Session.Timeout = 120;
                         HyperLink link = this.Master.FindControl("LoginLogoutLink") as HyperLink;
                         con.Close();

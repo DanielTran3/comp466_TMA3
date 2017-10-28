@@ -110,4 +110,4 @@
             <asp:AsyncPostBackTrigger ControlID="RegisterSubmitButton" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
-    </asp:Content>
+</asp:Content>

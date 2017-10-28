@@ -356,3 +356,7 @@ div.accountInfo
 .validation {
     color: #B30000;
 }
+
+table {
+    width:100%;
+}
