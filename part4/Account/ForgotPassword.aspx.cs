@@ -1,23 +1,17 @@
 ﻿using MySql.Data.MySqlClient;
-using MySql.Data;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Account_Login : System.Web.UI.Page
+public partial class Account_ForgotPassword : System.Web.UI.Page
 {
-
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["username"] != null)
-        {
-            Response.Redirect("~/Cart.aspx");
-        }
+
     }
 
     protected void LoginButton_Click(object sender, EventArgs e)
@@ -68,15 +62,4 @@ public partial class Account_Login : System.Web.UI.Page
                 }
             }
         }
-
-        //FormsAuthentication.SetAuthCookie(RegisterUser.UserName, false /* createPersistentCookie */);
-
-        //string continueUrl = RegisterUser.ContinueDestinationPageUrl;
-        //if (String.IsNullOrEmpty(continueUrl))
-        //{
-        //    continueUrl = "~/";
-        //}
-        //Response.Redirect(continueUrl);
     }
-
-}

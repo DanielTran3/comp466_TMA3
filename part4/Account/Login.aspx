@@ -1,49 +1,65 @@
-﻿<%@ Page Title="Log In" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+﻿<%@ Page Title="Login" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="Login.aspx.cs" Inherits="Account_Login" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
+
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <style type="text/css">
+        .auto-style1 {
+            height: 38px;
+        }
+        .auto-style2 {
+            width: 858px;
+        }
+        .auto-style3 {
+            width: 345px;
+        }
+        .auto-style4 {
+            height: 38px;
+            width: 345px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>
-        Log In
-    </h2>
+    <h1>
+        Login</h1>
     <p>
-        Please enter your username and password.
-        <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="false">Register</asp:HyperLink> if you don't have an account.
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
     </p>
-    <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false">
-        <LayoutTemplate>
-            <span class="failureNotification">
-                <asp:Literal ID="FailureText" runat="server"></asp:Literal>
-            </span>
-            <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification" 
-                 ValidationGroup="LoginUserValidationGroup"/>
-            <div class="accountInfo">
-                <fieldset class="login">
-                    <legend>Account Information</legend>
-                    <p>
-                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Username:</asp:Label>
-                        <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" 
-                             CssClass="failureNotification" ErrorMessage="User Name is required." ToolTip="User Name is required." 
-                             ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
-                    </p>
-                    <p>
-                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
-                        <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" 
-                             CssClass="failureNotification" ErrorMessage="Password is required." ToolTip="Password is required." 
-                             ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
-                    </p>
-                    <p>
-                        <asp:CheckBox ID="RememberMe" runat="server"/>
-                        <asp:Label ID="RememberMeLabel" runat="server" AssociatedControlID="RememberMe" CssClass="inline">Keep me logged in</asp:Label>
-                    </p>
-                </fieldset>
-                <p class="submitButton">
-                    <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" ValidationGroup="LoginUserValidationGroup"/>
-                </p>
-            </div>
-        </LayoutTemplate>
-    </asp:Login>
+    <table class="auto-style2">
+        <tr>
+            <td class="auto-style3">
+                <asp:Label ID="UsernameLabel" runat="server" CssClass="labelsRight" Text="Username:"></asp:Label>
+            </td>
+            <td class="auto-style9 validation">
+                <asp:TextBox ID="UsernameTextbox" runat="server" Height="16px" Width="280px"></asp:TextBox>
+                *
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Username Required" ControlToValidate="UsernameTextbox" CssClass="validation"></asp:RequiredFieldValidator>
+                <ajaxToolkit:ValidatorCalloutExtender ID="RequiredFieldValidator1_ValidatorCalloutExtender" runat="server" BehaviorID="RequiredFieldValidator1_ValidatorCalloutExtender" TargetControlID="RequiredFieldValidator1">
+                </ajaxToolkit:ValidatorCalloutExtender>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style4">
+                <asp:Label ID="PasswordLabel" runat="server" CssClass="labelsRight" Text="Password:"></asp:Label>
+            </td>
+            <td class="auto-style1 validation">
+                <asp:TextBox ID="PasswordTextBox" runat="server" Height="16px" Width="280px" TextMode="Password"></asp:TextBox>
+                *
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Password Required" ControlToValidate="PasswordTextBox" CssClass="validation"></asp:RequiredFieldValidator>
+                <ajaxToolkit:ValidatorCalloutExtender ID="RequiredFieldValidator2_ValidatorCalloutExtender" runat="server" BehaviorID="RequiredFieldValidator1_ValidatorCalloutExtender" TargetControlID="RequiredFieldValidator2">
+                </ajaxToolkit:ValidatorCalloutExtender>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style3">
+                &nbsp;</td>
+            <td class="auto-style9">
+                <asp:Button ID="LoginButton" runat="server" CssClass="whiteButton" Height="30px" Text="Login" Width="280px" OnClick="LoginButton_Click" />
+                <br />
+                <asp:Label ID="LoginErrorLabel" runat="server" CssClass="validation" Visible="False"></asp:Label>
+            </td>
+        </tr>
+    </table>
 </asp:Content>

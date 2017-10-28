@@ -9,6 +9,7 @@ public partial class Cart : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        LoginController.IsUserLoggedIn(this);
         ConfigureCartPage();
         this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
     }

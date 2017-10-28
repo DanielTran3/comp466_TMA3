@@ -18,15 +18,8 @@
                 </h1>
             </div>
             <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Log In</a> ]
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Welcome <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
-                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
+                <asp:Label ID="LoginLogoutLabel" runat="server"></asp:Label>
+                <asp:LinkButton ID="LoginLogoutLink" runat="server" NavigateUrl="~/Account/Login.aspx" OnClick="LoginLogoutLink_Click">[Login]</asp:LinkButton>
                 <asp:ImageButton ID="CartButton" runat="server" Height="45px" ImageUrl="~/Resources/shopping_cart.png" PostBackUrl="Cart.aspx" Width="46px" />
             </div>
             <div class="clear hideSkiplink">

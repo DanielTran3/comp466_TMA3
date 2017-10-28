@@ -52,7 +52,8 @@
                 <td class="auto-style3">
                     <asp:Label ID="Label1" runat="server" Text="Name:" CssClass="labelsRight"></asp:Label>
                 </td>
-                <td class="auto-style4"><asp:TextBox ID="NameTextbox" runat="server" Height="16px" Width="300px"></asp:TextBox>
+                <td class="auto-style4">
+                    <asp:TextBox ID="NameTextbox" runat="server" Height="16px" Width="300px"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -66,7 +67,7 @@
             <tr>
                 <td class="auto-style5"></td>
                 <td class="auto-style5">
-                    <asp:Button ID="FeedbackSubmitButton" runat="server" CssClass="auto-style6" Height="30px" Text="Submit" Width="301px" OnClick="FeedbackSubmitButton_Click" />
+                    <asp:Button ID="FeedbackSubmitButton" runat="server" CssClass="whiteButton" Height="30px" Text="Submit" Width="301px" OnClick="FeedbackSubmitButton_Click" />
                 </td>
             </tr>
         </table>

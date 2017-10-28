@@ -10,6 +10,7 @@ public partial class PreBuiltComputers : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        LoginController.IsUserLoggedIn(this);
         // CHECK IF "selectedPreBuiltComputerRowIndex" and "prebuiltSystems" exist in the session, if they do load
         // up the correct index and the data
         if (Session["prebuiltSystems"] != null)
@@ -25,7 +26,7 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         {
             this.PreBuiltComputersGridView.SelectRow((int)Session["selectedPreBuiltComputerRowIndex"]);
         }
-        
+
         this.PreBuiltComputersGridView.DataBind();
     }
 
