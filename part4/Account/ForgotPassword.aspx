@@ -1,4 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ForgotPassword.aspx.cs" Inherits="Account_ForgotPassword" %>
+﻿<%@ Page Title="Forgot Password" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" 
+    CodeFile="ForgotPassword.aspx.cs" Inherits="Account_ForgotPassword" %>
+
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <style type="text/css">
@@ -32,33 +35,36 @@
         </tr>
         <tr>
             <td class="auto-style1">
-                <asp:Label ID="PasswordLabel" runat="server" CssClass="labelsRight" Text="Password:"></asp:Label>
+                <asp:Label ID="PasswordLabel" runat="server" CssClass="labelsRight" Text="New Password:"></asp:Label>
             </td>
             <td class="auto-style9 validation">
                 <asp:TextBox ID="PasswordTextBox" runat="server" Height="16px" Width="280px" TextMode="Password"></asp:TextBox>
             </td>
         </tr>
-        <tr>
-                    <td class="auto-style1">
-                        <asp:Label ID="SecurityQuestionLabel" runat="server" CssClass="labelsRight" Text="Security Question:"></asp:Label>
-                    </td>
-                    <td class="auto-style9">
-                        <asp:TextBox ID="SecurityQuestionTextbox" runat="server" Height="16px" Width="280px"></asp:TextBox>
-                        </td>
-                </tr>
-                <tr>
-                    <td class="auto-style1">
-                        <asp:Label ID="SecurityAnswerLabel" runat="server" CssClass="labelsRight" Text="Answer:"></asp:Label>
-                    </td>
-                    <td class="auto-style9 validation">
-                        <asp:TextBox ID="SecurityAnswerTextBox" runat="server" Height="16px" Width="280px"></asp:TextBox>
-                    </td>
-                </tr>
+            <tr>
+            <td class="auto-style1">
+                <asp:Label ID="SecurityQuestionLabel" runat="server" CssClass="labelsRight" Text="Security Question:"></asp:Label>
+            </td>
+            <td class="auto-style9">
+                <asp:TextBox ID="SecurityQuestionTextbox" runat="server" Height="16px" Width="280px"></asp:TextBox>
+                </td>
+        </tr>
         <tr>
             <td class="auto-style1">
-                &nbsp;</td>
+                <asp:Label ID="SecurityAnswerLabel" runat="server" CssClass="labelsRight" Text="Answer:"></asp:Label>
+            </td>
+            <td class="auto-style9 validation">
+                <asp:TextBox ID="SecurityAnswerTextBox" runat="server" Height="16px" Width="280px"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style1">
+                
+                <asp:LinkButton ID="PasswordRecoveryResetLink" runat="server" OnClick="PasswordRecoveryResetLink_Click">Reset</asp:LinkButton>
+                
+            </td>
             <td class="auto-style9">
-                <asp:Button ID="RecoveryButton" runat="server" CssClass="whiteButton" Height="30px" Text="Submit" Width="280px" OnClick="LoginButton_Click" />
+                <asp:Button ID="RecoveryButton" runat="server" CssClass="whiteButton" Height="30px" Text="Submit" Width="280px" OnClick="RecoveryButton_Click" OnClientClick="RecoveryButton_Click(); return false;"/>
                 <br />
                 <asp:Label ID="PasswordRecoveryErrorLabel" runat="server" CssClass="validation" Visible="False"></asp:Label>
             </td>

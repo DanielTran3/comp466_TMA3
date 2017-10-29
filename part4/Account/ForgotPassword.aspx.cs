@@ -15,20 +15,22 @@ public partial class Account_ForgotPassword : System.Web.UI.Page
         if (Session["validUsername"] == null)
         {
             this.PasswordRecoveryLabel.Text = "Please Enter your username and press Submit";
-            this.UsernameTextbox.Text = "";
             this.UsernameTextbox.Enabled = true;
             this.PasswordTextBox.Text = "";
             this.PasswordTextBox.Enabled = false;
-            this.SecurityQuestionLabel.Text = "";
-            this.SecurityQuestionLabel.Enabled = false;
+            this.SecurityQuestionTextbox.Text = "";
+            this.SecurityQuestionTextbox.Enabled = false;
             this.SecurityAnswerTextBox.Text = "";
             this.SecurityAnswerTextBox.Enabled = false;
         }
         else
         {
             this.PasswordRecoveryLabel.Text = "Please Enter your new password and provide the correct answer for the security question";
+            this.UsernameTextbox.Text = Session["validUsername"] as string;
+            this.SecurityQuestionTextbox.Text = Session["userSecurityQuestion"] as string;
             this.UsernameTextbox.Enabled = false;
             this.PasswordTextBox.Enabled = true;
+            this.SecurityQuestionTextbox.Enabled = false;
             this.SecurityAnswerTextBox.Enabled = true;
         }
     }
@@ -58,17 +60,25 @@ public partial class Account_ForgotPassword : System.Web.UI.Page
                 using (MySqlCommand checkCredentialsCommand = new MySqlCommand("SELECT securityQuestion, securityAnswer FROM users WHERE username=@username", con))
                 {
                     checkCredentialsCommand.Parameters.AddWithValue("@username", this.UsernameTextbox.Text);
-                    int affectedRows = checkCredentialsCommand.ExecuteNonQuery();
-                    this.PasswordRecoveryErrorLabel.Text = string.Empty;
-                    this.PasswordRecoveryErrorLabel.Visible = false;
-                    Session.Add("validUsername", this.UsernameTextbox.Text);
-                    Session.Timeout = 10;
-                    this.PasswordRecoveryLabel.Text = "Please Enter your new password and provide the correct answer for the security question";
-                    this.UsernameTextbox.Enabled = false;
-                    this.PasswordTextBox.Enabled = true;
-                    this.SecurityAnswerTextBox.Enabled = true;
-                    con.Close();
-                    checkCredentialsCommand.Dispose();
+                    using (MySqlDataReader reader = checkCredentialsCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            this.PasswordRecoveryErrorLabel.Text = string.Empty;
+                            this.PasswordRecoveryErrorLabel.Visible = false;
+                            Session.Add("validUsername", this.UsernameTextbox.Text);
+                            Session.Timeout = 10;
+                            this.PasswordRecoveryLabel.Text = "Please Enter your new password and provide the correct answer for the security question";
+                            this.UsernameTextbox.Enabled = false;
+                            this.PasswordTextBox.Enabled = true;
+                            this.SecurityAnswerTextBox.Enabled = true;
+                            this.SecurityQuestionTextbox.Text = reader[0].ToString();
+                            Session.Add("userSecurityQuestion", reader[0].ToString());
+                            con.Close();
+                            checkCredentialsCommand.Dispose();
+                        }
+                    }
+                    
                 }
             }
             else
@@ -77,19 +87,22 @@ public partial class Account_ForgotPassword : System.Web.UI.Page
                 {
                     checkCredentialsCommand.Parameters.AddWithValue("@username", this.UsernameTextbox.Text);
                     checkCredentialsCommand.Parameters.AddWithValue("@password", this.PasswordTextBox.Text);
-                    checkCredentialsCommand.Parameters.AddWithValue("@securityQuestion", this.SecurityAnswerTextBox.Text);
-                    checkCredentialsCommand.Parameters.AddWithValue("@securityAnswer", this.SecurityQuestionTextbox.Text);
+                    checkCredentialsCommand.Parameters.AddWithValue("@securityQuestion", this.SecurityQuestionTextbox.Text);
+                    checkCredentialsCommand.Parameters.AddWithValue("@securityAnswer", this.SecurityAnswerTextBox.Text);
                     int affectedRows = checkCredentialsCommand.ExecuteNonQuery();
                     if (affectedRows == 0)
                     {
                         this.PasswordRecoveryErrorLabel.Text = "Invalid Security Question Answer";
+                        this.PasswordRecoveryErrorLabel.Visible = true;
                         checkCredentialsCommand.Dispose();
                         con.Close();
                     }
                     else
                     {
                         Session["validUsername"] = null;
+                        Session["userSecurityQuestion"] = null;
                         Session["validRecovery"] = true;
+                        this.PasswordRecoveryErrorLabel.Visible = false;
                         checkCredentialsCommand.Dispose();
                         con.Close();
                         Response.Redirect("~/Account/ForgotPasswordSuccessful.aspx");
@@ -97,5 +110,20 @@ public partial class Account_ForgotPassword : System.Web.UI.Page
                 }
             }
         }
+    }
+
+    protected void PasswordRecoveryResetLink_Click(object sender, EventArgs e)
+    {
+        Session["validUsername"] = null;
+        Session["userSecurityQuestion"] = null;
+        this.UsernameTextbox.Text = "";
+        this.UsernameTextbox.Enabled = true;
+        this.PasswordTextBox.Text = "";
+        this.PasswordTextBox.Enabled = false;
+        this.SecurityQuestionTextbox.Text = "";
+        this.SecurityQuestionTextbox.Enabled = false;
+        this.SecurityAnswerTextBox.Text = "";
+        this.SecurityAnswerTextBox.Enabled = false;
+        this.PasswordRecoveryLabel.Visible = false;
     }
 }

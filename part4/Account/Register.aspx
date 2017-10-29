@@ -101,7 +101,7 @@
                         &nbsp;</td>
                     <td class="auto-style9">
                         <asp:Button ID="RegisterSubmitButton" runat="server" CssClass="whiteButton" Height="30px" Text="Submit" Width="301px" OnClick="RegisterSubmitButton_Click" />
-                        <asp:HyperLink ID="ForgotPasswordLink0" runat="server">Forgot Password?</asp:HyperLink>
+                        <asp:HyperLink ID="ForgotPasswordLink0" runat="server" NavigateUrl="~/Account/ForgotPassword.aspx">Forgot Password?</asp:HyperLink>
                     </td>
                 </tr>
             </table>

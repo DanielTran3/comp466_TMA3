@@ -78,4 +78,9 @@ public partial class Account_Login : System.Web.UI.Page
         //Response.Redirect(continueUrl);
     }
 
+
+    protected void ForgotPasswordLink_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Account/ForgotPassword.aspx");
+    }
 }

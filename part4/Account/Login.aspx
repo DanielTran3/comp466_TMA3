@@ -12,11 +12,11 @@
             width: 858px;
         }
         .auto-style3 {
-            width: 345px;
+            width: 313px;
         }
         .auto-style4 {
             height: 38px;
-            width: 345px;
+            width: 313px;
         }
     </style>
 </asp:Content>
@@ -26,6 +26,10 @@
     <p>
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
+    </p>
+    <p>
+        Please enter your username and password.
+        <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="False" NavigateUrl="~/Account/Register.aspx">Register</asp:HyperLink> &nbsp;if you don't have an account.
     </p>
     <table class="auto-style2">
         <tr>
@@ -54,7 +58,8 @@
         </tr>
         <tr>
             <td class="auto-style3">
-                &nbsp;</td>
+                <asp:HyperLink ID="ForgotPasswordLink" runat="server" CssClass="floatRight" EnableViewState="False" NavigateUrl="~/Account/ForgotPassword.aspx">Forgot Password?</asp:HyperLink>
+            </td>
             <td class="auto-style9">
                 <asp:Button ID="LoginButton" runat="server" CssClass="whiteButton" Height="30px" Text="Login" Width="280px" OnClick="LoginButton_Click" />
                 <br />
