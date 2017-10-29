@@ -101,7 +101,7 @@ public partial class Account_ForgotPassword : System.Web.UI.Page
                     {
                         Session["validUsername"] = null;
                         Session["userSecurityQuestion"] = null;
-                        Session["validRecovery"] = true;
+                        Session["validRecovery"] = "valid";
                         this.PasswordRecoveryErrorLabel.Visible = false;
                         checkCredentialsCommand.Dispose();
                         con.Close();

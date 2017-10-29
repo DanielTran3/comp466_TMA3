@@ -15,12 +15,7 @@ public partial class Account_ForgotPasswordSuccessful : System.Web.UI.Page
         }
         else
         {
-            Response.Redirect("~/Account/ForgotPassword.aspx");
+            Response.Redirect("~/Account/Login.aspx");
         }
-    }
-
-    protected void RecoverySuccessfulContinueButton_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("~/Account/Login.aspx");
     }
 }
