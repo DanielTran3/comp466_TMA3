@@ -21,6 +21,7 @@ ram VARCHAR(512),
 soundcard VARCHAR(512),
 FOREIGN KEY (username) REFERENCES users(username));
 
+/*
 DROP TABLE IF EXISTS currentOrder;
 CREATE TABLE currentOrder (
 username VARCHAR(20) NOT NULL,
@@ -34,4 +35,19 @@ soundCard VARCHAR(512),
 totalPrice VARCHAR(16),
 PRIMARY KEY (username),
 FOREIGN KEY (username) REFERENCES users(username));
+*/
 
+/* USE ID OF TABLES INSTEAD */
+DROP TABLE IF EXISTS currentOrder;
+CREATE TABLE currentOrder (
+username VARCHAR(20) NOT NULL,
+prebuiltSystem VARCHAR(2048),
+display VARCHAR(512),
+hardDrive VARCHAR(512),
+operatingSystem VARCHAR(512),
+processor VARCHAR(512),
+ram VARCHAR(512),
+soundCard VARCHAR(512),
+totalPrice VARCHAR(16),
+PRIMARY KEY (username),
+FOREIGN KEY (username) REFERENCES users(username));

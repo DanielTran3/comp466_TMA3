@@ -12,6 +12,17 @@ public partial class SwapParts : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+        //using (MySqlConnection con = new MySqlConnection(constr))
+        //{
+        //    con.Open();
+        //    using (MySqlCommand processorCommand = new MySqlCommand("SELECT * FROM processor", con))
+        //    {
+        //        this.ProcessorGridView.DataSource = processorCommand.ExecuteReader();
+        //        this.ProcessorGridView.DataBind();
+        //        con.Close();
+        //    }
+        //}
 
         BindDatabaseToGridview("processor", this.ProcessorGridView);
         BindDatabaseToGridview("ram", this.RAMGridView);
@@ -19,6 +30,18 @@ public partial class SwapParts : System.Web.UI.Page
         BindDatabaseToGridview("operatingSystem", this.OperatingSystemGridView);
         BindDatabaseToGridview("display", this.DisplayGridView);
         BindDatabaseToGridview("soundCard", this.SoundCardGridView);
+
+        if (!IsPostBack)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                con.Open();
+                SelectCurrentComponent("processor", con, this.ProcessorGridView);
+
+                con.Close();
+            }
+        }
 
         //using (MySqlDataReader reader = operatingSystemRows.ExecuteReader())
         //{
@@ -98,24 +121,15 @@ public partial class SwapParts : System.Web.UI.Page
     {
         GridView gridView = sender as GridView;
         gridView.PageIndex = e.NewPageIndex;
-        gridView.DataBind();
 
-        if (gridView.DataSource as List<Components> != null)
+        string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+        using (MySqlConnection con = new MySqlConnection(constr))
         {
-            List<Components> componentList = gridView.DataSource as List<Components>;
-            Components component = componentList[0];
-            int index = Components.GetIndexOfComponent(Session[component.GetSessionName()] as Components, componentList);
-
-            // Index is within the limits of the current page. Convert the index to an index within the range
-            if ((index >= gridView.PageIndex * gridView.PageSize) && (index < (gridView.PageIndex + 1) * gridView.PageSize))
+            con.Open();
+            if (gridView == this.ProcessorGridView)
             {
-                GetGridViewFromComponent(component).SelectRow(index % gridView.PageSize);
+                SelectCurrentComponent("processor", con, gridView);
             }
-            else
-            {
-                GetGridViewFromComponent(component).SelectRow(-1);
-            }
-            Session.Add(component.GetSessionName(), componentList[index]);
         }
     }
 
@@ -124,14 +138,40 @@ public partial class SwapParts : System.Web.UI.Page
         try
         {
             GridView gv = sender as GridView;
+            Components component = gv.DataSource as Components;
             if (gv.SelectedIndex >= 0)
             {
                 if (gv.SelectedIndex != -1)
                 {
-
-                    if (gv == this.ProcessorGridView)
+                    string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+                    using (MySqlConnection con = new MySqlConnection(constr))
                     {
-
+                        con.Open();
+                        if (gv == this.ProcessorGridView)
+                        {
+                            UpdateCurrentSelection("processor", con, gv);
+                        }
+                        else if (gv == this.RAMGridView)
+                        {
+                            UpdateCurrentSelection("ram", con, gv);
+                        }
+                        else if (gv == this.HardDriveGridView)
+                        {
+                            UpdateCurrentSelection("hardDrive", con, gv);
+                        }
+                        else if (gv == this.OperatingSystemGridView)
+                        {
+                            UpdateCurrentSelection("operatingSystem", con, gv);
+                        }
+                        else if (gv == this.DisplayGridView)
+                        {
+                            UpdateCurrentSelection("display", con, gv);
+                        }
+                        else if (gv == this.SoundCardGridView)
+                        {
+                            UpdateCurrentSelection("soundCard", con, gv);
+                        }
+                        con.Close();
                     }
 
                     //// Get the real selected index
@@ -158,31 +198,31 @@ public partial class SwapParts : System.Web.UI.Page
             Session["display"] != null && Session["operatingSystem"] != null && Session["soundCard"] != null &&
             Session["totalPrice"] != null)
         {
-            PreBuiltSystem newSystem = new PreBuiltSystem(Session["processor"] as Components, Session["ram"] as Components,
-                                                      Session["hardDrive"] as Components, Session["display"] as Components,
-                                                      Session["operatingSystem"] as Components, Session["soundCard"] as Components);
-            if (Session["cart"] == null)
-            {
-                Session.Clear();
-                Session["cart"] = new List<PreBuiltSystem>() { newSystem };
-            }
-            else
-            {
-                List<PreBuiltSystem> cartContents = Session["cart"] as List<PreBuiltSystem>;
-                if (Session["EditingRow"] != null)
-                {
-                    int rowToEdit = (int) Session["EditingRow"];
-                    Session.Clear();
-                    cartContents[rowToEdit] = newSystem;
-                    Session["cart"] = cartContents;
-                }
-                else
-                {
-                    Session.Clear();
-                    cartContents.Add(newSystem);
-                    Session["cart"] = cartContents;
-                }
-            }
+            //PreBuiltSystem newSystem = new PreBuiltSystem(Session["processor"] as Components, Session["ram"] as Components,
+            //                                          Session["hardDrive"] as Components, Session["display"] as Components,
+            //                                          Session["operatingSystem"] as Components, Session["soundCard"] as Components);
+            //if (Session["cart"] == null)
+            //{
+            //    Session.Clear();
+            //    Session["cart"] = new List<PreBuiltSystem>() { newSystem };
+            //}
+            //else
+            //{
+            //    List<PreBuiltSystem> cartContents = Session["cart"] as List<PreBuiltSystem>;
+            //    if (Session["EditingRow"] != null)
+            //    {
+            //        int rowToEdit = (int) Session["EditingRow"];
+            //        Session.Clear();
+            //        cartContents[rowToEdit] = newSystem;
+            //        Session["cart"] = cartContents;
+            //    }
+            //    else
+            //    {
+            //        Session.Clear();
+            //        cartContents.Add(newSystem);
+            //        Session["cart"] = cartContents;
+            //    }
+            //}
         }
         Response.Redirect("Cart.aspx");
     }
@@ -228,16 +268,75 @@ public partial class SwapParts : System.Web.UI.Page
                 {
                     DataTable tempTable = new DataTable();
                     adapter.Fill(tempTable);
+                    gridview.Columns[0].Visible = true;
                     gridview.DataSource = tempTable;
                     gridview.DataBind();
+                    gridview.Columns[0].Visible = false;
                     con.Close();
                 }
             //}
         }
     }
 
-    public void SelectCurrentComponent(string component)
+    public void SelectCurrentComponent(string component, MySqlConnection con, GridView gv)
     {
+        int componentRowIndex = -1;
+        using (MySqlCommand getRowIndexCommand = new MySqlCommand("SELECT " + component + 
+                                                                 @" FROM currentOrder 
+                                                                    WHERE username=@username", con))
+        {
+            getRowIndexCommand.Parameters.AddWithValue("@username", Session["username"]);
+            componentRowIndex = Convert.ToInt32(getRowIndexCommand.ExecuteScalar().ToString());
+            getRowIndexCommand.Dispose();
+        }
 
+        int rowIndex = -1;
+        foreach (GridViewRow gvr in gv.Rows)
+        {
+            if (Convert.ToInt32(gvr.Cells[1].Text) == componentRowIndex)
+            {
+                rowIndex = gvr.RowIndex;
+                break;
+            }
+        }
+        gv.SelectRow(rowIndex);
+    }
+
+    public void UpdateCurrentSelection(string component, MySqlConnection con, GridView gv)
+    {
+        double oldPrice = 0.0;
+        double totalPrice = 0.0;
+        using (MySqlCommand totalPriceCommand = new MySqlCommand("SELECT totalPrice FROM currentOrder WHERE username=@username", con))
+        {
+            totalPriceCommand.Parameters.AddWithValue("@username", Session["username"]);
+            string totalPriceString = totalPriceCommand.ExecuteScalar().ToString();
+            totalPrice = Convert.ToDouble(totalPriceString.Replace("$", ""));
+            totalPriceCommand.Dispose();
+        }
+        using (MySqlCommand getOldPriceCommand = new MySqlCommand("SELECT Price " + 
+                                                                  "FROM (SELECT " + component + @" as oldId
+                                                                          FROM currentOrder 
+                                                                          WHERE username=@username) oldIDTable, "
+                                                                    + component + " componentTable" +  
+                                                                    " WHERE componentTable.id=oldIDTable.oldId", con))
+        {
+            getOldPriceCommand.Parameters.AddWithValue("@username", Session["username"]);
+            string oldPriceString = getOldPriceCommand.ExecuteScalar().ToString();
+            oldPrice = Convert.ToDouble(oldPriceString.Replace("$", ""));
+            getOldPriceCommand.Dispose();
+        }
+
+        // The price is always in the last column
+        double newPrice = Convert.ToDouble(gv.SelectedRow.Cells[gv.Columns.Count].Text.Replace("$", ""));
+        totalPrice = totalPrice - oldPrice + newPrice;
+
+        using (MySqlCommand updateOrderCommand = new MySqlCommand("UPDATE currentOrder SET " + component + "=@component, totalPrice=@newTotal WHERE username=@username", con))
+        {
+            updateOrderCommand.Parameters.AddWithValue("@username", Session["username"]);
+            updateOrderCommand.Parameters.AddWithValue("@component", gv.SelectedRow.Cells[1].Text);
+            updateOrderCommand.Parameters.AddWithValue("@newTotal", "$" + totalPrice);
+            int affectedRows = updateOrderCommand.ExecuteNonQuery();
+            updateOrderCommand.Dispose();
+        }
     }
 }

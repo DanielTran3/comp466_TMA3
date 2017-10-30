@@ -147,8 +147,8 @@ INSERT INTO soundCard (brand, model, price) VALUES
 INSERT INTO soundCard (brand, model, price) VALUES 
 ("ASUS", "Xonar DSX PCI-E 7.1", "$49.99");
 
-DROP TABLE IF EXISTS prebuiltSystems;
-CREATE TABLE prebuiltSystems (
+DROP TABLE IF EXISTS prebuiltSystem;
+CREATE TABLE prebuiltSystem (
 ID int NOT NULL AUTO_INCREMENT,
 processor int NOT NULL,
 hardDrive int NOT NULL,
@@ -164,13 +164,13 @@ FOREIGN KEY (display) REFERENCES display(ID),
 FOREIGN KEY (operatingSystem) REFERENCES operatingSystem(ID),
 FOREIGN KEY (soundCard) REFERENCES soundCard(ID));
 
-INSERT INTO prebuiltSystems (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
+INSERT INTO prebuiltSystem (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
 (1, 1, 1, 1, 1, 1);
-INSERT INTO prebuiltSystems (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
+INSERT INTO prebuiltSystem (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
 (2, 4, 5, 2, 2, 3);
-INSERT INTO prebuiltSystems (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
+INSERT INTO prebuiltSystem (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
 (1, 6, 9, 7, 2, 3);
-INSERT INTO prebuiltSystems (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
+INSERT INTO prebuiltSystem (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
 (6, 8, 1, 3, 1, 4);
-INSERT INTO prebuiltSystems (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
+INSERT INTO prebuiltSystem (processor, ram, hardDrive, display, operatingSystem, soundCard) VALUES 
 (5, 3, 7, 4, 3, 4);

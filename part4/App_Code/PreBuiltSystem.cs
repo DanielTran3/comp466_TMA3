@@ -8,6 +8,7 @@ using System.Web;
 /// </summary>
 public class PreBuiltSystem
 {
+    private string _id;
     private string _system;
     private string _price;
     private Components _processorPart;
@@ -17,7 +18,7 @@ public class PreBuiltSystem
     private Components _operatingSystemPart;
     private Components _soundCardPart;
     private int _preBuiltIndex;
-    public PreBuiltSystem(Components processor, Components ram, Components hardDrive, Components display, Components os, Components soundCard)
+    public PreBuiltSystem(string id, Components processor, Components ram, Components hardDrive, Components display, Components os, Components soundCard)
     {
         _system = processor.ToString() + "<br />" + ram.ToString() + "<br />" + hardDrive.ToString() + 
                   "<br />" + display.ToString() + "<br />" + os.ToString() + "<br />" + soundCard.ToString();
@@ -29,9 +30,23 @@ public class PreBuiltSystem
         _soundCardPart = soundCard;
 
         TotalPrice();
+
+        _id = id;
     }
 
     #region Getters And Setters
+    public string Id
+    {
+        get
+        {
+            return _id;
+        }
+
+        set
+        {
+            _id = value;
+        }
+    }
     public string System
     {
         get
@@ -149,23 +164,6 @@ public class PreBuiltSystem
         }
     }
     #endregion
-
-    public static List<PreBuiltSystem> GetAllPreBuiltSystems()
-    {
-        List<Components> processors = ComponentsFactory.GetAllProcessors();
-        List<Components> ram = ComponentsFactory.GetAllRAMs();
-        List<Components> hardDrives = ComponentsFactory.GetAllHardDrives();
-        List<Components> displays = ComponentsFactory.GetAllDisplays();
-        List<Components> operatingSystems = ComponentsFactory.GetAllOperatingSystems();
-        List<Components> soundCards = ComponentsFactory.GetAllSoundCards();
-        List<PreBuiltSystem> preBuiltSystem = new List<PreBuiltSystem>();
-        preBuiltSystem.Add(new PreBuiltSystem(processors[0], ram[0], hardDrives[0], displays[0], operatingSystems[0], soundCards[0]));
-        preBuiltSystem.Add(new PreBuiltSystem(processors[1], ram[3], hardDrives[4], displays[1], operatingSystems[1], soundCards[2]));
-        preBuiltSystem.Add(new PreBuiltSystem(processors[0], ram[5], hardDrives[8], displays[6], operatingSystems[1], soundCards[2]));
-        preBuiltSystem.Add(new PreBuiltSystem(processors[5], ram[7], hardDrives[1], displays[2], operatingSystems[0], soundCards[3]));
-        preBuiltSystem.Add(new PreBuiltSystem(processors[4], ram[2], hardDrives[6], displays[3], operatingSystems[2], soundCards[4]));
-        return preBuiltSystem;
-    }
 
     public static double GetPrice(string price)
     {

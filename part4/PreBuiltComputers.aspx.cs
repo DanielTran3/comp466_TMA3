@@ -24,8 +24,9 @@ public partial class PreBuiltComputers : System.Web.UI.Page
                                                                 hd.brand, hd.model, hd.type, hd.size, hd.readSpeed, hd.writeSpeed, hd.price,
                                                                 d.brand, d.model, d.size, d.resolution, d.responseTime, d.price,
                                                                 os.brand, os.version, os.price,
-                                                                sc.brand, sc.model, sc.price
-                                                                FROM display d, harddrive hd, operatingSystem os, processor cpu, ram, soundCard sc, prebuiltSystems pbs
+                                                                sc.brand, sc.model, sc.price,
+                                                                pbs.id
+                                                                FROM display d, harddrive hd, operatingSystem os, processor cpu, ram, soundCard sc, prebuiltSystem pbs
                                                                 WHERE pbs.display = d.ID AND
                                                                 pbs.hardDrive = hd.ID AND
                                                                 pbs.operatingSystem = os.ID AND
@@ -61,7 +62,7 @@ public partial class PreBuiltComputers : System.Web.UI.Page
                         SoundCard soundCard = new SoundCard(reader[27].ToString(), reader[28].ToString(),
                                                             reader[29].ToString());
 
-                        PreBuiltSystem computer = new PreBuiltSystem(processor, ram, hardDrive,
+                        PreBuiltSystem computer = new PreBuiltSystem(reader[30].ToString(), processor, ram, hardDrive,
                                                                      display, os, soundCard);
                         listOfSystems.Add(computer);
                         
@@ -84,16 +85,16 @@ public partial class PreBuiltComputers : System.Web.UI.Page
             //}
         }
 
-        // CHECK IF "selectedPreBuiltComputerRowIndex" and "prebuiltSystems" exist in the session, if they do load
+        // CHECK IF "selectedPreBuiltComputerRowIndex" and "prebuiltSystem" exist in the session, if they do load
         // up the correct index and the data
-        //if (Session["prebuiltSystems"] != null)
+        //if (Session["prebuiltSystem"] != null)
         //{
-        //    this.PreBuiltComputersGridView.DataSource = Session["prebuiltSystems"];
+        //    this.PreBuiltComputersGridView.DataSource = Session["prebuiltSystem"];
         //}
         //else
         //{
         //    this.PreBuiltComputersGridView.DataSource = PreBuiltSystem.GetAllPreBuiltSystems();
-        //    Session.Add("prebuiltSystems", this.PreBuiltComputersGridView.DataSource);
+        //    Session.Add("prebuiltSystem", this.PreBuiltComputersGridView.DataSource);
         //}
         //if (Session["selectedPreBuiltComputerRowIndex"] != null)
         //{
@@ -110,25 +111,56 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         PreBuiltSystem pbs = pbsList[gv.SelectedIndex];
         pbs.PreBuiltIndex = gv.SelectedIndex;
 
+        List<int> componentIndicies = new List<int>();
+
         string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
         using (MySqlConnection con = new MySqlConnection(constr))
         {
-            using (MySqlCommand updateUserSelectionCommand = new MySqlCommand(@"INSERT INTO currentOrder (username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice) 
-                                                                               VALUES (@username, @prebuiltSystem, @display, @hardDrive, @operatingSystem, @processor, @ram, @soundCard)
-                                                                               ON DUPLICATE KEY UPDATE username=@username, prebuiltSystem=@prebuiltSystem, display=@display, hardDrive=@hardDrive, 
-                                                                               operatingSystem=@operatingSystem, processor=@processor, ram=@ram, soundCard=@soundCard, totalPrice=@totalPrice"))
+            con.Open();
+            using (MySqlCommand getComponentIndexCommand = new MySqlCommand(@"SELECT ID, processor, hardDrive, operatingSystem, display, ram, soundCard 
+                                                                              FROM prebuiltSystem WHERE ID=@rowId", con))
             {
+                // +1 because the AutoIncrementing is 1 indexed
+                getComponentIndexCommand.Parameters.AddWithValue("@rowId", pbs.Id);
+                using (MySqlDataReader reader = getComponentIndexCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        for (int i = 0; i < 7; i++)
+                        {
+                            componentIndicies.Add((int)reader[i]);
+                        }
+                    }
+                }
+                getComponentIndexCommand.Dispose();
+            }
+
+            using (MySqlCommand updateUserSelectionCommand = new MySqlCommand(@"INSERT INTO currentOrder (username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice) 
+                                                                               VALUES (@username, @prebuiltSystem, @display, @hardDrive, @operatingSystem, @processor, @ram, @soundCard, @totalPrice)
+                                                                               ON DUPLICATE KEY UPDATE username=@username, prebuiltSystem=@prebuiltSystem, display=@display, hardDrive=@hardDrive, 
+                                                                               operatingSystem=@operatingSystem, processor=@processor, ram=@ram, soundCard=@soundCard, totalPrice=@totalPrice", con))
+            {
+                //updateUserSelectionCommand.Parameters.AddWithValue("@username", Session["username"]);
+                //updateUserSelectionCommand.Parameters.AddWithValue("@prebuiltSystem", pbs.ToString());
+                //updateUserSelectionCommand.Parameters.AddWithValue("@display", pbs.DisplayPart);
+                //updateUserSelectionCommand.Parameters.AddWithValue("@hardDrive", pbs.HardDrivePart);
+                //updateUserSelectionCommand.Parameters.AddWithValue("@operatingSystem", pbs.OperatingSystemPart);
+                //updateUserSelectionCommand.Parameters.AddWithValue("@processor", pbs.ProcessorPart);
+                //updateUserSelectionCommand.Parameters.AddWithValue("@ram", pbs.RamPart);
+                //updateUserSelectionCommand.Parameters.AddWithValue("@soundCard", pbs.SoundCardPart);
+                //updateUserSelectionCommand.Parameters.AddWithValue("@totalPrice", pbs.Price.Replace("$", ""));
                 updateUserSelectionCommand.Parameters.AddWithValue("@username", Session["username"]);
-                updateUserSelectionCommand.Parameters.AddWithValue("@prebuiltSystem", pbs.ToString());
-                updateUserSelectionCommand.Parameters.AddWithValue("@display", pbs.DisplayPart);
-                updateUserSelectionCommand.Parameters.AddWithValue("@hardDrive", pbs.HardDrivePart);
-                updateUserSelectionCommand.Parameters.AddWithValue("@operatingSystem", pbs.OperatingSystemPart);
-                updateUserSelectionCommand.Parameters.AddWithValue("@processor", pbs.ProcessorPart);
-                updateUserSelectionCommand.Parameters.AddWithValue("@ram", pbs.RamPart);
-                updateUserSelectionCommand.Parameters.AddWithValue("@soundCard", pbs.SoundCardPart);
-                updateUserSelectionCommand.Parameters.AddWithValue("@totalPrice", pbs.Price.Replace("$",""));
+                updateUserSelectionCommand.Parameters.AddWithValue("@prebuiltSystem", componentIndicies[0]);
+                updateUserSelectionCommand.Parameters.AddWithValue("@display", componentIndicies[4]);
+                updateUserSelectionCommand.Parameters.AddWithValue("@hardDrive", componentIndicies[2]);
+                updateUserSelectionCommand.Parameters.AddWithValue("@operatingSystem", componentIndicies[3]);
+                updateUserSelectionCommand.Parameters.AddWithValue("@processor", componentIndicies[1]);
+                updateUserSelectionCommand.Parameters.AddWithValue("@ram", componentIndicies[5]);
+                updateUserSelectionCommand.Parameters.AddWithValue("@soundCard", componentIndicies[6]);
+                updateUserSelectionCommand.Parameters.AddWithValue("@totalPrice", pbs.Price.Replace("$", ""));
                 int affectedRows = updateUserSelectionCommand.ExecuteNonQuery();
             }
+            con.Close();
         }
 
         //Session.Add(pbs.ProcessorPart.GetSessionName(), pbs.ProcessorPart);
