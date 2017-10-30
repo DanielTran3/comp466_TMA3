@@ -9,8 +9,11 @@
     <hr />
     <asp:GridView ID="PreBuiltComputersGridView" runat="server" AutoGenerateSelectButton="True" CssClass="gridView" OnSelectedIndexChanged="PreBuiltComputersGridView_SelectedIndexChanged" AutoGenerateColumns="False">
         <Columns>
+            <asp:BoundField DataField="Id" HeaderText="ID" />
             <asp:BoundField DataField="System" HeaderText="System" HtmlEncode="false"/>
-            <asp:BoundField DataField="Price" HeaderText="Price" ItemStyle-HorizontalAlign="Center" />
+            <asp:BoundField DataField="Price" HeaderText="Price" ItemStyle-HorizontalAlign="Center" >
+<ItemStyle HorizontalAlign="Center"></ItemStyle>
+            </asp:BoundField>
         </Columns>
         <HeaderStyle ForeColor="Black" />
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />

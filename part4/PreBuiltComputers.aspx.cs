@@ -69,6 +69,31 @@ public partial class PreBuiltComputers : System.Web.UI.Page
                     }
                     this.PreBuiltComputersGridView.DataSource = listOfSystems;
                     this.PreBuiltComputersGridView.DataBind();
+                    this.PreBuiltComputersGridView.Columns[0].Visible = false;
+                }
+
+                if (!IsPostBack)
+                {
+                    int componentRowIndex = -1;
+                    using (MySqlCommand getRowIndexCommand = new MySqlCommand(@"SELECT prebuiltSystem
+                                                                                FROM currentOrder 
+                                                                                WHERE username=@username", con))
+                    {
+                        getRowIndexCommand.Parameters.AddWithValue("@username", Session["username"]);
+                        componentRowIndex = Convert.ToInt32(getRowIndexCommand.ExecuteScalar().ToString());
+                        getRowIndexCommand.Dispose();
+                    }
+
+                    int rowIndex = -1;
+                    foreach (GridViewRow gvr in this.PreBuiltComputersGridView.Rows)
+                    {
+                        if (Convert.ToInt32(gvr.Cells[1].Text) == componentRowIndex)
+                        {
+                            rowIndex = gvr.RowIndex;
+                            break;
+                        }
+                    }
+                    this.PreBuiltComputersGridView.SelectRow(rowIndex);
                 }
             }
 

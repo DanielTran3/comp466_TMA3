@@ -15,7 +15,7 @@
     </h3>
     <asp:GridView ID="ProcessorGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged" AutoGenerateColumns="False">
         <Columns>
-            <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
+            <asp:BoundField DataField="ID" HeaderText="ID" />
             <asp:BoundField DataField="brand" HeaderText="Brand" />
             <asp:BoundField DataField="model" HeaderText="Model" />
             <asp:BoundField DataField="clock" HeaderText="Clock" />

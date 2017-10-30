@@ -24,35 +24,54 @@ public partial class SwapParts : System.Web.UI.Page
         //    }
         //}
 
-        BindDatabaseToGridview("processor", this.ProcessorGridView);
-        BindDatabaseToGridview("ram", this.RAMGridView);
-        BindDatabaseToGridview("hardDrive", this.HardDriveGridView);
-        BindDatabaseToGridview("operatingSystem", this.OperatingSystemGridView);
-        BindDatabaseToGridview("display", this.DisplayGridView);
-        BindDatabaseToGridview("soundCard", this.SoundCardGridView);
-
-        if (!IsPostBack)
+        if (IsUserAuthenticated())
         {
-            string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
-            using (MySqlConnection con = new MySqlConnection(constr))
+            BindDatabaseToGridview("processor", this.ProcessorGridView);
+            BindDatabaseToGridview("ram", this.RAMGridView);
+            BindDatabaseToGridview("hardDrive", this.HardDriveGridView);
+            BindDatabaseToGridview("operatingSystem", this.OperatingSystemGridView);
+            BindDatabaseToGridview("display", this.DisplayGridView);
+            BindDatabaseToGridview("soundCard", this.SoundCardGridView);
+            if (!IsPostBack)
             {
-                con.Open();
-                SelectCurrentComponent("processor", con, this.ProcessorGridView);
-
-                con.Close();
+                string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    con.Open();
+                    SelectCurrentComponent("processor", con, this.ProcessorGridView);
+                    SelectCurrentComponent("ram", con, this.RAMGridView);
+                    SelectCurrentComponent("hardDrive", con, this.HardDriveGridView);
+                    SelectCurrentComponent("operatingSystem", con, this.OperatingSystemGridView);
+                    SelectCurrentComponent("display", con, this.DisplayGridView);
+                    SelectCurrentComponent("soundCard", con, this.SoundCardGridView);
+                    con.Close();
+                }
             }
+            this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = true;
+            this.SelectPreBuiltComputerFirstLabel.Visible = false;
+            this.ProcessorLabel.Visible = true;
+            this.RAMLabel.Visible = true;
+            this.HardDriveLabel.Visible = true;
+            this.OSLabel.Visible = true;
+            this.DisplayLabel.Visible = true;
+            this.SoundCardLabel.Visible = true;
+            this.AddToCartButton.Visible = true;
+        }
+        else
+        {
+            this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
+            this.SelectPreBuiltComputerFirstLabel.Visible = true;
+            this.ProcessorLabel.Visible = false;
+            this.RAMLabel.Visible = false;
+            this.HardDriveLabel.Visible = false;
+            this.OSLabel.Visible = false;
+            this.DisplayLabel.Visible = false;
+            this.SoundCardLabel.Visible = false;
+            this.AddToCartButton.Visible = false;
         }
 
-        //using (MySqlDataReader reader = operatingSystemRows.ExecuteReader())
-        //{
-        //    this.OperatingSystemGridView.DataSource = reader;
-        //    this.OperatingSystemGridView.DataBind();
-        //    con.Close();
-        //    //if (reader.Read())
-        //    //{
-        //    //    string col1 = reader[0].ToString();
-        //    //}
-        //}
+
+
 
         //if (Session["processor"] != null && Session["ram"] != null && Session["hardDrive"] != null &&
         //    Session["display"] != null && Session["operatingSystem"] != null && Session["soundCard"] != null && 
@@ -121,6 +140,7 @@ public partial class SwapParts : System.Web.UI.Page
     {
         GridView gridView = sender as GridView;
         gridView.PageIndex = e.NewPageIndex;
+        gridView.DataBind();
 
         string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
         using (MySqlConnection con = new MySqlConnection(constr))
@@ -129,6 +149,26 @@ public partial class SwapParts : System.Web.UI.Page
             if (gridView == this.ProcessorGridView)
             {
                 SelectCurrentComponent("processor", con, gridView);
+            }
+            else if (gridView == this.RAMGridView)
+            {
+                SelectCurrentComponent("ram", con, gridView);
+            }
+            else if (gridView == this.HardDriveGridView)
+            {
+                SelectCurrentComponent("hardDrive", con, gridView);
+            }
+            else if (gridView == this.OperatingSystemGridView)
+            {
+                SelectCurrentComponent("operatingSystem", con, gridView);
+            }
+            else if (gridView == this.DisplayGridView)
+            {
+                SelectCurrentComponent("display", con, gridView);
+            }
+            else if (gridView == this.SoundCardGridView)
+            {
+                SelectCurrentComponent("soundCard", con, gridView);
             }
         }
     }
@@ -229,10 +269,24 @@ public partial class SwapParts : System.Web.UI.Page
 
     public void UpdateTotalCostLabel()
     {
+        double totalPrice = 0;
+        string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+        using (MySqlConnection con = new MySqlConnection(constr))
+        {
+            con.Open();
+            using (MySqlCommand totalPriceCommand = new MySqlCommand("SELECT totalPrice FROM currentOrder WHERE username=@username ", con))
+            {
+                totalPriceCommand.Parameters.AddWithValue("@username", Session["username"]);
+                string totalPriceString = totalPriceCommand.ExecuteScalar().ToString();
+                totalPrice = Convert.ToDouble(totalPriceString.Replace("$", ""));
+            }
+            con.Close();
+        }
+
         Label totalCostLabel = (Label)Master.FindControl("TotalCostLabel");
         if (totalCostLabel != null)
         {
-            totalCostLabel.Text = "$" + Session["totalPrice"];
+            totalCostLabel.Text = "$" + totalPrice;
         }
     }
 
@@ -268,10 +322,10 @@ public partial class SwapParts : System.Web.UI.Page
                 {
                     DataTable tempTable = new DataTable();
                     adapter.Fill(tempTable);
-                    gridview.Columns[0].Visible = true;
+                    //gridview.Columns[0].Visible = true;
                     gridview.DataSource = tempTable;
                     gridview.DataBind();
-                    gridview.Columns[0].Visible = false;
+                    //gridview.Columns[0].Visible = false;
                     con.Close();
                 }
             //}
@@ -338,5 +392,31 @@ public partial class SwapParts : System.Web.UI.Page
             int affectedRows = updateOrderCommand.ExecuteNonQuery();
             updateOrderCommand.Dispose();
         }
+        UpdateTotalCostLabel();
+    }
+
+    public bool IsUserAuthenticated()
+    {
+        string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+        using (MySqlConnection con = new MySqlConnection(constr))
+        {
+            con.Open();
+            using (MySqlCommand findUserCommand = new MySqlCommand("SELECT * FROM currentOrder WHERE username=@username", con))
+            {
+                findUserCommand.Parameters.AddWithValue("@username", Session["username"]);
+                using (MySqlDataReader reader = findUserCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        con.Close();
+                        findUserCommand.Dispose();
+                        return true;
+                    }
+                    findUserCommand.Dispose();
+                }
+            }
+            con.Close();
+        }
+        return false;
     }
 }
