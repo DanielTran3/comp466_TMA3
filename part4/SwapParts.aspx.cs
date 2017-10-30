@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -9,67 +12,86 @@ public partial class SwapParts : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["processor"] != null && Session["ram"] != null && Session["hardDrive"] != null &&
-            Session["display"] != null && Session["operatingSystem"] != null && Session["soundCard"] != null && 
-            Session["totalPrice"] != null)
-        {
-            List<Components> listOfProcessors = ComponentsFactory.GetAllProcessors();
-            this.ProcessorGridView.DataSource = listOfProcessors;
-            this.ProcessorGridView.DataBind();
 
-            List<Components> listOfRAMs = ComponentsFactory.GetAllRAMs();
-            this.RAMGridView.DataSource = listOfRAMs;
-            this.RAMGridView.DataBind();
+        BindDatabaseToGridview("processor", this.ProcessorGridView);
+        BindDatabaseToGridview("ram", this.RAMGridView);
+        BindDatabaseToGridview("hardDrive", this.HardDriveGridView);
+        BindDatabaseToGridview("operatingSystem", this.OperatingSystemGridView);
+        BindDatabaseToGridview("display", this.DisplayGridView);
+        BindDatabaseToGridview("soundCard", this.SoundCardGridView);
 
-            List<Components> listOfHardDrives = ComponentsFactory.GetAllHardDrives();
-            this.HardDriveGridView.DataSource = listOfHardDrives;
-            this.HardDriveGridView.DataBind();
+        //using (MySqlDataReader reader = operatingSystemRows.ExecuteReader())
+        //{
+        //    this.OperatingSystemGridView.DataSource = reader;
+        //    this.OperatingSystemGridView.DataBind();
+        //    con.Close();
+        //    //if (reader.Read())
+        //    //{
+        //    //    string col1 = reader[0].ToString();
+        //    //}
+        //}
 
-            List<Components> listOfOSs = ComponentsFactory.GetAllOperatingSystems();
-            this.OperatingSystemGridView.DataSource = listOfOSs;
-            this.OperatingSystemGridView.DataBind();
+        //if (Session["processor"] != null && Session["ram"] != null && Session["hardDrive"] != null &&
+        //    Session["display"] != null && Session["operatingSystem"] != null && Session["soundCard"] != null && 
+        //    Session["totalPrice"] != null)
+        //{
+        //    List<Components> listOfProcessors = ComponentsFactory.GetAllProcessors();
+        //    this.ProcessorGridView.DataSource = listOfProcessors;
+        //    this.ProcessorGridView.DataBind();
 
-            List<Components> listOfDisplays = ComponentsFactory.GetAllDisplays();
-            this.DisplayGridView.DataSource = listOfDisplays;
-            this.DisplayGridView.DataBind();
+        //    List<Components> listOfRAMs = ComponentsFactory.GetAllRAMs();
+        //    this.RAMGridView.DataSource = listOfRAMs;
+        //    this.RAMGridView.DataBind();
 
-            List<Components> listOfSoundCards = ComponentsFactory.GetAllSoundCards();
-            this.SoundCardGridView.DataSource = listOfSoundCards;
-            this.SoundCardGridView.DataBind();
+        //    List<Components> listOfHardDrives = ComponentsFactory.GetAllHardDrives();
+        //    this.HardDriveGridView.DataSource = listOfHardDrives;
+        //    this.HardDriveGridView.DataBind();
 
-            UpdateTotalCostLabel();
+        //    List<Components> listOfOSs = ComponentsFactory.GetAllOperatingSystems();
+        //    this.OperatingSystemGridView.DataSource = listOfOSs;
+        //    this.OperatingSystemGridView.DataBind();
 
-            if (!IsPostBack)
-            {
-                this.ProcessorGridView.SelectRow(Components.GetIndexOfComponent(Session["processor"] as Processor, listOfProcessors));
-                this.RAMGridView.SelectRow(Components.GetIndexOfComponent(Session["ram"] as RAM, listOfRAMs));
-                this.HardDriveGridView.SelectRow(Components.GetIndexOfComponent(Session["hardDrive"] as HardDrive, listOfHardDrives));
-                this.OperatingSystemGridView.SelectRow(Components.GetIndexOfComponent(Session["operatingSystem"] as OperatingSystem, listOfOSs));
-                this.DisplayGridView.SelectRow(Components.GetIndexOfComponent(Session["display"] as Display, listOfDisplays));
-                this.SoundCardGridView.SelectRow(Components.GetIndexOfComponent(Session["soundCard"] as SoundCard, listOfSoundCards));
-            }
-            this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = true;
-            this.SelectPreBuiltComputerFirstLabel.Visible = false;
-            this.ProcessorLabel.Visible = true;
-            this.RAMLabel.Visible = true;
-            this.HardDriveLabel.Visible = true;
-            this.OSLabel.Visible = true;
-            this.DisplayLabel.Visible = true;
-            this.SoundCardLabel.Visible = true;
-            this.AddToCartButton.Visible = true;
-        }
-        else
-        {
-            this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
-            this.SelectPreBuiltComputerFirstLabel.Visible = true;
-            this.ProcessorLabel.Visible = false;
-            this.RAMLabel.Visible = false;
-            this.HardDriveLabel.Visible = false;
-            this.OSLabel.Visible = false;
-            this.DisplayLabel.Visible = false;
-            this.SoundCardLabel.Visible = false;
-            this.AddToCartButton.Visible = false;
-        }
+        //    List<Components> listOfDisplays = ComponentsFactory.GetAllDisplays();
+        //    this.DisplayGridView.DataSource = listOfDisplays;
+        //    this.DisplayGridView.DataBind();
+
+        //    List<Components> listOfSoundCards = ComponentsFactory.GetAllSoundCards();
+        //    this.SoundCardGridView.DataSource = listOfSoundCards;
+        //    this.SoundCardGridView.DataBind();
+
+        //    UpdateTotalCostLabel();
+
+        //    if (!IsPostBack)
+        //    {
+        //        this.ProcessorGridView.SelectRow(Components.GetIndexOfComponent(Session["processor"] as Processor, listOfProcessors));
+        //        this.RAMGridView.SelectRow(Components.GetIndexOfComponent(Session["ram"] as RAM, listOfRAMs));
+        //        this.HardDriveGridView.SelectRow(Components.GetIndexOfComponent(Session["hardDrive"] as HardDrive, listOfHardDrives));
+        //        this.OperatingSystemGridView.SelectRow(Components.GetIndexOfComponent(Session["operatingSystem"] as OperatingSystem, listOfOSs));
+        //        this.DisplayGridView.SelectRow(Components.GetIndexOfComponent(Session["display"] as Display, listOfDisplays));
+        //        this.SoundCardGridView.SelectRow(Components.GetIndexOfComponent(Session["soundCard"] as SoundCard, listOfSoundCards));
+        //    }
+        //    this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = true;
+        //    this.SelectPreBuiltComputerFirstLabel.Visible = false;
+        //    this.ProcessorLabel.Visible = true;
+        //    this.RAMLabel.Visible = true;
+        //    this.HardDriveLabel.Visible = true;
+        //    this.OSLabel.Visible = true;
+        //    this.DisplayLabel.Visible = true;
+        //    this.SoundCardLabel.Visible = true;
+        //    this.AddToCartButton.Visible = true;
+        //}
+        //else
+        //{
+        //    this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
+        //    this.SelectPreBuiltComputerFirstLabel.Visible = true;
+        //    this.ProcessorLabel.Visible = false;
+        //    this.RAMLabel.Visible = false;
+        //    this.HardDriveLabel.Visible = false;
+        //    this.OSLabel.Visible = false;
+        //    this.DisplayLabel.Visible = false;
+        //    this.SoundCardLabel.Visible = false;
+        //    this.AddToCartButton.Visible = false;
+        //}
     }
 
     protected void GridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -104,21 +126,26 @@ public partial class SwapParts : System.Web.UI.Page
             GridView gv = sender as GridView;
             if (gv.SelectedIndex >= 0)
             {
-                List<Components> componentList = gv.DataSource as List<Components>;
                 if (gv.SelectedIndex != -1)
                 {
-                    // Get the real selected index
-                    int index = gv.SelectedIndex + (gv.PageSize * gv.PageIndex);
-                    Components component = componentList[index];
-                    Components oldComponent = Session[component.GetSessionName()] as Components;
 
-                    double totalPrice = (double)Session["totalPrice"];
-                    totalPrice -= oldComponent.GetPrice();
-                    totalPrice += component.GetPrice();
+                    if (gv == this.ProcessorGridView)
+                    {
 
-                    Session.Add(component.GetSessionName(), component);
-                    Session.Add("totalPrice", totalPrice);
-                    UpdateTotalCostLabel();
+                    }
+
+                    //// Get the real selected index
+                    //int index = gv.SelectedIndex + (gv.PageSize * gv.PageIndex);
+                    //Components component = componentList[index];
+                    //Components oldComponent = Session[component.GetSessionName()] as Components;
+
+                    //double totalPrice = (double)Session["totalPrice"];
+                    //totalPrice -= oldComponent.GetPrice();
+                    //totalPrice += component.GetPrice();
+
+                    //Session.Add(component.GetSessionName(), component);
+                    //Session.Add("totalPrice", totalPrice);
+                    //UpdateTotalCostLabel();
                 }
             }
         }
@@ -187,5 +214,30 @@ public partial class SwapParts : System.Web.UI.Page
         }
 
         return null;
+    }
+
+    public void BindDatabaseToGridview(string tableName, GridView gridview)
+    {
+        string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+        using (MySqlConnection con = new MySqlConnection(constr))
+        {
+            con.Open();
+            //using (MySqlCommand tableRows = new MySqlCommand("SELECT * FROM " + tableName, con))
+            //{
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter("SELECT * FROM " + tableName, con))
+                {
+                    DataTable tempTable = new DataTable();
+                    adapter.Fill(tempTable);
+                    gridview.DataSource = tempTable;
+                    gridview.DataBind();
+                    con.Close();
+                }
+            //}
+        }
+    }
+
+    public void SelectCurrentComponent(string component)
+    {
+
     }
 }

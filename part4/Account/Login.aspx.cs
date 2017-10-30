@@ -51,7 +51,7 @@ public partial class Account_Login : System.Web.UI.Page
                     {
                         this.LoginErrorLabel.Text = string.Empty;
                         this.LoginErrorLabel.Visible = false;
-                        Session.Add("username", this.UsernameTextbox.Text);
+                        Session.Add("username", this.UsernameTextbox.Text); //Session.Add("username", this.UsernameTextbox.Text);
                         Session.Timeout = 120;
                         HyperLink link = this.Master.FindControl("LoginLogoutLink") as HyperLink;
                         con.Close();

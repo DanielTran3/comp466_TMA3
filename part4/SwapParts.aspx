@@ -13,15 +13,27 @@
     <h3>
         <asp:Label ID="ProcessorLabel" runat="server" Text="Processor"></asp:Label>
     </h3>
-    <asp:GridView ID="ProcessorGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged">
+    <asp:GridView ID="ProcessorGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged" AutoGenerateColumns="False">
+        <Columns>
+            <asp:BoundField DataField="brand" HeaderText="Brand" />
+            <asp:BoundField DataField="model" HeaderText="Model" />
+            <asp:BoundField DataField="clock" HeaderText="Clock" />
+            <asp:BoundField DataField="Cache" HeaderText="Cache" />
+            <asp:BoundField DataField="socket" HeaderText="Socket" />
+            <asp:BoundField DataField="price" HeaderText="Price" />
+            <asp:BoundField DataField="ID" HeaderText="ID" Visible="False" />
+        </Columns>
         <HeaderStyle ForeColor="Black" />
+        <PagerStyle CssClass="pagingToLeft" />
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
+    <asp:SqlDataSource ID="SqlProcessorDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:digitalelectronicsConnectionString %>" ProviderName="<%$ ConnectionStrings:digitalelectronicsConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [processor]"></asp:SqlDataSource>
     <h3>
         <asp:Label ID="RAMLabel" runat="server" Text="RAM"></asp:Label>
     </h3>
     <asp:GridView ID="RAMGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged">
         <HeaderStyle ForeColor="Black" />
+        <PagerStyle CssClass="pagingToLeft" />
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
@@ -29,6 +41,7 @@
     </h3>
     <asp:GridView ID="HardDriveGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged">
         <HeaderStyle ForeColor="Black" />
+        <PagerStyle CssClass="pagingToLeft" />
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
@@ -36,6 +49,7 @@
     </h3>
     <asp:GridView ID="OperatingSystemGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged">
         <HeaderStyle ForeColor="Black" />
+        <PagerStyle CssClass="pagingToLeft" />
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
@@ -43,6 +57,7 @@
     </h3>
     <asp:GridView ID="DisplayGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged">
         <HeaderStyle ForeColor="Black" />
+        <PagerStyle CssClass="pagingToLeft" />
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
     <h3>
@@ -50,6 +65,7 @@
     </h3>
     <asp:GridView ID="SoundCardGridView" runat="server" AllowPaging="True" AutoGenerateSelectButton="True" CssClass="gridView" OnPageIndexChanging="GridView_PageIndexChanging" PageSize="5" OnSelectedIndexChanged="GridView_SelectedIndexChanged">
         <HeaderStyle ForeColor="Black" />
+        <PagerStyle CssClass="pagingToLeft" />
         <SelectedRowStyle BackColor="#33CC33" BorderColor="#003300" ForeColor="Black" />
     </asp:GridView>
 <br />

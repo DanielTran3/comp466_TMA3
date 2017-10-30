@@ -55,7 +55,8 @@ public partial class Account_Register : System.Web.UI.Page
                 checkUsernameCommand.Dispose();
             }
 
-            using (MySqlCommand addUserCommand = new MySqlCommand("INSERT INTO users (username, password, securityQuestion, securityAnswer) VALUES (@username, @password, @securityQuestion, @securityAnswer)", con))
+            using (MySqlCommand addUserCommand = new MySqlCommand(@"INSERT INTO users (username, password, securityQuestion, securityAnswer) 
+                                                                    VALUES (@username, @password, @securityQuestion, @securityAnswer)", con))
             {
                 addUserCommand.Parameters.AddWithValue("@username", this.UsernameTextbox.Text);
                 addUserCommand.Parameters.AddWithValue("@password", this.PasswordTextBox.Text);

@@ -24,10 +24,6 @@
     <h1>
         Login</h1>
     <p>
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
-        </asp:ScriptManager>
-    </p>
-    <p>
         Please enter your username and password.
         <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="False" NavigateUrl="~/Account/Register.aspx">Register</asp:HyperLink> &nbsp;if you don't have an account.
     </p>

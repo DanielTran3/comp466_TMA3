@@ -360,3 +360,8 @@ div.accountInfo
 table {
     width:100%;
 }
+
+.pagingToLeft {
+    float: left !important;
+    /*display: flex !important;*/
+}
