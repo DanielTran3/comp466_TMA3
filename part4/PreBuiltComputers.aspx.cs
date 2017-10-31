@@ -80,8 +80,12 @@ public partial class PreBuiltComputers : System.Web.UI.Page
                                                                                 WHERE username=@username", con))
                     {
                         getRowIndexCommand.Parameters.AddWithValue("@username", Session["username"]);
-                        componentRowIndex = Convert.ToInt32(getRowIndexCommand.ExecuteScalar().ToString());
-                        getRowIndexCommand.Dispose();
+                        object outputRow = getRowIndexCommand.ExecuteScalar();
+                        if (outputRow != null)
+                        {
+                            componentRowIndex = Convert.ToInt32(outputRow.ToString());
+                            getRowIndexCommand.Dispose();
+                        }
                     }
 
                     int rowIndex = -1;
@@ -132,6 +136,10 @@ public partial class PreBuiltComputers : System.Web.UI.Page
     protected void PreBuiltComputersGridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         GridView gv = sender as GridView;
+        if (gv.SelectedIndex == -1)
+        {
+            return;
+        }
         List<PreBuiltSystem> pbsList = gv.DataSource as List<PreBuiltSystem>;
         PreBuiltSystem pbs = pbsList[gv.SelectedIndex];
         pbs.PreBuiltIndex = gv.SelectedIndex;

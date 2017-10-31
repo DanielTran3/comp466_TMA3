@@ -24,7 +24,7 @@ public partial class SwapParts : System.Web.UI.Page
         //    }
         //}
 
-        if (IsUserAuthenticated())
+        if (DoesUserHaveOrder())
         {
             BindDatabaseToGridview("processor", this.ProcessorGridView);
             BindDatabaseToGridview("ram", this.RAMGridView);
@@ -234,36 +234,58 @@ public partial class SwapParts : System.Web.UI.Page
 
     protected void AddToCartButton_Click(object sender, EventArgs e)
     {
-        if (Session["processor"] != null && Session["ram"] != null && Session["hardDrive"] != null &&
-            Session["display"] != null && Session["operatingSystem"] != null && Session["soundCard"] != null &&
-            Session["totalPrice"] != null)
+        string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
+        using (MySqlConnection con = new MySqlConnection(constr))
         {
-            //PreBuiltSystem newSystem = new PreBuiltSystem(Session["processor"] as Components, Session["ram"] as Components,
-            //                                          Session["hardDrive"] as Components, Session["display"] as Components,
-            //                                          Session["operatingSystem"] as Components, Session["soundCard"] as Components);
-            //if (Session["cart"] == null)
-            //{
-            //    Session.Clear();
-            //    Session["cart"] = new List<PreBuiltSystem>() { newSystem };
-            //}
-            //else
-            //{
-            //    List<PreBuiltSystem> cartContents = Session["cart"] as List<PreBuiltSystem>;
-            //    if (Session["EditingRow"] != null)
-            //    {
-            //        int rowToEdit = (int) Session["EditingRow"];
-            //        Session.Clear();
-            //        cartContents[rowToEdit] = newSystem;
-            //        Session["cart"] = cartContents;
-            //    }
-            //    else
-            //    {
-            //        Session.Clear();
-            //        cartContents.Add(newSystem);
-            //        Session["cart"] = cartContents;
-            //    }
-            //}
+            con.Open();
+            using (MySqlCommand saveOrderCommand = new MySqlCommand(@"INSERT INTO orders (username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice)
+                                                                      SELECT username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice
+                                                                      FROM currentOrder 
+                                                                      WHERE username=@username", con))
+            {
+                saveOrderCommand.Parameters.AddWithValue("@username", Session["username"]);
+                int affectedRow = saveOrderCommand.ExecuteNonQuery();
+                saveOrderCommand.Dispose();
+            }
+
+            using (MySqlCommand deleteCurrentOrderCommand = new MySqlCommand(@"DELETE FROM currentOrder WHERE username=@username", con))
+            {
+                deleteCurrentOrderCommand.Parameters.AddWithValue("@username", Session["username"]);
+                int affectedRow = deleteCurrentOrderCommand.ExecuteNonQuery();
+                deleteCurrentOrderCommand.Dispose();
+            }
+            con.Close();
         }
+        //if (Session["processor"] != null && Session["ram"] != null && Session["hardDrive"] != null &&
+        //    Session["display"] != null && Session["operatingSystem"] != null && Session["soundCard"] != null &&
+        //    Session["totalPrice"] != null)
+        //{
+        //PreBuiltSystem newSystem = new PreBuiltSystem(Session["processor"] as Components, Session["ram"] as Components,
+        //                                          Session["hardDrive"] as Components, Session["display"] as Components,
+        //                                          Session["operatingSystem"] as Components, Session["soundCard"] as Components);
+        //if (Session["cart"] == null)
+        //{
+        //    Session.Clear();
+        //    Session["cart"] = new List<PreBuiltSystem>() { newSystem };
+        //}
+        //else
+        //{
+        //    List<PreBuiltSystem> cartContents = Session["cart"] as List<PreBuiltSystem>;
+        //    if (Session["EditingRow"] != null)
+        //    {
+        //        int rowToEdit = (int) Session["EditingRow"];
+        //        Session.Clear();
+        //        cartContents[rowToEdit] = newSystem;
+        //        Session["cart"] = cartContents;
+        //    }
+        //    else
+        //    {
+        //        Session.Clear();
+        //        cartContents.Add(newSystem);
+        //        Session["cart"] = cartContents;
+        //    }
+        //}
+        //}
         Response.Redirect("Cart.aspx");
     }
 
@@ -395,7 +417,7 @@ public partial class SwapParts : System.Web.UI.Page
         UpdateTotalCostLabel();
     }
 
-    public bool IsUserAuthenticated()
+    public bool DoesUserHaveOrder()
     {
         string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
         using (MySqlConnection con = new MySqlConnection(constr))

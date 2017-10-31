@@ -11,14 +11,17 @@ PRIMARY KEY (Username));
 
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
+ID int NOT NULL AUTO_INCREMENT,
 username VARCHAR(20) NOT NULL,
 prebuiltSystem VARCHAR(2048),
 display VARCHAR(512),
 hardDrive VARCHAR(512),
 operatingSystem VARCHAR(512),
-proccessor VARCHAR(512),
+processor VARCHAR(512),
 ram VARCHAR(512),
 soundcard VARCHAR(512),
+totalPrice VARCHAR(16),
+PRIMARY KEY (ID),
 FOREIGN KEY (username) REFERENCES users(username));
 
 /*
