@@ -12,6 +12,7 @@ public partial class SwapParts : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        LoginController.IsUserLoggedIn(this);
         //string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
         //using (MySqlConnection con = new MySqlConnection(constr))
         //{
@@ -24,14 +25,19 @@ public partial class SwapParts : System.Web.UI.Page
         //    }
         //}
 
+        // Check if the user has a current order. If not, then do not display the GridView for the different parts
         if (DoesUserHaveOrder())
         {
+            // Bind data from each component to their respective Gridviews
             BindDatabaseToGridview("processor", this.ProcessorGridView);
             BindDatabaseToGridview("ram", this.RAMGridView);
             BindDatabaseToGridview("hardDrive", this.HardDriveGridView);
             BindDatabaseToGridview("operatingSystem", this.OperatingSystemGridView);
             BindDatabaseToGridview("display", this.DisplayGridView);
             BindDatabaseToGridview("soundCard", this.SoundCardGridView);
+
+            // If the page load is not a postback, then highlight the columns retrieved from the database for
+            // each gridview
             if (!IsPostBack)
             {
                 string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
@@ -47,6 +53,8 @@ public partial class SwapParts : System.Web.UI.Page
                     con.Close();
                 }
             }
+
+            // Show the gridviews and associated header labels
             this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = true;
             this.SelectPreBuiltComputerFirstLabel.Visible = false;
             this.ProcessorLabel.Visible = true;
@@ -59,6 +67,7 @@ public partial class SwapParts : System.Web.UI.Page
         }
         else
         {
+            // There is no current order, so hide all gridview and labels and display the proper label text
             this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
             this.SelectPreBuiltComputerFirstLabel.Visible = true;
             this.ProcessorLabel.Visible = false;
@@ -136,12 +145,20 @@ public partial class SwapParts : System.Web.UI.Page
         //}
     }
 
+    /// <summary>
+    /// Page Index change handler for handling a changed paging number. Will load the correct data and 
+    /// select any elements that are in the current order, if they exist on the gridview at the specified page
+    /// </summary>
+    /// <param name="sender">The gridview where the new page was pressed</param>
+    /// <param name="e">The event of pressing a new page</param>
     protected void GridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
+        // Get the gridview, update the page index, and load the new data for that page into the gridview
         GridView gridView = sender as GridView;
         gridView.PageIndex = e.NewPageIndex;
         gridView.DataBind();
 
+        // Highlight the component in the gridview depending on which gridview was used
         string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
         using (MySqlConnection con = new MySqlConnection(constr))
         {
@@ -173,12 +190,19 @@ public partial class SwapParts : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// A selected index handler that deals with updating the current order with the newly selected value from the row.
+    /// </summary>
+    /// <param name="sender">The gridview where the selection was made</param>
+    /// <param name="e">The event of selecting a new row in the gridview</param>
     protected void GridView_SelectedIndexChanged(object sender, EventArgs e)
     {
         try
         {
             GridView gv = sender as GridView;
             Components component = gv.DataSource as Components;
+            
+            // If the Selected index is -1, then no row was selected on the current page
             if (gv.SelectedIndex >= 0)
             {
                 if (gv.SelectedIndex != -1)
@@ -238,15 +262,39 @@ public partial class SwapParts : System.Web.UI.Page
         using (MySqlConnection con = new MySqlConnection(constr))
         {
             con.Open();
-            using (MySqlCommand saveOrderCommand = new MySqlCommand(@"INSERT INTO orders (username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice)
-                                                                      SELECT username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice
-                                                                      FROM currentOrder 
-                                                                      WHERE username=@username", con))
+            object editId;
+            using (MySqlCommand isOrderEditCommand = new MySqlCommand(@"SELECT editId FROM currentOrder WHERE username=@username", con))
             {
-                saveOrderCommand.Parameters.AddWithValue("@username", Session["username"]);
-                int affectedRow = saveOrderCommand.ExecuteNonQuery();
-                saveOrderCommand.Dispose();
+                isOrderEditCommand.Parameters.AddWithValue("@username", Session["username"]);
+                editId = isOrderEditCommand.ExecuteScalar();
+                isOrderEditCommand.Dispose();
             }
+            if (editId.ToString() == "")
+            {
+                using (MySqlCommand saveOrderCommand = new MySqlCommand(@"INSERT INTO orders (username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice)
+                                                                    SELECT username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice
+                                                                    FROM currentOrder 
+                                                                    WHERE username=@username", con))
+                {
+                    saveOrderCommand.Parameters.AddWithValue("@username", Session["username"]);
+                    int affectedRow = saveOrderCommand.ExecuteNonQuery();
+                    saveOrderCommand.Dispose();
+                }
+            }
+            else
+            {
+                using (MySqlCommand saveOrderCommand = new MySqlCommand(@"UPDATE orders o INNER JOIN currentOrder co ON o.ID=co.editId
+                                                                          SET o.username=co.username, o.prebuiltSystem=co.prebuiltSystem, o.display=co.display, 
+                                                                          o.hardDrive=co.hardDrive, o.operatingSystem=co.operatingSystem, o.processor=co.processor, o.ram=co.ram, 
+                                                                          o.soundCard=co.soundCard, o.totalPrice=co.totalPrice
+                                                                          WHERE co.username=@username AND o.username=@username", con))
+                {
+                    saveOrderCommand.Parameters.AddWithValue("@username", Session["username"]);
+                    int affectedRow = saveOrderCommand.ExecuteNonQuery();
+                    saveOrderCommand.Dispose();
+                }
+            }
+            
 
             using (MySqlCommand deleteCurrentOrderCommand = new MySqlCommand(@"DELETE FROM currentOrder WHERE username=@username", con))
             {

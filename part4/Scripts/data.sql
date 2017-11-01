@@ -1,7 +1,14 @@
 CREATE DATABASE IF NOT EXISTS DigitalElectronics;
 USE DigitalElectronics;
 
+DROP TABLE IF EXISTS prebuiltSystem;
 DROP TABLE IF EXISTS display;
+DROP TABLE IF EXISTS hardDrive;
+DROP TABLE IF EXISTS operatingSystem;
+DROP TABLE IF EXISTS processor;
+DROP TABLE IF EXISTS ram;
+DROP TABLE IF EXISTS soundCard;
+
 CREATE TABLE display (
 ID int NOT NULL AUTO_INCREMENT,
 brand varchar(64) NOT NULL,
@@ -29,7 +36,6 @@ INSERT INTO display (brand, model, size, resolution, responseTime, price) VALUES
 INSERT INTO display (brand, model, size, resolution, responseTime, price) VALUES 
 ("ACER", "Predator XB241H", "24in", "1920x1080", "1ms", "$549.99");
 
-DROP TABLE IF EXISTS hardDrive;
 CREATE TABLE hardDrive (
 ID int NOT NULL AUTO_INCREMENT,
 brand varchar(64) NOT NULL,
@@ -62,7 +68,6 @@ INSERT INTO hardDrive (brand, model, type, size, readSpeed, writeSpeed, price) V
 INSERT INTO hardDrive (brand, model, type, size, readSpeed, writeSpeed, price) VALUES 
 ("ADATA", "Premier SP580", "Solid State Drive (SSD)", "120GB", "560MB/sec", "410MB/sec", "$79.99");
 
-DROP TABLE IF EXISTS operatingSystem;
 CREATE TABLE operatingSystem (
 ID int NOT NULL AUTO_INCREMENT,
 brand varchar(64) NOT NULL,
@@ -77,7 +82,6 @@ INSERT INTO operatingSystem (brand, version, price) VALUES
 INSERT INTO operatingSystem (brand, version, price) VALUES 
 ("Microsoft", "Windows 7 Pro (64-Bit)", "$199.99");
 
-DROP TABLE IF EXISTS processor;
 CREATE TABLE processor (
 ID int NOT NULL AUTO_INCREMENT,
 brand varchar(64) NOT NULL,
@@ -101,7 +105,6 @@ INSERT INTO processor (brand, model, clock, cache, socket, price) VALUES
 INSERT INTO processor (brand, model, clock, cache, socket, price) VALUES 
 ("AMD", "Ryzen 3 1300X", "3.50 GHz", "8MB Cache", "PGA 1331 ", "$169.99");
 
-DROP TABLE IF EXISTS ram;
 CREATE TABLE ram (
 ID int NOT NULL AUTO_INCREMENT,
 brand varchar(64) NOT NULL,
@@ -128,7 +131,6 @@ INSERT INTO ram (brand, model, speed, memoryType, price) VALUES
 INSERT INTO ram (brand, model, speed, memoryType, price) VALUES 
 ("G.Skill", "Ripjaws V", "2800MHz", "DDR4 4 x 4GB PC4-22400", "$189.99");
 
-DROP TABLE IF EXISTS soundCard;
 CREATE TABLE soundCard (
 ID int NOT NULL AUTO_INCREMENT,
 brand varchar(64) NOT NULL,
@@ -147,7 +149,7 @@ INSERT INTO soundCard (brand, model, price) VALUES
 INSERT INTO soundCard (brand, model, price) VALUES 
 ("ASUS", "Xonar DSX PCI-E 7.1", "$49.99");
 
-DROP TABLE IF EXISTS prebuiltSystem;
+
 CREATE TABLE prebuiltSystem (
 ID int NOT NULL AUTO_INCREMENT,
 processor int NOT NULL,

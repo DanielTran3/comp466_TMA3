@@ -12,7 +12,7 @@ public partial class PreBuiltComputers : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //LoginController.IsUserLoggedIn(this);
+        LoginController.IsUserLoggedIn(this);
 
         string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
         using (MySqlConnection con = new MySqlConnection(constr))
@@ -74,30 +74,44 @@ public partial class PreBuiltComputers : System.Web.UI.Page
 
                 if (!IsPostBack)
                 {
-                    int componentRowIndex = -1;
-                    using (MySqlCommand getRowIndexCommand = new MySqlCommand(@"SELECT prebuiltSystem
-                                                                                FROM currentOrder 
-                                                                                WHERE username=@username", con))
+                    using (MySqlCommand getTotalPriceCommand = new MySqlCommand(@"SELECT totalPrice 
+                                                                                  FROM currentOrder 
+                                                                                  WHERE username=@username", con))
                     {
-                        getRowIndexCommand.Parameters.AddWithValue("@username", Session["username"]);
-                        object outputRow = getRowIndexCommand.ExecuteScalar();
-                        if (outputRow != null)
+                        getTotalPriceCommand.Parameters.AddWithValue("@username", Session["username"]);
+                        string totalPrice = getTotalPriceCommand.ExecuteScalar().ToString();
+                        Label totalCostLabel = (Label)Master.FindControl("TotalCostLabel");
+                        if (totalCostLabel != null)
                         {
-                            componentRowIndex = Convert.ToInt32(outputRow.ToString());
-                            getRowIndexCommand.Dispose();
+                            totalCostLabel.Text = totalPrice;
                         }
+                        getTotalPriceCommand.Dispose();
                     }
 
-                    int rowIndex = -1;
-                    foreach (GridViewRow gvr in this.PreBuiltComputersGridView.Rows)
-                    {
-                        if (Convert.ToInt32(gvr.Cells[1].Text) == componentRowIndex)
-                        {
-                            rowIndex = gvr.RowIndex;
-                            break;
-                        }
-                    }
-                    this.PreBuiltComputersGridView.SelectRow(rowIndex);
+                    //int componentRowIndex = -1;
+                    //using (MySqlCommand getRowIndexCommand = new MySqlCommand(@"SELECT prebuiltSystem
+                    //                                                            FROM currentOrder 
+                    //                                                            WHERE username=@username", con))
+                    //{
+                    //    getRowIndexCommand.Parameters.AddWithValue("@username", Session["username"]);
+                    //    object outputRow = getRowIndexCommand.ExecuteScalar();
+                    //    if (outputRow != null)
+                    //    {
+                    //        componentRowIndex = Convert.ToInt32(outputRow.ToString());
+                    //        getRowIndexCommand.Dispose();
+                    //    }
+                    //}
+
+                    //int rowIndex = -1;
+                    //foreach (GridViewRow gvr in this.PreBuiltComputersGridView.Rows)
+                    //{
+                    //    if (Convert.ToInt32(gvr.Cells[1].Text) == componentRowIndex)
+                    //    {
+                    //        rowIndex = gvr.RowIndex;
+                    //        break;
+                    //    }
+                    //}
+                    //this.PreBuiltComputersGridView.SelectRow(rowIndex);
                 }
             }
 

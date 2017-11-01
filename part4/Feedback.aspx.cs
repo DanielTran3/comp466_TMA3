@@ -9,6 +9,7 @@ public partial class Feedback : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        LoginController.IsUserLoggedIn(this);
         this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
         if (Session["feedback"] == null)
         {

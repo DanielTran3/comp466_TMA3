@@ -134,9 +134,10 @@ public partial class Cart : System.Web.UI.Page
                         totalPriceCommand.Dispose();
                     }
                     this.TotalCartPriceLabel.Text = "Total Cost: $" + total;
+                    this.CartGridView.Columns[0].Visible = true;
                     this.CartGridView.DataSource = listOfSystems;
                     this.CartGridView.DataBind();
-                    //this.CartGridView.Columns[0].Visible = false;
+                    this.CartGridView.Columns[0].Visible = false;
                 }
             }
             con.Close();
@@ -176,11 +177,11 @@ public partial class Cart : System.Web.UI.Page
         using (MySqlConnection con = new MySqlConnection(constr))
         {
             con.Open();
-            using (MySqlCommand editOrderCommand = new MySqlCommand(@"INSERT INTO currentOrder (username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice) 
-                                                                      SELECT o.username, o.prebuiltSystem, o.display, o.hardDrive, o.operatingSystem, o.processor, o.ram, o.soundCard, o.totalPrice
+            using (MySqlCommand editOrderCommand = new MySqlCommand(@"INSERT INTO currentOrder (username, prebuiltSystem, display, hardDrive, operatingSystem, processor, ram, soundCard, totalPrice, editId) 
+                                                                      SELECT o.username, o.prebuiltSystem, o.display, o.hardDrive, o.operatingSystem, o.processor, o.ram, o.soundCard, o.totalPrice, o.id
                                                                       FROM orders o WHERE username=@username AND id=@id
                                                                       ON DUPLICATE KEY UPDATE username=o.username, prebuiltSystem=o.prebuiltSystem, display=o.display, hardDrive=o.hardDrive, 
-                                                                      operatingSystem=o.operatingSystem, processor=o.processor, ram=o.ram, soundCard=o.soundCard, totalPrice=o.totalPrice", con))
+                                                                      operatingSystem=o.operatingSystem, processor=o.processor, ram=o.ram, soundCard=o.soundCard, totalPrice=o.totalPrice, editId=o.id", con))
             {
                 editOrderCommand.Parameters.AddWithValue("@username", Session["username"]);
                 editOrderCommand.Parameters.AddWithValue("@id", this.CartGridView.Rows[e.NewEditIndex].Cells[1].Text);

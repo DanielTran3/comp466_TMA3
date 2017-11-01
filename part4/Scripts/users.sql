@@ -2,55 +2,53 @@ CREATE DATABASE IF NOT EXISTS DigitalElectronics;
 USE DigitalElectronics;
 
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS currentOrder;
+
 CREATE TABLE users (
 username VARCHAR(20) NOT NULL,
 password VARCHAR(30) NOT NULL,
 securityQuestion VARCHAR(256) NOT NULL,
 securityAnswer VARCHAR(128) NOT NULL,
-PRIMARY KEY (Username));
+PRIMARY KEY (username));
 
-DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
 ID int NOT NULL AUTO_INCREMENT,
 username VARCHAR(20) NOT NULL,
-prebuiltSystem VARCHAR(2048),
-display VARCHAR(512),
-hardDrive VARCHAR(512),
-operatingSystem VARCHAR(512),
-processor VARCHAR(512),
-ram VARCHAR(512),
-soundcard VARCHAR(512),
-totalPrice VARCHAR(16),
+prebuiltSystem int NOT NULL,
+display int NOT NULL,
+hardDrive int NOT NULL,
+operatingSystem int NOT NULL,
+processor int NOT NULL,
+ram int NOT NULL,
+soundcard int NOT NULL,
+totalPrice VARCHAR(32) NOT NULL,
 PRIMARY KEY (ID),
-FOREIGN KEY (username) REFERENCES users(username));
+FOREIGN KEY (username) REFERENCES users(username),
+FOREIGN KEY (prebuiltSystem) REFERENCES prebuiltSystem(ID),
+FOREIGN KEY (processor) REFERENCES processor(ID),
+FOREIGN KEY (ram) REFERENCES ram(ID),
+FOREIGN KEY (hardDrive) REFERENCES hardDrive(ID),
+FOREIGN KEY (display) REFERENCES display(ID),
+FOREIGN KEY (operatingSystem) REFERENCES operatingSystem(ID),
+FOREIGN KEY (soundCard) REFERENCES soundCard(ID));
 
-/*
-DROP TABLE IF EXISTS currentOrder;
 CREATE TABLE currentOrder (
 username VARCHAR(20) NOT NULL,
-prebuiltSystem VARCHAR(2048),
-display VARCHAR(512),
-hardDrive VARCHAR(512),
-operatingSystem VARCHAR(512),
-processor VARCHAR(512),
-ram VARCHAR(512),
-soundCard VARCHAR(512),
-totalPrice VARCHAR(16),
+prebuiltSystem int,
+display int,
+hardDrive int,
+operatingSystem int,
+processor int,
+ram int,
+soundCard int,
+totalPrice VARCHAR(32),
 PRIMARY KEY (username),
-FOREIGN KEY (username) REFERENCES users(username));
-*/
-
-/* USE ID OF TABLES INSTEAD */
-DROP TABLE IF EXISTS currentOrder;
-CREATE TABLE currentOrder (
-username VARCHAR(20) NOT NULL,
-prebuiltSystem VARCHAR(2048),
-display VARCHAR(512),
-hardDrive VARCHAR(512),
-operatingSystem VARCHAR(512),
-processor VARCHAR(512),
-ram VARCHAR(512),
-soundCard VARCHAR(512),
-totalPrice VARCHAR(16),
-PRIMARY KEY (username),
-FOREIGN KEY (username) REFERENCES users(username));
+FOREIGN KEY (username) REFERENCES users(username),
+FOREIGN KEY (prebuiltSystem) REFERENCES prebuiltSystem(ID),
+FOREIGN KEY (processor) REFERENCES processor(ID),
+FOREIGN KEY (ram) REFERENCES ram(ID),
+FOREIGN KEY (hardDrive) REFERENCES hardDrive(ID),
+FOREIGN KEY (display) REFERENCES display(ID),
+FOREIGN KEY (operatingSystem) REFERENCES operatingSystem(ID),
+FOREIGN KEY (soundCard) REFERENCES soundCard(ID));
