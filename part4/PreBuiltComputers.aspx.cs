@@ -79,7 +79,12 @@ public partial class PreBuiltComputers : System.Web.UI.Page
                                                                                   WHERE username=@username", con))
                     {
                         getTotalPriceCommand.Parameters.AddWithValue("@username", Session["username"]);
-                        string totalPrice = getTotalPriceCommand.ExecuteScalar().ToString();
+                        object tempPrice = getTotalPriceCommand.ExecuteScalar();
+                        string totalPrice = string.Empty;
+                        if (tempPrice != null)
+                        {
+                            totalPrice = tempPrice.ToString();
+                        }
                         Label totalCostLabel = (Label)Master.FindControl("TotalCostLabel");
                         if (totalCostLabel != null)
                         {

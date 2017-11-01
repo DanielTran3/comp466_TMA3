@@ -392,10 +392,10 @@ public partial class SwapParts : System.Web.UI.Page
                 {
                     DataTable tempTable = new DataTable();
                     adapter.Fill(tempTable);
-                    //gridview.Columns[0].Visible = true;
+                    gridview.Columns[0].Visible = true;
                     gridview.DataSource = tempTable;
                     gridview.DataBind();
-                    //gridview.Columns[0].Visible = false;
+                    gridview.Columns[0].Visible = false;
                     con.Close();
                 }
             //}
