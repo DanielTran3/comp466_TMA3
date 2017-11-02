@@ -9,6 +9,7 @@ public partial class Account_ForgotPasswordSuccessful : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Show the page only coming from the ForgetPassword page. Anyother page gets redirected to the login screen.
         if (Session["validRecovery"] != null)
         {
             Session["validRecovery"] = null;

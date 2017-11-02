@@ -21,11 +21,13 @@ public partial class PreBuiltComputers : System.Web.UI.Page
             this.PreBuiltComputersGridView.DataSource = PreBuiltSystem.GetAllPreBuiltSystems();
             Session.Add("prebuiltSystems", this.PreBuiltComputersGridView.DataSource);
         }
-        if (Session["selectedPreBuiltComputerRowIndex"] != null)
+
+        Label totalCostLabel = (Label)Master.FindControl("TotalCostLabel");
+        if (totalCostLabel != null && Session["totalPrice"] != null)
         {
-            this.PreBuiltComputersGridView.SelectRow((int)Session["selectedPreBuiltComputerRowIndex"]);
+            totalCostLabel.Text = "$" + Session["totalPrice"].ToString();
         }
-        
+
         this.PreBuiltComputersGridView.DataBind();
     }
 

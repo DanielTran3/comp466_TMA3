@@ -50,15 +50,15 @@
         <table class="auto-style2">
             <tr>
                 <td class="auto-style3">
-                    <asp:Label ID="Label1" runat="server" Text="Name:" CssClass="labelsRight"></asp:Label>
+                    <asp:Label ID="UsernameLabel" runat="server" Text="Username:" CssClass="labelsRight"></asp:Label>
                 </td>
                 <td class="auto-style4">
-                    <asp:TextBox ID="NameTextbox" runat="server" Height="16px" Width="300px"></asp:TextBox>
+                    <asp:TextBox ID="UsernameTextbox" runat="server" Height="16px" Width="300px" Enabled="False"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style1">
-                    <asp:Label ID="Label2" runat="server" CssClass="labelsRight" Text="Your Feedback:"></asp:Label>
+                    <asp:Label ID="FeedbackLabel" runat="server" CssClass="labelsRight" Text="Your Feedback:"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="FeedbackTextbox" runat="server" Rows="10" TextMode="MultiLine" Width="300px"></asp:TextBox>
@@ -76,10 +76,10 @@
         <asp:Label ID="NoFeedbackLabel" runat="server" Text="There is Currently No Feedback Available"></asp:Label>
     </h2>
     <p>
-        <asp:GridView ID="FeedbackGridView" runat="server" CssClass="gridView" AutoGenerateColumns="False">
+        <asp:GridView ID="FeedbackGridView" runat="server" CssClass="gridView" AutoGenerateColumns="False" Width="50px">
             <Columns>
-                <asp:BoundField DataField="Name" HeaderText="Name" />
-                <asp:BoundField DataField="Comment" HeaderText="Comment" HtmlEncode="false"/>
+                <asp:BoundField DataField="Username" HeaderText="Username" />
+                <asp:BoundField DataField="feedbackText" HeaderText="Comment" HtmlEncode="false"/>
             </Columns>
         </asp:GridView>
     </p>

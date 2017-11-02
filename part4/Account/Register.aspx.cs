@@ -12,35 +12,21 @@ public partial class Account_Register : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!this.IsPostBack)
-        //{
-        //string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
-        //using (MySqlConnection con = new MySqlConnection(constr))
-        //{
-        //    con.Open();
-        //    using (MySqlCommand cmd = new MySqlCommand("INSERT INTO users (username, password) VALUES (@test, @test2)", con))
-        //    {
-        //        using (MySqlDataAdapter sda = new MySqlDataAdapter())
-        //        {
-        //            //cmd.Connection = con;
-        //            //sda.InsertCommand = cmd;
-        //            cmd.Parameters.AddWithValue("@test", "test");
-        //            cmd.Parameters.AddWithValue("@test2", "test2");
-        //            int result = cmd.ExecuteNonQuery();
-        //            cmd.Dispose();
-        //        }
-        //    }
-        //    con.Close();
-        //}
-        //}
     }
 
+    /// <summary>
+    /// Register a new user into the database
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     protected void RegisterSubmitButton_Click(object sender, EventArgs e)
     {
+        // Create a connection to the DigitalElectronicsDB database
         string constr = ConfigurationManager.ConnectionStrings["DigitalElectronicsDB"].ConnectionString;
         using (MySqlConnection con = new MySqlConnection(constr))
         {
             con.Open();
+            // Query to see if the username already exists. If it does, display an error message stating that the username exists
             using (MySqlCommand checkUsernameCommand = new MySqlCommand("SELECT username FROM users WHERE username=@inputtedUsername", con))
             {
                 checkUsernameCommand.Parameters.AddWithValue("@inputtedUsername", this.UsernameTextbox.Text);
@@ -55,6 +41,7 @@ public partial class Account_Register : System.Web.UI.Page
                 checkUsernameCommand.Dispose();
             }
 
+            // Username does not exist, submit the users credentials into the database.
             using (MySqlCommand addUserCommand = new MySqlCommand(@"INSERT INTO users (username, password, securityQuestion, securityAnswer) 
                                                                     VALUES (@username, @password, @securityQuestion, @securityAnswer)", con))
             {
@@ -63,7 +50,7 @@ public partial class Account_Register : System.Web.UI.Page
                 addUserCommand.Parameters.AddWithValue("@securityQuestion", this.SecurityQuestionDropDownList.SelectedValue);
                 addUserCommand.Parameters.AddWithValue("@securityAnswer", this.SecurityAnswerTextBox.Text);
                 int affectedRows = addUserCommand.ExecuteNonQuery();
-                if (affectedRows == 1)
+                if (affectedRows == 1) // Valid insertion, redirect user to the RegistrationSuccessful page.
                 {
                     addUserCommand.Dispose();
                     con.Close();

@@ -52,3 +52,10 @@ FOREIGN KEY (hardDrive) REFERENCES hardDrive(ID),
 FOREIGN KEY (display) REFERENCES display(ID),
 FOREIGN KEY (operatingSystem) REFERENCES operatingSystem(ID),
 FOREIGN KEY (soundCard) REFERENCES soundCard(ID));
+
+DROP TABLE IF EXISTS feedback;
+CREATE TABLE feedback (
+ID int NOT NULL AUTO_INCREMENT,
+username VARCHAR(20) NOT NULL,
+feedbackText VARCHAR(2048) NOT NULL,
+PRIMARY KEY (ID));
