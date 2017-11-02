@@ -41,7 +41,8 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         if (button.Text == "Sequential")
         {
             button.Text = "Random";
-            this.ForwardBackwardButton.Enabled = false;
+            this.ForwardButton.Enabled = false;
+            this.BackwardButton.Enabled = false;
 
             photos.RandomCurrentPhotoIndex();
             this.PhotoDisplay.ImageUrl = photos.GetPhoto();
@@ -50,7 +51,8 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         else
         {
             button.Text = "Sequential";
-            this.ForwardBackwardButton.Enabled = true;
+            this.ForwardButton.Enabled = true;
+            this.BackwardButton.Enabled = true;
         }
     }
 
@@ -59,14 +61,10 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         Button button = sender as Button;
         if (button.Text == "Forward")
         {
-            button.Text = "Backward";
-
             photos.Forward = true;
         }
         else
         {
-            button.Text = "Forward";
-
             photos.Forward = false;
         }
     }

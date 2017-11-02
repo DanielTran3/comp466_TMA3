@@ -4,17 +4,15 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for ComponentsFactory
+/// A static class that contains methods used to create components. The methods contain the hard-coded data for each
+/// component type.
 /// </summary>
-public class ComponentsFactory
+public static class ComponentsFactory
 {
-    public ComponentsFactory()
-    {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
-
+    /// <summary>
+    /// Creates a list of Sound Cards
+    /// </summary>
+    /// <returns></returns>
     public static List<Components> GetAllSoundCards()
     {
         List<Components> soundDetails = new List<Components>();
@@ -26,6 +24,10 @@ public class ComponentsFactory
         return soundDetails;
     }
 
+    /// <summary>
+    /// Creates a list of Displays
+    /// </summary>
+    /// <returns></returns>
     public static List<Components> GetAllDisplays()
     {
         List<Components> displayDetails = new List<Components>();
@@ -40,6 +42,10 @@ public class ComponentsFactory
         return displayDetails;
     }
 
+    /// <summary>
+    /// Creates a list of Hard Drives
+    /// </summary>
+    /// <returns></returns>
     public static List<Components> GetAllHardDrives()
     {
         List<Components> hardDriveDetails = new List<Components>();
@@ -56,6 +62,10 @@ public class ComponentsFactory
         return hardDriveDetails;
     }
 
+    /// <summary>
+    /// Creates a list of Operating Systems
+    /// </summary>
+    /// <returns></returns>
     public static List<Components> GetAllOperatingSystems()
     {
         List<Components> operatingSystems = new List<Components>();
@@ -65,6 +75,10 @@ public class ComponentsFactory
         return operatingSystems;
     }
 
+    /// <summary>
+    /// Creates a list of Processors
+    /// </summary>
+    /// <returns></returns>
     public static List<Components> GetAllProcessors()
     {
         List<Components> processorDetails = new List<Components>();
@@ -77,6 +91,10 @@ public class ComponentsFactory
         return processorDetails;
     }
 
+    /// <summary>
+    /// Creates a list of RAM
+    /// </summary>
+    /// <returns></returns>
     public static List<Components> GetAllRAMs()
     {
         List<Components> ramDetails = new List<Components>();

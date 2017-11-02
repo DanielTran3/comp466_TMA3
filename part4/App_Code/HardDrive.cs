@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for HardDrive
+/// A class representing Hard Drives that extends components
 /// </summary>
 public class HardDrive : Components
 {
@@ -80,6 +80,11 @@ public class HardDrive : Components
     #endregion
 
     #region Public Methods
+    /// <summary>
+    /// Check the equaliry of a hard drive with another hard drive
+    /// </summary>
+    /// <param name="hdd">The hard drive to compare to</param>
+    /// <returns></returns>
     public bool EqualComponent(HardDrive hdd)
     {
         if (base.EqualComponent(hdd) && this._type == hdd.Type &&
@@ -91,6 +96,11 @@ public class HardDrive : Components
         return false;
     }
 
+    /// <summary>
+    /// Override the ToString method that is used to display a concatenated string containing
+    /// all properties of the HardDrive class
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return "<b>Hard Drive: </b>" + this._brand + " " + this._model + " " + this._size + " " + this._type + 
@@ -99,11 +109,19 @@ public class HardDrive : Components
     #endregion
 
     #region Abstract Implementations
+    /// <summary>
+    /// HardDrive class refers to the HardDriveGridView
+    /// </summary>
+    /// <returns></returns>
     public override string GetGridView()
     {
         return "HardDriveGridView";
     }
 
+    /// <summary>
+    /// HardDrive class refers to the hardDrive session
+    /// </summary>
+    /// <returns></returns>
     public override string GetSessionName()
     {
         return "hardDrive";

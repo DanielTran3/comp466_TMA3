@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 
 /// <summary>
-/// Summary description for Display
+/// A class representing Displays that extends components
 /// </summary>
 public class Display : Components
 {
@@ -66,6 +66,11 @@ public class Display : Components
     #endregion
 
     #region Public Methods
+    /// <summary>
+    /// Check the equality of a display with another display
+    /// </summary>
+    /// <param name="d">The display to compare to</param>
+    /// <returns></returns>
     public bool EqualComponent(Display d)
     {
         if (base.EqualComponent(d) && this._size == d.Size &&
@@ -76,6 +81,11 @@ public class Display : Components
         return false;
     }
 
+    /// <summary>
+    /// Override the ToString method that is used to display a concatenated string containing
+    /// all properties of the Display class
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return "<b>Monitor: </b>" + this._brand + " " + this._model + " " + this._size + 
@@ -84,11 +94,19 @@ public class Display : Components
     #endregion
 
     #region Abstract Implementations
+    /// <summary>
+    /// Display class refers to the DisplayGridView
+    /// </summary>
+    /// <returns></returns>
     public override string GetGridView()
     {
         return "DisplayGridView";
     }
 
+    /// <summary>
+    /// Display class refers to the display session
+    /// </summary>
+    /// <returns></returns>
     public override string GetSessionName()
     {
         return "display";

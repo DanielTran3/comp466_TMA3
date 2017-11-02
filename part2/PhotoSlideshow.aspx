@@ -4,21 +4,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Photo Slideshow</title>
+    <%--<link rel = "stylesheet" type="text/css" runat="server" href="~/shared/tma3_stylesheet.css" />--%>
+    <style type="text/css">
+        .alignCenter {
+            text-align:center;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <p>
-            Photo Slideshow</p>
-        <p>
+        <h1 class="alignCenter">Photo Slideshow</h1>
+        <p class="alignCenter">
             <asp:Button ID="StartStopButton" runat="server" Text="Start" OnClick="StartStopButton_Click" />
             <asp:Button ID="SequentialRandomButton" runat="server" Text="Sequential" OnClick="SequentialRandomButton_Click" />
-            <asp:Button ID="ForwardBackwardButton" runat="server" Text="Forward" OnClick="ForwardBackwardButton_Click" />
+            <asp:Button ID="ForwardButton" runat="server" Text="Forward" OnClick="ForwardBackwardButton_Click" />
+            <asp:Button ID="BackwardButton" runat="server" Text="Backward" OnClick="ForwardBackwardButton_Click" />
         </p>
         <p>
             <asp:Image ID="PhotoDisplay" runat="server" />
         </p>
-        <asp:Label ID="CaptionLabel" runat="server"></asp:Label>
+        <asp:Label ID="CaptionLabel" CssClass="alignCenter" runat="server"></asp:Label>
     </form>
 </body>
 </html>
