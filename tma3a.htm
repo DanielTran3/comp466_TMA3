@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+        <link rel = "stylesheet" type="text/css" href="shared/tma2_stylesheet.css" />
+        <script src="tma2.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                pageStartup();
+            }
+        </script>
+        <title>TMA1 - Main Page</title>
+    </head>
+    <body>
+        <div class="linksBar">
+            <ul>
+                <li>
+                    <a href="part1/CookieVisits.aspx">Cookie Visits</a>
+                </li>
+                <li>
+                    <a href="part2/WelcomeToLearnTheWeb.html">Learn The Web</a>
+                </li>
+                <li>
+                    <a href="part3/photoSlideshow.html">Photo Slideshow</a>
+                </li>
+                <li>
+                    <a href="part4/UtilityTools.html">Utility Tools</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="aside mainScreen">
+            <button id="defaultOpen" class="active tablinks">Assignment #3</button>
+            <button class="tablinks">Cookie Visits Documentation</button>
+            <button class="tablinks">________ Documentation</button>
+            <button class="tablinks">Notes for the Instructor</button>
+        </div>
+
+        <div class="main-content mainScreen">
+            <div class="titleDiv">
+                <span class="title1">Assignment #3 (TMA1)</span>
+                <span class="title2">COMP 466 - Advanced Technologies for Web-Based Systems</span>
+                <span class="title3">Daniel Tran - 3339325</span>
+                <span class="title3">Start Date: October 20, 2017</span>
+                <span class="title3">End Date: TBA</span>
+                <span class="title3">Estimated Hours: 900 minutes</span>
+            </div>
+            <div class="titleDiv" hidden>
+                <span class="title1">Cookie Visits Documentation</span>
+                <span class="title2">Original Description and Requirements (Part 1 - 10 marks)</span>
+                <p class="title4">
+                    Create a web application with ASP.NET in C# that uses a persistent cookie to track 
+                    how many times a client computer has visited the page. In addition to the number 
+                    of hits, the application also needs to display the IP address of the client 
+                    computer and the time zone where the client computer is located.
+                </p>
+                
+                <hr />
+                
+                <span class="title2">Interpretation of Description and Requirements</span>
+                <p class="title4">
+                    My interpretation of this first part is that a web application is to be created 
+                    using the ASP.NET in C# framework. The page should count the number of times that 
+                    a user visits a page through the use of persistant cookies. As well, there should 
+                    be the IP address of the client computer displayed along with the time zone of 
+                    the computer. Thus, there should only be three elements on the page, which are 
+                    the number of times the website has been visited by a client computer, the 
+                    ip address of the computer, and the timezone of where the computer located. There 
+                    can be an additional button that is dedicated to refreshing the page.
+                </p>
+
+                <hr />
+
+                <span class="title2">Analysis and Design of the Web Application</span>
+                <p class="title4">
+                    In the specifications, it does not define the the time that the cookie should persist for, 
+                    so an arbitrary but reasonable time can be assumed. Additionally, the IP address of the 
+                    client computer and their time zone also need to be displayed. Since these are 
+                    client-side properties, the information should be retrieved through some client-side 
+                    code, such as JavaScript. This code should exist in the aspx file as part of the 
+                    ASP.NET application.
+                </p>
+
+                <hr />
+
+                <span class="title2">Documentation of Implementation</span>                
+                <p class="title4">
+                    In the code, the persistant cookies are defined as 
+                </p>
+                
+                <hr />
+
+                <span class="title2">Setup, Run, and Use Guide</span>
+                <p class="title4">
+                    Ensure that the server is running before opening the CookieVisits webpage. To refresh the 
+                    page and see the number of visits increase, press F5, the refresh button on the browser, 
+                    or the Refresh Button in the CookieVisits webpage.
+                </p>
+
+                <hr />
+
+                <span class="title2">Resources</span>
+                <p class="title4">
+                    
+                </p>
+                <ul class="title4">
+                    <li>
+                        <a href="https://stackoverflow.com/questions/18902887/how-to-configuring-a-xampp-web-server-for-different-root-directory">
+                            Changing XAMPP config folder (answer: insCode)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/6515497/getting-cookie-value-from-php-form">
+                            Change files if cookies exist
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/3922989/how-to-check-if-page-exists-using-javascript">
+                            Check if page exists (answer: fwielstra)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://php.net/manual/en/function.mysql-fetch-assoc.php">
+                            Using mysql_fetch_assoc
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/6616539/post-ajax-data-to-php-and-return-data">
+                            JS AJAX call
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/686155/remove-a-cookie">
+                            Clearing a cookie
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url">
+                            http(s) URL regular expression
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/41279524/xmlhttprequest-only-working-for-local-host">
+                            Allowing http request from localhost
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="titleDiv" hidden>
+                <span class="title1">Photo Sideshow Documentation</span>
+                <span class="title2">Original Description and Requirements (Part 2 - 15 marks)</span>
+                <p class="title4">
+                    
+                </p>
+                <p class="title4">
+                    Develop a web application using ASP.NET in C# that runs a slideshow of a list of pictures. The 
+                    requirements are as follows:
+                </p>
+                <ol class="title4">
+                    <li>
+                        Information about the pictures must be stored on the server either in a database or in a text file. 
+                        These details would include the name and location or URL of each picture and a description of the 
+                        picture to be used as a caption, which must be stored in a plain text file or a database.
+                    </li>
+                    <li>
+                        The caption should be shown under each picture in the show.
+                    </li>
+                    <li>
+                        There should be a button to start/stop the show.
+                    </li>
+                    <li>
+                        There should be a control to toggle the show between random and sequential.
+                    </li>
+                    <li>
+                        There should be buttons to manually turn the show backward or forward, only if the show is in sequential mode.
+                    </li>
+                    <li>
+                        You may reuse the pictures you have used for assignment 1.
+                    </li>
+                    <li>
+                        The show should have at least 20 nice pictures.
+                    </li>
+                </ol>
+                <p class="title4">
+                    All files for this project should be stored under directory TMA3A/part2
+                </p>
+
+                <hr />
+                
+                <span class="title2">Interpretation of Description and Requirements</span>
+                <p class="title4">
+
+                </p>
+
+                <hr />
+
+                <span class="title2">Analysis and Design of the Web Application</span>
+                <p class="title4">
+
+                </p>
+
+                <hr />
+
+                <span class="title2">Documentation of Implementation</span>                
+                <p class="title4">
+
+                </p>
+
+                <hr />
+
+                <span class="title2">Setup, Run, and Use Guide</span>
+                <p class="title4">
+
+                </p>
+            </div>
+            <div class="titleDiv" hidden>
+                <span class="title1">DigitalComputers Documentation</span>
+                <span class="title2">Original Description and Requirements (Part 3 - 25 marks)</span>
+                <p class="title4">
+                    In parts 3 and 4 of this assignment, you will be developing an online computer store in which customers can 
+                    select a computer from a list and customize it by replacing some components in its standard configuration 
+                    with others that may be better or cheaper. Customers can then place an order with the online store. In 
+                    part 1, focus on the web interface design and implementation of the online store, using ASP.NET in C# 
+                    and other web technologies you have learned from Units 1–5. The requirements are as follows:
+                </p>
+                
+                <ol class="title4">
+                    <li>
+                        Visit some online stores such as Bestbuy.CA and Amazon.CA, study their designs and functionalities, and write your findings in the assignment report.
+                    </li>
+                    <li>
+                        Based on your study above, analyze the requirements of the web application you are to develop and then work out a design of the web application, 
+                        including drawings of the interface, name and functions of each modules you will need, and web pages/documents to be used.
+                    </li>
+                    <li>
+                        The application running in a web browser should be like a real online store, with a name and logo, menus and buttons for navigation, a 
+                        welcome page to greet customers, and other pages, such as contacts and a feedback form, and so on.
+                    </li>
+                    <li>
+                        There should be a list of computers, lists of different parts or components (no less than five different components including at least RAM, 
+                        hard drive, CPU, display, OS, and soundcard) of computers that can be reviewed by customers. At this stage, the information about these products 
+                        can be hard-coded into the HTML or program files.
+                    </li>
+                    <li>
+                        A customer can select a computer with default/standard configuration and pricing, and then customize it by changing its configuration, that 
+                        is, by replacing one component with another from a list of compatible components.
+                    </li>
+                    <li>
+                        Whenever a change has been made by the customer, the price total needs to be dynamically changed and displayed to the customer, in an area 
+                        embedded in the online store, not in a pop-up window.
+                    </li>
+                    <li>
+                        After the customer has hit the Buy or Add to Cart or something similar, a summary of selections, including all the details of the customized 
+                        computer and its pricing, should be displayed in the browser window.
+                    </li>
+                    <li>
+                        At this stage, you don’t need to save orders placed by customers in the database. You can use Cookies to store and track customer selections.
+                    </li>
+                    <li>
+                        All links, menus, and buttons within the online store should be active.
+                    </li>
+                </ol>
+                <p class="title4">
+                    All files for this project should be stored under directory TMA3A/part3
+                </p>
+            
+
+                <hr />
+                
+                <span class="title2">Interpretation of Description and Requirements</span>
+                <p class="title4">
+                    
+                </p>
+
+                <hr />
+
+                <span class="title2">Analysis and Design of the Web Application</span>
+                <p class="title4">
+                    
+                </p>
+
+                <hr />
+
+                <span class="title2">Documentation of Implementation</span>                
+                <p class="title4">
+                    
+                </p>
+                
+                <hr />
+
+                <span class="title2">Setup, Run, and Use Guide</span>
+                <p class="title4">
+                    
+                </p>
+
+                <hr />
+
+                <span class="title2">Resources</span>
+                <p class="title4">
+                    
+                </p>
+                <ul class="title4">
+                    <li>
+                        <a href="https://stackoverflow.com/questions/18902887/how-to-configuring-a-xampp-web-server-for-different-root-directory">
+                            Changing XAMPP config folder (answer: insCode)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/6515497/getting-cookie-value-from-php-form">
+                            Change files if cookies exist
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/3922989/how-to-check-if-page-exists-using-javascript">
+                            Check if page exists (answer: fwielstra)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://php.net/manual/en/function.mysql-fetch-assoc.php">
+                            Using mysql_fetch_assoc
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/6616539/post-ajax-data-to-php-and-return-data">
+                            JS AJAX call
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/686155/remove-a-cookie">
+                            Clearing a cookie
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url">
+                            http(s) URL regular expression
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://stackoverflow.com/questions/41279524/xmlhttprequest-only-working-for-local-host">
+                            Allowing http request from localhost
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        
+
+            <div class="titleDiv" hidden>
+                <span class="title1">DigitalComputers Database Documentation</span>
+                <span class="title2">Original Description and Requirements (Part 4 - 35 marks)</span>
+                <p class="title4">
+                    In part 4 of the assignment, you will continue your work completed in part 3, to develop a fully functioning 
+                    online computer store (without payment transaction, though). Your tasks for this part are:
+                </p>
+                <ol class="title4">
+                    <li>
+                        Add a customer management module to the online computer store, which should include new customer 
+                        registration, customer authentication, and password recovery.
+                    </li>
+                    <li>
+                        Add an order management module which will save orders for registered customers and allow registered 
+                        customers to manage their orders, including view the list and details of each item in the list and 
+                        delete or make changes to a selected order in the list.
+                    </li>
+                    <li>
+                        Design and implement a back-end database to support your online computer store that does the following.
+                        <ol class="title4">
+                            <li>
+                                Store all the details of the computers and components and replace all the data hard-coded into the 
+                                program files with data from the database.
+                            </li>
+                            <li>
+                                Use the database for all your customer management.
+                            </li>
+                            <li>
+                                Use the database for all your order management. When an order is submitted, the details of the order, 
+                                including pricing, need to be saved in the database, and then displayed in an appropriate format 
+                                to the customer.
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+                <p class="title4">
+                    All files for this project should be stored under directory TMA3A/part4
+                </p>
+                <p class="title4">
+                    In your assignment report on the main page (tma3a.htm), show the design of the database tables, and 
+                    explain the functionality of each program and web page you developed. You may want to research some 
+                    examples in Microsoft’s ASP.NET AJAX Showcase. If you use any code from these examples that is not 
+                    part of the standard ASP.NET or ASP.NET Ajax distribution package, <b>you must clearly indicate the 
+                    source of the code.</b> However, all the significant components of your system must be developed by yourself.
+                </p>
+                <p class="title4">
+                    Test all parts of the assignment on your own server before you submit Assignment 3A to your tutor. 
+                    Make your web server accessible for your tutor to assess your work. For your personal protection you 
+                    should not put your name and student ID on an unprotected web site, and after your tutor has assessed 
+                    your work, you must remove all the assignment documents from the site.
+                </p>
+                <hr />
+                
+                <span class="title2">Interpretation of Description and Requirements</span>
+                <p class="title4">
+
+                </p>
+
+                <hr />
+
+                <span class="title2">Analysis and Design of the Web Application</span>
+                <p class="title4">
+
+                </p>
+
+                <hr />
+
+                <span class="title2">Documentation of Implementation</span>                
+                <p class="title4">
+
+                </p>
+
+                <hr />
+
+                <span class="title2">Setup, Run, and Use Guide</span>
+                <p class="title4">
+
+                </p>
+            </div>
+
+            <div class="titleDiv" hidden>
+                <span class="title1">Note for the Instructor</span>
+                <p class="title4">
+                    mysql -h localhost -u root
+                    USE mysql;
+                    create user 'iw3htp'@'localhost' identified by 'password';
+                    grant select, insert, update, delete, create, drop, references,
+                    execute on *.* to 'iw3htp'@'localhost';
+                    mysql -h localhost -u iw3htp -p
+
+                    ---
+
+                    CREATE DATABASE users;
+                    USE users;
+
+                    CREATE TABLE credentials (
+                        username VARCHAR(30) NOT NULL , 
+                        password VARCHAR(30) NOT NULL,
+                        PRIMARY KEY(username));
+                    CREATE TABLE bookmarks (
+                        username VARCHAR(30) NOT NULL , 
+                        url VARCHAR(30) NOT NULL,
+                        FOREIGN KEY (username) REFERENCES credentials(username),
+                        UNIQUE (username, url));
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
