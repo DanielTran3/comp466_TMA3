@@ -81,7 +81,7 @@ public class HardDrive : Components
 
     #region Public Methods
     /// <summary>
-    /// Check the equaliry of a hard drive with another hard drive
+    /// Check the equality of a hard drive with another hard drive
     /// </summary>
     /// <param name="hdd">The hard drive to compare to</param>
     /// <returns></returns>

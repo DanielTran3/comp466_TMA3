@@ -150,6 +150,10 @@ public class PreBuiltSystem
     }
     #endregion
 
+    /// <summary>
+    /// Static method to initialize all of the components (using the ComponentsFactory) and add all of the components to the system
+    /// </summary>
+    /// <returns></returns>
     public static List<PreBuiltSystem> GetAllPreBuiltSystems()
     {
         List<Components> processors = ComponentsFactory.GetAllProcessors();
@@ -167,12 +171,20 @@ public class PreBuiltSystem
         return preBuiltSystem;
     }
 
+    /// <summary>
+    /// Parses the $ sign out of the string and returns the equivalent double value
+    /// </summary>
+    /// <param name="price">The price string to parse and get the value for</param>
+    /// <returns></returns>
     public static double GetPrice(string price)
     {
         string tempString = price.Replace("$", "");
         return Convert.ToDouble(tempString);
     }
 
+    /// <summary>
+    /// Gets the total price of each component and concatenates a $ sign in the front
+    /// </summary>
     public void TotalPrice()
     {
         _price = "$" + (GetPrice(_processorPart.Price) + GetPrice(_ramPart.Price) + GetPrice(_hardDrivePart.Price) + GetPrice(_displayPart.Price) + 

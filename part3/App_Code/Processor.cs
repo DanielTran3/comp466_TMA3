@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for Processors
+/// A class representing Processors that extends components
 /// </summary>
 public class Processor : Components
 {
@@ -66,19 +66,11 @@ public class Processor : Components
     #endregion
 
     #region Public Methods
-    //public static List<Processor> GetAllProcessorsBasedOnSocket(string socket)
-    //{
-    //    List<Processor> processorDetails = new List<Processor>();
-    //    foreach (Processor p in GetAllProcessors())
-    //    {
-    //        if (p.Socket == socket)
-    //        {
-    //            processorDetails.Add(p);
-    //        }
-    //    }
-    //    return processorDetails;
-    //}
-
+    /// <summary>
+    /// Check the equality of a processor with another processor
+    /// </summary>
+    /// <param name="p">The processor to compare to</param>
+    /// <returns></returns>
     public bool EqualProcessors(Processor p)
     {
         if (base.EqualComponent(p) && this._clock == p.Clock &&
@@ -89,6 +81,11 @@ public class Processor : Components
         return false;
     }
 
+    /// <summary>
+    /// Override the ToString method that is used to display a concatenated string containing
+    /// all properties of the Processor class
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return "<b>Processor: </b>" + this._brand + " " + this._model + " " + this._clock + " " + 
@@ -97,11 +94,19 @@ public class Processor : Components
     #endregion
 
     #region Abstract Implementations
+    /// <summary>
+    /// Processor class refers to the ProcessorGridView
+    /// </summary>
+    /// <returns></returns>
     public override string GetGridView()
     {
         return "ProcessorGridView";
     }
 
+    /// <summary>
+    /// Processor class refers to the processor session
+    /// </summary>
+    /// <returns></returns>
     public override string GetSessionName()
     {
         return "processor";

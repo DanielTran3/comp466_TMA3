@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for SoundCard
+/// A class representing SoundCard that extends components
 /// </summary>
 public class SoundCard : Components
 {
@@ -22,11 +22,21 @@ public class SoundCard : Components
     #endregion
 
     #region Public Methods
+    /// <summary>
+    /// Check the equality of a SoundCard with another SoundCard
+    /// </summary>
+    /// <param name="soundCard">The SoundCard to compare to</param>
+    /// <returns></returns>
     public bool EqualComponent(SoundCard soundCard)
     {
         return base.EqualComponent(soundCard);
     }
 
+    /// <summary>
+    /// Override the ToString method that is used to display a concatenated string containing
+    /// all properties of the SoundCard class
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return "<b>Sound Card: </b>" + this._brand + " " + this._model + " " + "(" + this._price + ")";
@@ -34,11 +44,19 @@ public class SoundCard : Components
     #endregion
 
     #region Abstract Implementations
+    /// <summary>
+    /// SoundCard class refers to the SoundCardGridView
+    /// </summary>
+    /// <returns></returns>
     public override string GetGridView()
     {
         return "SoundCardGridView";
     }
 
+    /// <summary>
+    /// SoundCard class refers to the soundCard session
+    /// </summary>
+    /// <returns></returns>
     public override string GetSessionName()
     {
         return "soundCard";

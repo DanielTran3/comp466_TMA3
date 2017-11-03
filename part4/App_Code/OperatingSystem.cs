@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for OS
+/// A class representing Operating Systems that extends components
 /// </summary>
 public class OperatingSystem : Components
 {
@@ -33,6 +33,11 @@ public class OperatingSystem : Components
     #endregion
 
     #region Public Methods
+    /// <summary>
+    /// Check the equality of a hard drive with another hard drive
+    /// </summary>
+    /// <param name="os">The operating system to compare to</param>
+    /// <returns></returns>
     public bool EqualOperatingSystems(OperatingSystem os)
     {
         if (this._brand == os.Brand && this._brand == os.Brand && this._price == os.Price)
@@ -42,6 +47,11 @@ public class OperatingSystem : Components
         return false;
     }
 
+    /// <summary>
+    /// Override the ToString method that is used to display a concatenated string containing
+    /// all properties of the OperatingSystem class
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
         return "<b>Operating System: </b>" + this._brand + " " + this._model + " " + "(" + this._price + ")";
@@ -49,11 +59,19 @@ public class OperatingSystem : Components
     #endregion
 
     #region Abstract Implementations
+    /// <summary>
+    /// OperatingSystem class refers to the OperatingSystemGridView
+    /// </summary>
+    /// <returns></returns>
     public override string GetGridView()
     {
         return "OperatingSystemGridView";
     }
 
+    /// <summary>
+    /// OperatingSystem class refers to the OperatingSystem session
+    /// </summary>
+    /// <returns></returns>
     public override string GetSessionName()
     {
         return "OperatingSystem";

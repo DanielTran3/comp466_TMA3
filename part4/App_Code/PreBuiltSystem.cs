@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for PreBuiltSystem
+/// A PreBuiltSystem contains instances of the children classes of the Components class, which
+/// includes Processor, RAM, HardDRive, Display, OperatingSystem, and SoundCard
 /// </summary>
 public class PreBuiltSystem
 {
@@ -18,6 +19,9 @@ public class PreBuiltSystem
     private Components _operatingSystemPart;
     private Components _soundCardPart;
     private int _preBuiltIndex;
+
+    // Constructor that creates the _system string that contains the details for a system.
+    // Constructor also calculates the total price of the system
     public PreBuiltSystem(string id, Components processor, Components ram, Components hardDrive, Components display, Components os, Components soundCard)
     {
         _system = processor.ToString() + "<br />" + ram.ToString() + "<br />" + hardDrive.ToString() + 
@@ -165,12 +169,20 @@ public class PreBuiltSystem
     }
     #endregion
 
+    /// <summary>
+    /// Parses the $ sign out of the string and returns the equivalent double value
+    /// </summary>
+    /// <param name="price">The price string to parse and get the value for</param>
+    /// <returns></returns>
     public static double GetPrice(string price)
     {
         string tempString = price.Replace("$", "");
         return Convert.ToDouble(tempString);
     }
 
+    /// <summary>
+    /// Gets the total price of each component and concatenates a $ sign in the front
+    /// </summary>
     public void TotalPrice()
     {
         _price = "$" + (GetPrice(_processorPart.Price) + GetPrice(_ramPart.Price) + GetPrice(_hardDrivePart.Price) + GetPrice(_displayPart.Price) + 
