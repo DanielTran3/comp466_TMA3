@@ -18,6 +18,18 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         {
             photos.CurrentPhotoIndex = Convert.ToInt32(ViewState["photoIndex"].ToString());
         }
+        if (ViewState["forward"] != null)
+        {
+            photos.Forward = (bool) ViewState["forward"];
+        }
+        if (ViewState["random"] != null)
+        {
+            photos.Random = (bool) ViewState["random"];
+        }
+        if (ViewState["interval"] != null)
+        {
+            this.PhotoTimer.Interval = Convert.ToInt32(ViewState["interval"].ToString());
+        }
     }
 
     protected void StartStopButton_Click(object sender, EventArgs e)
@@ -45,19 +57,18 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         if (button.Text == "Sequential")
         {
             button.Text = "Random";
+            photos.Random = true;
             this.ForwardButton.Enabled = false;
             this.BackwardButton.Enabled = false;
-
-            photos.RandomCurrentPhotoIndex();
-            this.PhotoDisplay.ImageUrl = photos.GetPhoto();
-            this.CaptionLabel.Text = photos.GetCaption();
         }
         else
         {
             button.Text = "Sequential";
+            photos.Random = false;
             this.ForwardButton.Enabled = true;
             this.BackwardButton.Enabled = true;
         }
+        ViewState["random"] = photos.Random;
     }
 
     protected void ForwardBackwardButton_Click(object sender, EventArgs e)
@@ -71,6 +82,7 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         {
             photos.Forward = false;
         }
+        ViewState["forward"] = photos.Forward;
     }
 
     protected void PhotoTimer_Tick(object sender, EventArgs e)
@@ -82,6 +94,18 @@ DateTime.Now.ToLongTimeString();
         this.PhotoDisplay.ImageUrl = photos.GetPhoto();
         this.CaptionLabel.Text = photos.GetCaption();
         ViewState["photoIndex"] = photos.CurrentPhotoIndex;
+        ViewState["forward"] = photos.Forward;
+        ViewState["random"] = photos.Random;
         Label2.Text = "Photo Index: " + photos.CurrentPhotoIndex;
+    }
+
+    protected void IntervalButton_Click(object sender, EventArgs e)
+    {
+        int photoSwitchInterval;
+        if (int.TryParse(this.IntervalTextBox.Text, out photoSwitchInterval))
+        {
+            this.PhotoTimer.Interval = photoSwitchInterval * 1000;
+            ViewState["interval"] = this.PhotoTimer.Interval;
+        }
     }
 }

@@ -5,21 +5,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Photo Slideshow</title>
-    <%--<link rel = "stylesheet" type="text/css" runat="server" href="~/shared/tma3_stylesheet.css" />--%>
+    <link rel = "stylesheet" type="text/css" runat="server" href="styles/site.css" />
     <style type="text/css">
         .alignCenter {
             text-align:center;
         }
+
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <h1 class="alignCenter">Photo Slideshow</h1>
         <p class="alignCenter">
-            <asp:Button ID="StartStopButton" runat="server" Text="Start" OnClick="StartStopButton_Click" />
-            <asp:Button ID="SequentialRandomButton" runat="server" Text="Sequential" OnClick="SequentialRandomButton_Click" />
-            <asp:Button ID="ForwardButton" runat="server" Text="Forward" OnClick="ForwardBackwardButton_Click" />
-            <asp:Button ID="BackwardButton" runat="server" Text="Backward" OnClick="ForwardBackwardButton_Click" />
+            <asp:Button ID="StartStopButton" runat="server" Text="Start" OnClick="StartStopButton_Click" CssClass="whiteButton" />
+            <asp:Button ID="SequentialRandomButton" runat="server" Text="Sequential" OnClick="SequentialRandomButton_Click" CssClass="whiteButton" />
+            <asp:Button ID="ForwardButton" runat="server" Text="Forward" OnClick="ForwardBackwardButton_Click" CssClass="whiteButton" />
+            <asp:Button ID="BackwardButton" runat="server" Text="Backward" OnClick="ForwardBackwardButton_Click" CssClass="whiteButton" />
+        </p>
+        <p class="alignCenter">
+            <asp:Label ID="IntervalTimeLabel" runat="server" Text="Photo Switching Time:"></asp:Label>
+            <asp:TextBox ID="IntervalTextBox" runat="server"></asp:TextBox>
+            <asp:Button ID="IntervalButton" runat="server" OnClick="IntervalButton_Click" Text="Set Interval" CssClass="whiteButton" />
         </p>
         <p>
             <asp:ScriptManager ID="ScriptManager1" runat="server">
