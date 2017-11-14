@@ -14,7 +14,10 @@ public partial class PhotoSlideshow : System.Web.UI.Page
     {
         string[] photoDataLines = File.ReadAllLines(Server.MapPath("~/App_Data/photoslideshow.txt"));
         photos.StorePhotoDetails(photoDataLines);
-        
+        if (ViewState["photoIndex"] != null)
+        {
+            photos.CurrentPhotoIndex = Convert.ToInt32(ViewState["photoIndex"].ToString());
+        }
     }
 
     protected void StartStopButton_Click(object sender, EventArgs e)
@@ -23,15 +26,16 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         if (button.Text == "Start")
         {
             button.Text = "Stop";
-
+            this.PhotoTimer.Enabled = true;
             // Add a timed sequential callback function
-            this.PhotoDisplay.ImageUrl = photos.GetPhoto();
-            this.CaptionLabel.Text = photos.GetCaption();
-            photos.IncrementCurrentPhotoIndex();
+            //this.PhotoDisplay.ImageUrl = photos.GetPhoto();
+            //this.CaptionLabel.Text = photos.GetCaption();
+            //photos.UpdateCurrentPhotoIndex();
         }
         else
         {
             button.Text = "Start";
+            this.PhotoTimer.Enabled = false;
         }
     }
 
@@ -67,5 +71,17 @@ public partial class PhotoSlideshow : System.Web.UI.Page
         {
             photos.Forward = false;
         }
+    }
+
+    protected void PhotoTimer_Tick(object sender, EventArgs e)
+    {
+        Label1.Text = "Panel refreshed at: " +
+DateTime.Now.ToLongTimeString();
+        //Timer timer = sender as Timer;
+        photos.UpdateCurrentPhotoIndex();
+        this.PhotoDisplay.ImageUrl = photos.GetPhoto();
+        this.CaptionLabel.Text = photos.GetCaption();
+        ViewState["photoIndex"] = photos.CurrentPhotoIndex;
+        Label2.Text = "Photo Index: " + photos.CurrentPhotoIndex;
     }
 }

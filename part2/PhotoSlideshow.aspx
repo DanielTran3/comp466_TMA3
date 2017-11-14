@@ -22,9 +22,27 @@
             <asp:Button ID="BackwardButton" runat="server" Text="Backward" OnClick="ForwardBackwardButton_Click" />
         </p>
         <p>
-            <asp:Image ID="PhotoDisplay" runat="server" />
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
         </p>
-        <asp:Label ID="CaptionLabel" CssClass="alignCenter" runat="server"></asp:Label>
+        <div class="alignCenter">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <asp:Timer ID="PhotoTimer" runat="server" Enabled="False" Interval="5000" OnTick="PhotoTimer_Tick">
+                    </asp:Timer>
+                    <asp:Label ID="Label1" runat="server" Text="Panel not refreshed yet"></asp:Label>
+                    <br />
+                    <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+                    <br />
+                    <asp:Image ID="PhotoDisplay" runat="server" Width="480px" />
+                    <br />
+                    <asp:Label ID="CaptionLabel" runat="server"></asp:Label>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <br />
+        </div>
+        <p>
+            &nbsp;</p>
     </form>
 </body>
 </html>

@@ -1,21 +1,21 @@
-﻿../shared/beef_tartare.png,Beef Tartare
-../shared/blazePizza.png,Blaze Pizza Custom Pizza
-../shared/chinese_shaved_ice.png,Chinese Shaved Ice
-../shared/edmonton_fireworks.png,Edmonton Fireworks
-../shared/edmonton_riverValley.png,Edmonton River Valley
-../shared/edmonton_sunset.png,Edmonton Sunset
-../shared/homemade_mango_cake.png,Homemade Mango Cake
-../shared/homemade_origami.png,Homemade Origami Bird and Basket
-../shared/homemade_pizza.png,Homemade Pizza
-../shared/homemade_steak_and_veggies.png,Homemade Steak and Broccoli
-../shared/homemade_tacos.png,Homemade Tacos
-../shared/homemade_tacosalad.png,Homemade Taco Salad
-../shared/korean_hot_wings.png,Korean Hot Wings
-../shared/nature.png,Nature View
-../shared/ramen.png,Ramen
-../shared/sushi.png,Sushi
-../shared/thePint_wings.png,The Pint Wings (40 Wings)
-../shared/toma_burger.png,Toma Burger
-../shared/toronto_cityView1.png,View of Toronto 1
-../shared/toronto_cityView2.png,View of Toronto 2
-../shared/toronto_traintracks.png,Old Train Tracks in Toronto
+﻿images/beef_tartare.png,Beef Tartare
+images/blazePizza.png,Blaze Pizza Custom Pizza
+images/chinese_shaved_ice.png,Chinese Shaved Ice
+images/edmonton_fireworks.png,Edmonton Fireworks
+images/edmonton_riverValley.png,Edmonton River Valley
+images/edmonton_sunset.png,Edmonton Sunset
+images/homemade_mango_cake.png,Homemade Mango Cake
+images/homemade_origami.png,Homemade Origami Bird and Basket
+images/homemade_pizza.png,Homemade Pizza
+images/homemade_steak_and_veggies.png,Homemade Steak and Broccoli
+images/homemade_tacos.png,Homemade Tacos
+images/homemade_tacosalad.png,Homemade Taco Salad
+images/korean_hot_wings.png,Korean Hot Wings
+images/nature.png,Nature View
+images/ramen.png,Ramen
+images/sushi.png,Sushi
+images/thePint_wings.png,The Pint Wings (40 Wings)
+images/toma_burger.png,Toma Burger
+images/toronto_cityView1.png,View of Toronto 1
+images/toronto_cityView2.png,View of Toronto 2
+images/toronto_traintracks.png,Old Train Tracks in Toronto

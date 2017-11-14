@@ -11,6 +11,7 @@ public class Photos
     private List<List<string>> photoDetails;
     private int currentPhotoIndex;
     private bool forward;
+    private bool random;
 
     #region Constructors
     public Photos()
@@ -18,6 +19,7 @@ public class Photos
         photoDetails = new List<List<string>>();
         currentPhotoIndex = 0;
         forward = true;
+        random = false;
     }
     #endregion
 
@@ -60,6 +62,19 @@ public class Photos
             this.forward = value;
         }
     }
+
+    public bool Random
+    {
+        get
+        {
+            return random;
+        }
+
+        set
+        {
+            this.random = value;
+        }
+    }
     #endregion
 
     #region Public Methods
@@ -87,9 +102,37 @@ public class Photos
         return photoDetails[currentPhotoIndex][1];
     }
 
-    public void IncrementCurrentPhotoIndex()
+    public void UpdateCurrentPhotoIndex()
     {
-        this.currentPhotoIndex++;
+        if (random)
+        {
+            RandomCurrentPhotoIndex();
+        }
+        else
+        {
+            if (forward)
+            {
+                if (currentPhotoIndex == photoDetails.Count - 1)
+                {
+                    this.currentPhotoIndex = 0;
+                }
+                else
+                {
+                    this.currentPhotoIndex++;
+                }
+            }
+            else
+            {
+                if (currentPhotoIndex == 0)
+                {
+                    this.currentPhotoIndex = photoDetails.Count - 1;
+                }
+                else
+                {
+                    this.currentPhotoIndex--;
+                }
+            }
+        }
     }
 
     public void RandomCurrentPhotoIndex()
