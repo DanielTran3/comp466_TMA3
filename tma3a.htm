@@ -85,7 +85,18 @@
 
                 <span class="title2">Documentation of Implementation</span>                
                 <p class="title4">
-                    In the code, the persistant cookies are defined as 
+                    In the code, the persistant cookies are defined as HttpCookies. The name of the cookie that stores 
+                    the number of visits is called visitCount and it is created by using the HttpCookie object and 
+                    passing in visitCount as the string for the name of the cookie. This cookie is only created if a 
+                    cookie does not already exist. The creation of the cookie initializes the value to 0 and gives 
+                    the cookie an expiry time of 24 hours, or one day. If a cookie already exists, then retrieve the 
+                    value of the cookie and increment the value, then store it back into the cookie. Afterwards, the 
+                    textbox for the number of cookies is updated to the value stored in the cookie. Next, a function 
+                    that gets the user's IP address is called. The timezone of the user is retrieved through using 
+                    a JavaScript method called getTimezoneOffset to get the time difference between UTC time and 
+                    local time. This value is divided by 60 to get the number of hours different. As well, the 
+                    UTC value is also also returned by using the toUTCString function in JavaScript. This converts 
+                    the Date object into UTC time set by World Time Standard.
                 </p>
                 
                 <hr />
