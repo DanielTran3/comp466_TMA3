@@ -350,7 +350,57 @@
                 
                 <span class="title2">Interpretation of Description and Requirements</span>
                 <p class="title4">
-                    
+                    My interpretation of part 3 in assignment 3 is that a computer store is to be designed where a customer can select a computer from a list of 
+                    pre-built computer configurations and customize the computer by selecting different parts from the list of available parts. After the system is 
+                    configured to the customers liking, the customer should be able to place an order to the online store. It also seems like this part is used mainly 
+                    to design of the web interface in ASP.NET written in C#.
+                </p>
+                <p class="title4">
+                    Looking at the first requirement for the assignment, the purpose of visiting online stores such as Bestbuy and Amazon is to review and have a clear 
+                    understanding of what components are commonly found in online web stores. This gives a good general idea of what the web application I am creating 
+                    should look like. The findings for this part will be stated in the <b>Analysis and Design of the Web Application section</b>. Next, using the 
+                    information obtained from the research done in the first part, some drawings of the web application's design should be drawn out as a rough idea 
+                    of how the web application will look. This is similar to story boarding in software development terms. The names of the functions, modules, and 
+                    web pages/documents to be used. In this statement, I understand &quot;name and functions of each module&quot; as the name of the module and what the 
+                    module is supposed to do. I define the module as a section of the program that has a specific purpose, for example an order module would contain 
+                    things like a cart that manages the current user's items in their order.
+                </p>
+                <p class="title4">
+                    The third requirement states that the web browser should act like a real online stores, and that the name/logo of the application should appear on
+                    all pages of the application. I believe that either the name or the logo of the application is required, as having both only contributes to clutter 
+                    on the webpage, so in my application, I would include only the logo on each page. As well, there should be buttons that allow the user to navigate 
+                    around the application to different parts of the web site. Some of the pages that the user should be able to navigate to are things such as the 
+                    welcome page, contacts page, feedback form, cart page, and more.
+                </p>
+                <p class="title4">
+                    In the requirement, each computer configuration should have some RAM, a hard drive, a CPU, a display, an OS, and a sound card. When I read the 
+                    statement &quot;that can be reviewed by customers&quot;, I understand this as, all of the parts in the store's inventory can be viewed by the 
+                    user, not that the users can leave review comments on the parts. Any review comments can be placed in the feedback comments page instead of on 
+                    each component. As well, the information about the products can be hard-coded into HTML or into program files. This means each component exists 
+                    directly in the HTML text or in some file that gets displayed on the web page.
+                </p>
+                <p class="title4">
+                    In the fifth requirement, the customer can select a computer with a default configuration and pricing, then customize the configuration by reviewing 
+                    and selecting the other parts that are available in the web application. Any parts that replace a part in the configuration should dynamically update 
+                    the total price of the current configuration (this is what is described in step six).In terms of &quot;replacing one component with another from a list 
+                    of compatible components&quot;, I see this as only components that are compatible with the configuration that the user selected should be displayed. 
+                    With the components that are included in the systems configuration (RAM, hard drive, CPU, display, OS, and sound card), generally all of these parts are 
+                    compatible with eachother, so all items in the inventory will be displayed.
+                </p>
+                <p class="title4">
+                    The seventh requirement states that the user can add their current selection to a cart and when they do, they should be able to see a summary of their 
+                    selection and all of the details of their newly added computer. As well, other components in the cart should also be displayed in the cart that the 
+                    recently added configuration was added to. I understand the &quot;summary of selections, including all the deatils of the customized computer&quot; as 
+                    the name of all of the components in the system and some specs associated with each component. As well, the total pricing for each configuration in the 
+                    cart should be displayed with the configuration and the total of the entire cart should be displayed as well.
+                </p>
+                <p class="title4">
+                    The eigth requirement states that a database is not required for this part, and that cookies can be used to store and track customer selection. This 
+                    statement says taht cookies &quot;can&quot; be used to store and track customer selection. An alternative to cookies for tracking selection is sessions, 
+                    which is used in this application. Since the orders do not have to be saved into a database, sessions are an applicable technology in this case.
+                </p>
+                <p class="title4">
+                    Finally, part nine states taht all of the links, menus, and buttons in the store should be active, so they should be operational in the assignment
                 </p>
 
                 <hr />
@@ -507,6 +557,12 @@
 
             <div class="titleDiv" hidden>
                 <span class="title1">Note for the Instructor</span>
+                <span class="title2">Notes on Part 3</span>
+                <p class="title4">
+                    Note that not all components required to build a computer are used in the application (so details on things) 
+                    such as the MOBO (motherboard), PSU (power supply unit), case, and GPU (graphics processing unit) are not included
+                    to make the application more concise in terms of the purpose of the assignment.
+                </p>
                 <p class="title4">
                     mysql -h localhost -u root
                     USE mysql;
