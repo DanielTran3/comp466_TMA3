@@ -443,25 +443,37 @@
                 </p>
                 <p class="title4">
                     Before showing the drawings of the interface, let's discuss the modules first, since they are directly related to the web pages that will be shown and the drawings 
-                    of the interface. There are a lot of modules, such as:
+                    of the interface. Parts of analysis and design of the web application will be explained during the description of the modules. There are a lot of modules, such as:
                 </p>
                 <ul class="title4">
                     <li>
                         Pre-Built Computers Module: This module contains a list of the pre-built, configured computers that the Digital Computers Web Store offers. This is the starting 
-                        point for the user to purchase a computer
+                        point for the user to purchase a computer. For the list of pre-built computers, the web page should be designed in a way that each part in each pre-built computer 
+                        can be cleanly displayed in the table, along with the total cost, which should be the sum of each component in the configuration. Each part in the desription of 
+                        the pre-built computer should have some specs associated with the part such that choosing a pre-built system is easier since the specs of the components are shown 
+                        directly with the configuration. The design of the pre-built computer is that it should be compiled as a list of all of the individual components in the system.
                     </li>
                     <li>
                         Swap Parts Module: This module is the second step, after the user selects a pre-built computer. This module displays the items available in the Digital Computers 
-                        inventory for the user to swap out parts in their computer configuration. This is the customization portion of the module.
+                        inventory for the user to swap out parts in their computer configuration. This is the customization portion of the system. Each category of components has its 
+                        own table, which is similar to the table in the Pre-Built Computers module. The table is separated into two columns, once for the description and the other for 
+                        the price. A row in each component section will be highlighted green to reflect the component that is part of the current configuration. As well, each of the 
+                        tables are paged to ensure that the page can load quickly and that the page doesn't extend too long. This is done for organization of the web page. On this page, 
+                        whenever a new component is selected and the user's current configuration changes, the total price of the configuration displayed on the screen will change to match 
+                        the appropriate price of the added item. As well, inside this module, the user can add their current configuration to the cart when they are done configuring the 
+                        computer. When the current configuration is added to the cart, the current configuration becomes clear for the user to start creating another configuration if 
+                        they desire.
                     </li>
                     <li>
                         Feedback Module: This module allows users to comment on their experience with the web store, comment reviews of their items, and discuss improvements for the 
-                        application.
+                        application. Since there is no customer management module in this section, the feedback module requires a name input so the users can identify themselves in 
+                        the comments section.
                     </li>
                     <li>
                         Orders Module: This module allows the user to view the computers in their cart, along with the prices for each computer and the total price of everything in the 
-                        cart. As well, if the user is unsatisfied with any of the items in the cart, they can click edit the computer and change the configuration or they can delete 
-                        the computer and remove it from the cart.
+                        cart. This module contains a list of what is essentially pre-built computers, but with customized parts. Thus, the table in this page will look fairly similar to 
+                        the table in the Pre-Built Computers modules, but with some additional options. If the user is unsatisfied with any of the items in the cart, they can click edit 
+                        the computer and change the configuration or they can delete the computer and remove it from the cart.
                     </li>
                     <li>
                         Information Module: This module consists of any modules that provide extra information. This includes the welcome screen and the contacts page.
@@ -485,9 +497,8 @@
                     <img src="./shared/Part3_Page_3.png" />
                     <br />
                     The above image shows two of the six components that the user can customize (the scroll bar on the right side denotes that there are more parts the user can select 
-                    under the parts shown). Each component has an associated table that displays the items in the inventory for each component. The table is separated into two columns, 
-                    once for the description and the other for the price. The green highlighted row in each table defines which row is selected in the current configuration. As well, 
-                    each of the tables are paged to ensure that the page can load quickly and that the page doesn't extend too long. This is done for organization
+                    under the parts shown). Each component has an associated table that displays the items in the inventory for each component. The green highlighted row in each table 
+                    defines which row is selected in the current configuration.
                     <br />
                     The next image shows the Contacts module, which will show contact information for the developer of the web application.
                     <img src="./shared/Part3_Page_4.png" />
@@ -505,29 +516,66 @@
                     <br />
                     Also looking at the top of all of the web pages, you can see the web application logo at the top left of the application. As well, there is a cart at the top right 
                     of the application that would redirect the user to their cart so they can view their current orders. Under these two elements is the navigation menu in the form of a 
-                    horizontal bar, which contains buttons to allow the user to access each of the modules in the application.
+                    horizontal bar, which contains buttons to allow the user to access each of the modules in the application. On pages where cost of the user's configuration can change 
+                    (Pre-Built Computer and Swap Parts modules), there is a label displaying the current cost of the configuration.
                     <br />      
                 </p>
                 <p class="title4">
-                    In an ASP.NET C# application, there is a master form that displays the contents of that page onto any pages that inherit the master page. This is useful in 
+                    In an ASP.NET C# application, there is a master form that displays the contents of that page onto any pages that inherit the master page. This is useful in displaying 
+                    the same information over multiple pages. The information that all of the pages requires is the web store logo, navigation bar for moving around to different modules, 
+                    and a cart icon for the user to access their cart. The naviagation bar will have links to each of the modules that were discussed above.
                 </p>
                 <p class="title4">
-                    
+                    The application will be designed such that each component has a class associated with it to create distinct and separate components that can be added to a container 
+                    to create the current (or pre-built) computer configuration. Thus, the use of sessions (rather than cookies) in this application is used to keep track of the 
+                    component objects that the user has selected, as well as the total price of the configuration.
                 </p>
-                <p class="title4">
-                    
-                </p>
-                <p class="title4">
-                    
-                </p>
-                                    
+
                 <hr />
 
                 <span class="title2">Documentation of Implementation</span>                
                 <p class="title4">
-                    
+                    The implementation of the Digital Computerse web application begins with how the data is stored on the server. There is a class created for each component, so there is 
+                    a Display, HardDrive, OperatingSystem, Processor, RAM, and SoundCard classes. Each of these classes contain properties pertaining to different descriptions of their 
+                    specs. For example, the Processor class contains the properties brand, model, clock, cache, socket, and price. Each of these classes inherit from a parent class called 
+                    Component, which has the properties brand, model, and price. I determined that these three properties were general enough to include in each component, so they deserve 
+                    to be placed in the base class. This base class also has two abstract method that each of the child components must implement. The two abstract methods are called 
+                    GetGridView and GetSessionName, which return values specific to the component. The GetGridView method returns the name of the gridview that is associated with the 
+                    component and the GetSessionName returns the name of the session that the component belongs to. For example, the Processor class would return &quot;ProcessorGridView&quot; 
+                    for the GetGridView method and &quot;processor&quot; for the GetSessionName method. Next, the base class has a couple of methods that the children class can also use. 
+                    One method is the GetPrice method, which converts the price string into a double and parses out the dollar sign. There is also a method called EqualComponent, which 
+                    takes in a component and compares whether the calling component is equivalent to the parameter component by comparing the properties of the two components. This method 
+                    is extended upon in each child class, where the child classes perform this comparison, but also compare the other properties that exist in the child class. So in the 
+                    example of the Processor class, the comparison would occur in checking the brand, model, clock, cache, socket, and price of the processor. The reason for this equality 
+                    check is that it is highly unlikely that two of the exact same components appear in the database, making it a valid check. Finally, there is a static method in the 
+                    Component class that get's the index of a component in a given list. This is important when dealing with the index of a component that is chosen from the Swap Parts 
+                    page. All of the hardcoded data for each of the components is stored inside a class caleed ComponentsFactory, and the data can be retrieved from using the static method 
+                    calls inside the class. All of these components are used in conjunction inside of the PreBuiltSystem class, which contains a pre-built computer configuration. The 
+                    class contains all of the six components as properties, as well as a system, price, and preBuiltIndex property. The system property contains a formatted string of the 
+                    description of the pre-built system that will be displayed on the Pre-Built Computer page for each computer. The preBuiltIndex is the index of the PreBuiltSystem for 
+                    this page. The price property is the total price of all of the components in the system, which is calculated in the TotalPrice method. This method takes the price of 
+                    all of the system and adds them together, then prepends a $ sign to the front.
                 </p>
-                
+                <p class="title4">
+                    Now that the implementation of the backend data structure is discussed, it's time to talk about the UI implementation, starting with the master page. The Site.master page is 
+                    in charge of ensuring that each page has the same elements on it. This page contains the DigitalComputers logo on the top left, the cart logo on the top right, the navigation 
+                    bar containing buttons to access the Home page, Pre-Built Computers page, Swap Parts page, Contacts page, and Feedback page. As well, there's a label that states the 
+                    current cost of the user's configuration. This label is hidden on pages that do not require it, such as the Contacts or Feedback page. Next, we will discuss the implementation 
+                    of the Information module, starting with the welcome page, which is the Default.aspx page, simply contains some paragraphs stating the purpose of the web store and how it 
+                    works. The Contacts page is similar, but it also contains an image, which is stored in the Server's Resources folder, of the DigitalComputers developer. There is also some 
+                    information about hte developer, the name, and an email address to reach him.
+                </p>
+                <p class="title4">
+                    Next, we will discuss the implementation of the Feedback Module. In the feedback module, the user is responsible for filling out their username and the text for their comment 
+                    to be able to post a feedback comment. The container for the feeback comments is a datatable containing two columns, which is the username and the comment text. If there are 
+                    no comments in the table, a label describing that there are no comments is displayed, otherwise, the program takes the feedback information that is stored in the session 
+                    under the name &quot;feedback&quot; and sets it as teh DataSource of the gridview. When a user submits a feedback comment, a new FeedbackComments variable is created. This 
+                    FeedbackComments class is a simple data class that contains a name and comment property. This newly created FeedbackComments object is added to the list of feedback comments 
+                    that's stored in the session. This is done by first retrieving the list of FeedbackComments from the Session, then appending the new comment to the list, then setting the 
+                    Session variable back to this list. Afterwards, the gridView has it's DataSource reset to the list and Databound so the new comment is shown in the table. The two textboxes 
+                    are also cleared for a new comment.
+                </p>
+
                 <hr />
 
                 <span class="title2">Setup, Run, and Use Guide</span>
