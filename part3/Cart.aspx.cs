@@ -66,7 +66,6 @@ public partial class Cart : System.Web.UI.Page
         Session.Add(pbs.OperatingSystemPart.GetSessionName(), pbs.OperatingSystemPart);
         Session.Add(pbs.SoundCardPart.GetSessionName(), pbs.SoundCardPart);
         Session.Add("totalPrice", Convert.ToDouble(pbs.Price.Replace("$", "")));
-        Session.Add("selectedPreBuiltComputerRowIndex", pbs.PreBuiltIndex);
         Session.Add("EditingRow", e.NewEditIndex);
         Response.Redirect("SwapParts.aspx");
     }

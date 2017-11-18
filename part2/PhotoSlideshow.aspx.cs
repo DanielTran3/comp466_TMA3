@@ -54,16 +54,16 @@ public partial class PhotoSlideshow : System.Web.UI.Page
     protected void SequentialRandomButton_Click(object sender, EventArgs e)
     {
         Button button = sender as Button;
-        if (button.Text == "Sequential")
+        if (button.Text == "Random")
         {
-            button.Text = "Random";
+            button.Text = "Sequential";
             photos.Random = true;
             this.ForwardButton.Enabled = false;
             this.BackwardButton.Enabled = false;
         }
         else
         {
-            button.Text = "Sequential";
+            button.Text = "Random";
             photos.Random = false;
             this.ForwardButton.Enabled = true;
             this.BackwardButton.Enabled = true;

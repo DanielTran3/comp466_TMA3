@@ -140,18 +140,6 @@ public class Photos
         Random random = new Random();
         currentPhotoIndex = random.Next(0, photoDetails.Count);
     }
-
-    public List<string> NextPhotoAndCaption()
-    {
-        return forward ? photoDetails[currentPhotoIndex++] : photoDetails[currentPhotoIndex--];
-    }
-
-    public List<string> RandomPhotoAndCaption()
-    {
-        Random random = new Random();
-        currentPhotoIndex = random.Next(0, photoDetails.Count);
-        return photoDetails[currentPhotoIndex];
-    }
     #endregion
 
 }

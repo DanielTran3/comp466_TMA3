@@ -10,8 +10,6 @@ public partial class PreBuiltComputers : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        // CHECK IF "selectedPreBuiltComputerRowIndex" and "prebuiltSystems" exist in the session, if they do load
-        // up the correct index and the data
         if (Session["prebuiltSystems"] != null)
         {
             this.PreBuiltComputersGridView.DataSource = Session["prebuiltSystems"];
@@ -51,7 +49,5 @@ public partial class PreBuiltComputers : System.Web.UI.Page
         {
             totalCostLabel.Text = pbs.Price;
         }
-
-        Session.Add("selectedPreBuiltComputerRowIndex", pbs.PreBuiltIndex);
     }
 }

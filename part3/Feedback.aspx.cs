@@ -29,7 +29,7 @@ public partial class Feedback : System.Web.UI.Page
 
     protected void FeedbackSubmitButton_Click(object sender, EventArgs e)
     {
-        if (this.NameTextbox.Text == " ")
+        if (this.NameTextbox.Text == " " || this.NameTextbox.Text == string.Empty)
         {
             return;
         }
