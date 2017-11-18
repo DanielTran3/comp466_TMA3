@@ -9,6 +9,11 @@ public partial class Account_RegistrationSuccess : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
+    }
 
+    protected void RegistrationSuccessContinueButton_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Default.aspx");
     }
 }

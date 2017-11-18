@@ -9,6 +9,6 @@
     <h2>
         Press the Button Below to Continue</h2>
     <h2>
-        <asp:Button ID="RecoverySuccessfulContinueButton" runat="server" CssClass="whiteButton" Text="Submit" />
+        <asp:Button ID="RecoverySuccessfulContinueButton" runat="server" CssClass="whiteButton" Text="Submit" OnClick="RecoverySuccessfulContinueButton_Click"/>
     </h2>
 </asp:Content>

@@ -9,6 +9,7 @@ public partial class Account_ForgotPasswordSuccessful : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
         // Show the page only coming from the ForgetPassword page. Anyother page gets redirected to the login screen.
         if (Session["validRecovery"] != null)
         {
@@ -18,5 +19,10 @@ public partial class Account_ForgotPasswordSuccessful : System.Web.UI.Page
         {
             Response.Redirect("~/Account/Login.aspx");
         }
+    }
+
+    protected void RecoverySuccessfulContinueButton_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Default.aspx");
     }
 }

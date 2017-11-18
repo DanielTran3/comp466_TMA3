@@ -17,6 +17,7 @@ public partial class Account_ForgotPassword : System.Web.UI.Page
     /// <param name="e"></param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
         // If there is no valid username (meaning they have not inputted a username into the form yet
         // Instruct the user to enter a username, disable the password, security question, and security answer textboxes
         if (Session["validUsername"] == null)

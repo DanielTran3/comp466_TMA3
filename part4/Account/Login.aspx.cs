@@ -14,6 +14,7 @@ public partial class Account_Login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
         // If there is a user logged in for this session, redirect them to the cart page.
         if (Session["username"] != null)
         {

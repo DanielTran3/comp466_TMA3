@@ -12,6 +12,7 @@ public partial class Account_Register : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.Master.FindControl("CostOfCurrentConfigurationLabel").Visible = false;
     }
 
     /// <summary>
@@ -54,7 +55,7 @@ public partial class Account_Register : System.Web.UI.Page
                 {
                     addUserCommand.Dispose();
                     con.Close();
-                    Response.Redirect("RegistrationSuccessful.aspx");
+                    Response.Redirect("~/Account/RegistrationSuccess.aspx");
                 }
                 addUserCommand.Dispose();
             }
