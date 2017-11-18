@@ -49,7 +49,7 @@ public partial class Feedback : System.Web.UI.Page
         this.FeedbackGridView.DataSource = listOfComments;
         this.FeedbackGridView.DataBind();
 
-        if (Session["feedback"] != null && (Session["feedback"] as List<FeedbackComments>).Count > 0)) {
+        if (Session["feedback"] != null && (Session["feedback"] as List<FeedbackComments>).Count > 0) {
             this.NoFeedbackLabel.Visible = false;
         }
         this.NameTextbox.Text = string.Empty;

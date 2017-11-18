@@ -634,8 +634,10 @@
                     row they selected is retrieved from the cart variable in the session. All of the components in the preBuiltSystem are stored indiviually into the session (using their 
                     GetSessionName method as the name of the session), the total price of the session is saved as the totalPrice variable, and there is a new variable called EditingRow, 
                     that contains the index of the row that the user selected to edit. This variable is set to ensure that the row in the cart is updated, rather than appending a new 
-                    preBuiltComputer to the cart. As seen in the Swap Parts module, there is a check when the user presses the Add To Cart button, which checks to see if this variable is 
-                    set. If it is, then the row in the list of preBuiltSystems is replaced with the configuration that the user now has, otherwise the configuration is added onto the cart.
+                    preBuiltComputer to the cart. When the edit option is checked off, the delete option is removed so that the user cannot delete any parts they have until they finish 
+                    editing their system first. This is to ensure that the index updating of the gridview does not update the incorrect row. As seen in the Swap Parts module, there is a 
+                    check when the user presses the Add To Cart button, which checks to see if this variable is set. If it is, then the row in the list of preBuiltSystems is replaced with 
+                    the configuration that the user now has, otherwise the configuration is added onto the cart.
                 </p>
                 <hr />
 
