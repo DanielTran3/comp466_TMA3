@@ -569,13 +569,74 @@
                     Next, we will discuss the implementation of the Feedback Module. In the feedback module, the user is responsible for filling out their username and the text for their comment 
                     to be able to post a feedback comment. The container for the feeback comments is a datatable containing two columns, which is the username and the comment text. If there are 
                     no comments in the table, a label describing that there are no comments is displayed, otherwise, the program takes the feedback information that is stored in the session 
-                    under the name &quot;feedback&quot; and sets it as teh DataSource of the gridview. When a user submits a feedback comment, a new FeedbackComments variable is created. This 
+                    under the name &quot;feedback&quot; and sets it as the DataSource of the gridview. When a user submits a feedback comment, a new FeedbackComments variable is created. This 
                     FeedbackComments class is a simple data class that contains a name and comment property. This newly created FeedbackComments object is added to the list of feedback comments 
                     that's stored in the session. This is done by first retrieving the list of FeedbackComments from the Session, then appending the new comment to the list, then setting the 
                     Session variable back to this list. Afterwards, the gridView has it's DataSource reset to the list and Databound so the new comment is shown in the table. The two textboxes 
                     are also cleared for a new comment.
                 </p>
-
+                <p class="title4">
+                    The next module under discussion is the Pre-Built Computers Module. The webpage for this part is simple, as it only contains a GridView with two columns, which expects the 
+                    System and Price variables from the PreBuiltSystem class. On the backend, the system checks for the preBuiltSystem variable in the session. This variable contains a list of 
+                    all of the prebuilt systems. This is done to prevent the system from regenerating the prebuilt system values everytime the page refreshes. In this case, the session is 
+                    acting similar to a cache. Afterwards, the list of preBuiltSystems is set as the datasource to the gridview and it is also databound to display the changes. As well, 
+                    there is a totalPrice value that is stored in the Session, which keeps track of the total cost of the configuration. If this variable exists in the Session, then retrieve 
+                    it and display it in the label from the master label. When a user selects a row, the index of the row they selected is retrieved from the event handler. This index is used 
+                    to retrieve the preBuiltSystem from the gridview's datasource. Using the retrieved preBuiltSystem, each component in the system is saved into the session, where the name of 
+                    the session name is the value retrieved from the GetSessionName function and the value is the part itself. As well, the overall price of the configuration is calculated and 
+                    saved into the totalPrice variable. Also note that is a Pre-Built Computer is selected, the row is highlighted but if the user leaves the page or refreshes the page, the 
+                    highlighting is removed, but the total price still exists. This is done because it is assumed that after the user leaves the page, the system would be modified and we do 
+                    not want the user coming back into the Pre-Built Computer page and the pre-built computer they selected overwrites their current configuration just to show the highlighting.
+                </p>
+                <p class="title4">
+                    The next module's implementation to be discussed is the Swap Parts Module. To re-iterate some of the UI components on this page, there are six gridviews, one for each 
+                    component. Each gridview contains the same rows as all of the properties in the component subclasses. This is done by specifying the expected columns in the gridview 
+                    and matching the properties in classes to the columns. Each of these gridviews include paging as well to decrease the length of the page. As well, each table also has 
+                    a column dedicated to a select option that allows that component to replace the respective component in their current configuration. As well, the label for the total 
+                    cost is also visible on this page. At the bottom of the page, there is a button to add the computer to the cart. Now looking at the behind-the-scenes code for this 
+                    page, we will see exactly how it works. On the page load (in the Page_Load function), it is required that the user has a prebuilt system selected from the 
+                    Pre-Built Computers page. This check is done by enduring that each of the components and the total price in the session is set already. If they are not set, then all 
+                    of the gridviews, labels, and add button is removed from the page and a label telling the user to choose a computer from the Pre-Built Computers page is displayed 
+                    instead. Once the user has a Pre-Built Computer selected, these Session variables will not longer be empty (null) amd each of the gridviews are populated with the 
+                    hard-coded data produced from the ComponentsFactory class. On the first load of the page, a row in each of the gridviews is highlighted (unless the componet appears 
+                    on another page that is not displayed). The indicies are retrieved by getting the index of the component from the list of the component using the GetIndexOfComponent 
+                    method in the Components class. As well, the total cost is displayed and all of the labels and the Add To Cart button is also displayed. Next, let's look at how paging 
+                    for the gridviews works. This was one of the challenging stages to wrap my head around in development, since it was difficult to get the row to select properly on 
+                    one page and not highlight on another. When a new page is requested for a gridview, the GridView_PageIndexChanging function is called. The index of the component 
+                    that resides in that gridview is retrieved. Next, wew check if the index of the element would reside in the index of the newly  requested page. The lower bound of the 
+                    items in the page is the pageIndex * the pageSize of the gridview and the upperbound is the (pageIndex + 1) * the pageSize. Note that the PageIndex is the new page 
+                    index that the user requested. If this is the case, the component's index mod the page size returns the element's index on that page. Otherwise, -1 is selected as a 
+                    row to remove any row selections. When a new row is selected (either from the user selecting or from calling the SelectRow function to hightlight a row), the 
+                    GridView_SelectedIndexChanged event handler is called. This event handler takes the real index of the element (which is the SelectedIndex + PageSize * PageIndex). 
+                    This index is used to get the component from the components list stored in the gridview's DataSource. Before storing the newly selected component into the session 
+                    state, the totalPrice value from the Session is retrieved and updated to match the new price of the newly selected item. After that, both the new component and the 
+                    total price is stored back into the session. Finally, the Add To Cart button has its own event handler called AddToCartButton_Click. This event handler first 
+                    ensures that all of the components and the total price exist inside the session state. Next, using all of the components in the session, a PreBuiltSystem is 
+                    created. Next, the session for the cart is retrieved (or if the session doesn't exist, then create it and add the system in). There is also a check to see if 
+                    EditingRow in the session is set (this will be discussed when looking at the implementation of the cart), in which case a row in the cart is replaced with the new 
+                    data, otherwise, this data is added to the cart. Note that the Session.Clear() method is called before storing the new cart data back into the session. This is 
+                    because we want all of the session variables cleared (all of the components and the total price) once the system is added to the cart.
+                </p>
+                <p class="tite4">
+                    For the final module, which is the Orders Module, we will discuss what the Cart looks like and how it operates. **Note that the Cart is the last step in the program, 
+                    as it it right before orders take place. The program stops here because it allows the user to see everything they would order, but also allows them to edit or delete 
+                    any components before they were to place an actual order. All that is missing is an order button to fully &quot;place the order&quot; so the cart is considered 
+                    &quot;placing the order&quot; when the user is satisfied with what is in the cart. Once again, note that there are two columns, one that specifies the details of the 
+                    system and one that displays the cost of the system. There is also another column that gives the user some options to edit or delete the computer from their cart. 
+                    Below this table is the total price of all of the components combined. Upon the page's load, there is a ConfigureCartPage function that is called. This function first 
+                    checks if the cart is empty, and if it is, then the gridview is hidden and a message stating that the Cart is empty is displayed. Otherwise, the preBuiltSystems stored 
+                    in the session's &quot;cart&quot; variable is retrieved and set as the datasource for the CartGridView. As well, each preBuiltSystems price is summed together to get 
+                    the total price of all of the systems, which is displayed in a label for the user to see. As well, the cost of current configuration label is hidden in this page. 
+                    When a row or preBuiltSystem is selected to delete, the CartGridView_RowDeleting event handler is called. This event handler takes the index of the row that was selected 
+                    to delete, gets the list of preBuiltSystems from the session, removes the preBuiltSystem at that index, and stores the list back into the cart variable in the session. 
+                    Afterwards, the ConfigureCartPage method is called again (which will update the GridView's data and if there are no more elements in the cart, then the display message 
+                    will show). There is also an option for the user to edit a configuration in their cart. When the user presses the &quot;edit&quot; option, the preBuiltSystem from the 
+                    row they selected is retrieved from the cart variable in the session. All of the components in the preBuiltSystem are stored indiviually into the session (using their 
+                    GetSessionName method as the name of the session), the total price of the session is saved as the totalPrice variable, and there is a new variable called EditingRow, 
+                    that contains the index of the row that the user selected to edit. This variable is set to ensure that the row in the cart is updated, rather than appending a new 
+                    preBuiltComputer to the cart. As seen in the Swap Parts module, there is a check when the user presses the Add To Cart button, which checks to see if this variable is 
+                    set. If it is, then the row in the list of preBuiltSystems is replaced with the configuration that the user now has, otherwise the configuration is added onto the cart.
+                </p>
                 <hr />
 
                 <span class="title2">Setup, Run, and Use Guide</span>
