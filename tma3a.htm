@@ -241,17 +241,57 @@
                 <p class="title4">
                     To begin the discussion of implementation, let's look at the user interface implementation. The title of the 
                     application is displayed as a h1 element and is centered on the page. A paragraph element contains all of the 
-                    buttons, as well as the input to change the image transition time. Below this element is a paragraph containing 
-                    the ScriptManager, which is used in conjunction with the timer in the application (the timer will be discussed 
-                    later on). Below this is a div element containing a timer, an image element, and a label element below the 
-                    image element.  
+                    buttons, except the button for setting the transition time. The input textbox for the transition time and the 
+                    Below this element is a paragraph element containing the input to change the image transition time and the 
+                    button to set it. Below this is the ScriptManager, which is used in conjunction with the timer in the 
+                    application (the timer will be discussed later on). Below this is a div element containing a timer, an image 
+                    element, and a label element below the image element. As for the backend server side code, the Photos.cs class 
+                    is in charge of retrieving the images from the text file to display to the user. The Photos class contains 
+                    a list of a list of strings, which stores the values produced in the StorePhotoDetails method. This method 
+                    receives the lines from the text file and parses the value based on commas. The list ends up containing a 
+                    list of strings, where the inner list contains the file path and the caption. Next, there is a 
+                    currentPhotoIndex property that contains the current photo index. This index is in respect to the size 
+                    of the photoDetails list, which matches the number of images that are used in the slideshow. This variable 
+                    is updated to a new value depending on the current configuration of the web page. For example, the index is 
+                    decremented if the configuration is in sequential mode with backwards specified. There is also a forward 
+                    property that is a boolean, which specifies if the photos are going to be displayed in a forward or backward 
+                    manner. Another boolean property called random is used to specify if the photos are going to be displayed 
+                    randomly (random == true) or sequentially. The function that performs all of the image index updates is the 
+                    UpdateCurrentPhotoIndex method. First it checks to see if the mode is random. If it is, it randomly generates 
+                    an index from 0 to the maximum number of images. Otherwise, the mode is sequential, in which case it checks 
+                    to see if the images are going to be displayed forward or backward. In both of these checks, the boundary 
+                    values need to be checked to ensure that the index is always valid (ex. so we don't get a -1 index or 
+                    23 for an index if there are only 22 images). In the photoSlideshow.aspx.cs file, the user inputs are taken 
+                    into account. On every page load, the textfile containing the photos is read and stored inside a Photos 
+                    instance. As part of the application, the current photo index, forward value, random value, and interval 
+                    time is stored in a ViewState so the user's inputs persist on page refreshes. When the user pressses the 
+                    start/stop button, the PhotoTimer, which is the timer for the application, is enabled/disabled. If the 
+                    user presses the sequential/random button then the random property in the photos instance is set. If the 
+                    button changes from sequential to random, then the random property is set to false and the forward and 
+                    backward buttons are enabled. The opposite occurs if the button changes from random to sequential. As 
+                    well, this value is stored in a ViewState. If the forward button or the backward button is pressed, then the 
+                    photos instance's forward property is set to true and false, respectively. This property is stored in the 
+                    ViewState as well. Next, if the interval button is pressed, it will only change the PhotoTimer's interval 
+                    if the value entered into the textbox is an integer. It will convert the inputted value from seconds to 
+                    milliseconds and store the value into a ViewState variable, after updating the PhotoTimer's interval. Finally, 
+                    There is a PhotoTimer_Tick event handler, which handles the event raised by the timer after the specified 
+                    interval time is passed. On this event, the current photo is updated depending on the current configuration 
+                    of the web page and the photos instance gets the new photo location and caption. The image element's 
+                    ImageUrl property is updated to the new location and the label's text is updated to the newly retrieved caption.
                 </p>
 
                 <hr />
 
                 <span class="title2">Setup, Run, and Use Guide</span>
                 <p class="title4">
-
+                    For the setup of the program, ensure that all of the image files are stored in the shared folder, and that the 
+                    textfile containing the file locations and captions is stored in the part2/App_Data folder. To run the application, 
+                    _______________________________________
+                    To use the program, you can start and stop images by pressing the start and stop button. You can change the images 
+                    from being displayed randomly or sequentially by toggling the random/sequential button. If the button is toggled 
+                    to sequential (Random shows on the button's text), then the forward and backwards buttons will be enabled. Clicking 
+                    one of these buttons will change the order that the images are displayed in. To change the speed of images being 
+                    displayed, enter a whole number value into the textbox and press the Set Interval button.
                 </p>
             </div>
             <div class="titleDiv" hidden>
@@ -310,28 +350,323 @@
                 
                 <span class="title2">Interpretation of Description and Requirements</span>
                 <p class="title4">
-                    
+                    My interpretation of part 3 in assignment 3 is that a computer store is to be designed where a customer can select a computer from a list of 
+                    pre-built computer configurations and customize the computer by selecting different parts from the list of available parts. After the system is 
+                    configured to the customers liking, the customer should be able to place an order to the online store. It also seems like this part is used mainly 
+                    to design of the web interface in ASP.NET written in C#.
+                </p>
+                <p class="title4">
+                    Looking at the first requirement for the assignment, the purpose of visiting online stores such as Bestbuy and Amazon is to review and have a clear 
+                    understanding of what components are commonly found in online web stores. This gives a good general idea of what the web application I am creating 
+                    should look like. The findings for this part will be stated in the <b>Analysis and Design of the Web Application section</b>. Next, using the 
+                    information obtained from the research done in the first part, some drawings of the web application's design should be drawn out as a rough idea 
+                    of how the web application will look. This is similar to story boarding in software development terms. The names of the functions, modules, and 
+                    web pages/documents to be used. In this statement, I understand &quot;name and functions of each module&quot; as the name of the module and what the 
+                    module is supposed to do. I define the module as a section of the program that has a specific purpose, for example an order module would contain 
+                    things like a cart that manages the current user's items in their order.
+                </p>
+                <p class="title4">
+                    The third requirement states that the web browser should act like a real online stores, and that the name/logo of the application should appear on
+                    all pages of the application. I believe that either the name or the logo of the application is required, as having both only contributes to clutter 
+                    on the webpage, so in my application, I would include only the logo on each page. As well, there should be buttons that allow the user to navigate 
+                    around the application to different parts of the web site. Some of the pages that the user should be able to navigate to are things such as the 
+                    welcome page, contacts page, feedback form, cart page, and more.
+                </p>
+                <p class="title4">
+                    In the requirement, each computer configuration should have some RAM, a hard drive, a CPU, a display, an OS, and a sound card. When I read the 
+                    statement &quot;that can be reviewed by customers&quot;, I understand this as, all of the parts in the store's inventory can be viewed by the 
+                    user, not that the users can leave review comments on the parts. Any review comments can be placed in the feedback comments page instead of on 
+                    each component. As well, the information about the products can be hard-coded into HTML or into program files. This means each component exists 
+                    directly in the HTML text or in some file that gets displayed on the web page.
+                </p>
+                <p class="title4">
+                    In the fifth requirement, the customer can select a computer with a default configuration and pricing, then customize the configuration by reviewing 
+                    and selecting the other parts that are available in the web application. Any parts that replace a part in the configuration should dynamically update 
+                    the total price of the current configuration (this is what is described in step six).In terms of &quot;replacing one component with another from a list 
+                    of compatible components&quot;, I see this as only components that are compatible with the configuration that the user selected should be displayed. 
+                    With the components that are included in the systems configuration (RAM, hard drive, CPU, display, OS, and sound card), generally all of these parts are 
+                    compatible with eachother, so all items in the inventory will be displayed.
+                </p>
+                <p class="title4">
+                    The seventh requirement states that the user can add their current selection to a cart and when they do, they should be able to see a summary of their 
+                    selection and all of the details of their newly added computer. As well, other components in the cart should also be displayed in the cart that the 
+                    recently added configuration was added to. I understand the &quot;summary of selections, including all the deatils of the customized computer&quot; as 
+                    the name of all of the components in the system and some specs associated with each component. As well, the total pricing for each configuration in the 
+                    cart should be displayed with the configuration and the total of the entire cart should be displayed as well.
+                </p>
+                <p class="title4">
+                    The eigth requirement states that a database is not required for this part, and that cookies can be used to store and track customer selection. This 
+                    statement says taht cookies &quot;can&quot; be used to store and track customer selection. An alternative to cookies for tracking selection is sessions, 
+                    which is used in this application. Since the orders do not have to be saved into a database, sessions are an applicable technology in this case.
+                </p>
+                <p class="title4">
+                    Finally, part nine states taht all of the links, menus, and buttons in the store should be active, so they should be operational in the assignment
                 </p>
 
                 <hr />
 
                 <span class="title2">Analysis and Design of the Web Application</span>
                 <p class="title4">
-                    
+                    The design of the application is, once again, done using ASP.NET in C#. Looking at the first requirement again, here is the report of the findings 
+                    from studying the designs and functionalities of some online web stores such as Best Buy, Amazon, and Memory Express.
+                </p>
+                <p class="title4">
+                    Online stores such as Bestbuy.ca, Amazon.ca, and MemoryExpress.com all have a similar design format, along with similar functionalities. Generally, the main 
+                    page of these websites contain a search bar at the top that allows users to browse for items by the name or category of the item. Alongside this search bar, 
+                    there is usually a bar next to (in the case of Bestbuy.ca) or underneath (in the ) case of Amazon.ca and MemoryExpress.ca) that contains dropdown menus containing 
+                    different categories of items. These drop down menus are quick ways to filter out searches, especially if the website sells a plethora of different items. For 
+                    Bestbuy and Amazon, they sell lots of different categories of items, such as electronics, movies, large appliances, toys, car components, and much more. Thus, 
+                    these categories are more broad. When looking at an online store such as MemoryExpress, which specializes in computers, laptops, and computer components, 
+                    we see that the categories are less broad. There are different categories for specific computer parts, such as Power Supplies (PSU), Central Processing Units 
+                    (CPU), Graphics Processing Units (GPU), Memory, and more. These categories would generally be a subcategory of the computer category for Amazon or Bestbuy. A 
+                    direct example can be shown through Bestbuy, where computer components are categorized in the Computers, Tablets &amp; Accessories Tab, and within that, the 
+                    Computer Accessories &amp; Components inside the Video Cards &amp; PC Components section. Once a category is chosen, there is usually a gridview that displays small 
+                    images of the items, along with their associated price and 5-Star rating value. Generally, these websites also provide a side panel that provides extra options 
+                    for filtering the items in the selected category. Looking specifically at computer parts as a case study, (as the possible filtering values can vary drastically 
+                    depending on the item selected), we might see things such as the brand (AMD vs Intel would be an example for CPUs), Memory (such as 2x4GB for RAM (Random-Access
+                    Memory)), or Type (such as Desktop or Server). On more general websites such as Bestbuy or Amazon, we would generally see some sort of price filtering, where the 
+                    user can set a price range for the items they would see. Above the gridview, there is usually another bar that allows for sorting or changing the view of how the items 
+                    are displayed. There is generally a number count of the number of items that are in the category or result a search if a search was performed, a dropdown 
+                    &quot;Sort By&quot; menu to sort the items, and buttons that can change if the images are displayed in a list view or a grid view. General options for the sort 
+                    by menu are &quot;Best Seller&quot;, &quot;Price: Low to High&quot;, &quot;Price: High to Low&quot;, &quot;Title: (A-Z)&quot;, &quot;Title: (Z-A)&quot;,
+                    &quot;Highest Rated&quot;, and &quot;Newest&quot;. Upon clicking on one of the items in the gridview/listview, the general layout of the proceeding page is 
+                    the full name of the item, followed by the items price, number of items in stock, shipping costs (if they apply), any in-store locations with their associated 
+                    quantity (if they apply, examples are Bestbuy and MemoryExpress, but not Amazon). There is also a larger image of the item with different images that show any 
+                    accessories or different angles of the items. Using the computer components use case one more, there is an overivew of the item along with more details specs. 
+                    Online stores such as Bestbuy and Amazon like having multiple recommened or associated items following the details section. Below all of that, there is 
+                    reviews section that displays other buyers 5 star review rating and any comments they have about the product. All of the online stores also have tabs for contacting 
+                    the different stores or for online support, as well as tabs that provide more information about the store.
+                </p>
+                <p class="title4">
+                    Note that the research is done on the aspects that these web stores have. Many of these functionalities are not applied in this program due to the complexity of 
+                    some of the technologies.
+                </p>
+                <p class="title4">
+                    Before showing the drawings of the interface, let's discuss the modules first, since they are directly related to the web pages that will be shown and the drawings 
+                    of the interface. Parts of analysis and design of the web application will be explained during the description of the modules. There are a lot of modules, such as:
+                </p>
+                <ul class="title4">
+                    <li>
+                        Pre-Built Computers Module: This module contains a list of the pre-built, configured computers that the Digital Computers Web Store offers. This is the starting 
+                        point for the user to purchase a computer. For the list of pre-built computers, the web page should be designed in a way that each part in each pre-built computer 
+                        can be cleanly displayed in the table, along with the total cost, which should be the sum of each component in the configuration. Each part in the desription of 
+                        the pre-built computer should have some specs associated with the part such that choosing a pre-built system is easier since the specs of the components are shown 
+                        directly with the configuration. The design of the pre-built computer is that it should be compiled as a list of all of the individual components in the system.
+                    </li>
+                    <li>
+                        Swap Parts Module: This module is the second step, after the user selects a pre-built computer. This module displays the items available in the Digital Computers 
+                        inventory for the user to swap out parts in their computer configuration. This is the customization portion of the system. Each category of components has its 
+                        own table, which is similar to the table in the Pre-Built Computers module. The table is separated into two columns, once for the description and the other for 
+                        the price. A row in each component section will be highlighted green to reflect the component that is part of the current configuration. As well, each of the 
+                        tables are paged to ensure that the page can load quickly and that the page doesn't extend too long. This is done for organization of the web page. On this page, 
+                        whenever a new component is selected and the user's current configuration changes, the total price of the configuration displayed on the screen will change to match 
+                        the appropriate price of the added item. As well, inside this module, the user can add their current configuration to the cart when they are done configuring the 
+                        computer. When the current configuration is added to the cart, the current configuration becomes clear for the user to start creating another configuration if 
+                        they desire.
+                    </li>
+                    <li>
+                        Feedback Module: This module allows users to comment on their experience with the web store, comment reviews of their items, and discuss improvements for the 
+                        application. Since there is no customer management module in this section, the feedback module requires a name input so the users can identify themselves in 
+                        the comments section.
+                    </li>
+                    <li>
+                        Orders Module: This module allows the user to view the computers in their cart, along with the prices for each computer and the total price of everything in the 
+                        cart. This module contains a list of what is essentially pre-built computers, but with customized parts. Thus, the table in this page will look fairly similar to 
+                        the table in the Pre-Built Computers modules, but with some additional options. If the user is unsatisfied with any of the items in the cart, they can click edit 
+                        the computer and change the configuration or they can delete the computer and remove it from the cart.
+                    </li>
+                    <li>
+                        Information Module: This module consists of any modules that provide extra information. This includes the welcome screen and the contacts page.
+                    </li>
+                </ul>
+                <p class="title4">
+                    Some of the drawings in terms of interface for the design of the website are shown below:
+                    <br />
+                    Here is a draft for what the welcome page to the application would look like.
+                    <img src="./shared/Part3_Page_1.png" />
+                    <br />
+                    The welcome page has some information about what the web application is and how to use it. The text is displayed in the main content area of the page.
+                    <br />
+                    Here is a draft for what the pre-built computers module would look like.
+                    <img src="./shared/Part3_Page_2.png" />
+                    <br />
+                    In this image, you can see that the Pre-Built Computers module is selected. There will be a list of computer specifications and their associated price (separated 
+                    into two columns). This page allows the user to select a pre-built computer configuration. 
+                    <br />
+                    The next image shows the Swap Parts module, which allows the user to customize the configuration they chose.
+                    <img src="./shared/Part3_Page_3.png" />
+                    <br />
+                    The above image shows two of the six components that the user can customize (the scroll bar on the right side denotes that there are more parts the user can select 
+                    under the parts shown). Each component has an associated table that displays the items in the inventory for each component. The green highlighted row in each table 
+                    defines which row is selected in the current configuration.
+                    <br />
+                    The next image shows the Contacts module, which will show contact information for the developer of the web application.
+                    <img src="./shared/Part3_Page_4.png" />
+                    <br />
+                    The next image shows the Feedback form module, which allows users to add comments to the comments section below the inputs section on the page.
+                    <img src="./shared/Part3_Page_5.png" />
+                    <br />
+                    The user can enter their username and comment text, then submit the comment. All comments will be displayed in the table below, where the first column of the table 
+                    is the username of the user who created the comment and the second column is the comment itself.
+                    <br />
+                    The next image shows the Orders module, which allows users to view the current items in their cart, along with all of the details and prices for each component
+                    <img src="./shared/Part3_Part_6.png" />
+                    <br />
+                    Here you can click the edit button to edit the configuration, or you can click the delete button to remove the configuration from the cart.
+                    <br />
+                    Also looking at the top of all of the web pages, you can see the web application logo at the top left of the application. As well, there is a cart at the top right 
+                    of the application that would redirect the user to their cart so they can view their current orders. Under these two elements is the navigation menu in the form of a 
+                    horizontal bar, which contains buttons to allow the user to access each of the modules in the application. On pages where cost of the user's configuration can change 
+                    (Pre-Built Computer and Swap Parts modules), there is a label displaying the current cost of the configuration.
+                    <br />      
+                </p>
+                <p class="title4">
+                    In an ASP.NET C# application, there is a master form that displays the contents of that page onto any pages that inherit the master page. This is useful in displaying 
+                    the same information over multiple pages. The information that all of the pages requires is the web store logo, navigation bar for moving around to different modules, 
+                    and a cart icon for the user to access their cart. The naviagation bar will have links to each of the modules that were discussed above.
+                </p>
+                <p class="title4">
+                    The application will be designed such that each component has a class associated with it to create distinct and separate components that can be added to a container 
+                    to create the current (or pre-built) computer configuration. Thus, the use of sessions (rather than cookies) in this application is used to keep track of the 
+                    component objects that the user has selected, as well as the total price of the configuration.
                 </p>
 
                 <hr />
 
                 <span class="title2">Documentation of Implementation</span>                
                 <p class="title4">
-                    
+                    The implementation of the Digital Computerse web application begins with how the data is stored on the server. There is a class created for each component, so there is 
+                    a Display, HardDrive, OperatingSystem, Processor, RAM, and SoundCard classes. Each of these classes contain properties pertaining to different descriptions of their 
+                    specs. For example, the Processor class contains the properties brand, model, clock, cache, socket, and price. Each of these classes inherit from a parent class called 
+                    Component, which has the properties brand, model, and price. I determined that these three properties were general enough to include in each component, so they deserve 
+                    to be placed in the base class. This base class also has two abstract method that each of the child components must implement. The two abstract methods are called 
+                    GetGridView and GetSessionName, which return values specific to the component. The GetGridView method returns the name of the gridview that is associated with the 
+                    component and the GetSessionName returns the name of the session that the component belongs to. For example, the Processor class would return &quot;ProcessorGridView&quot; 
+                    for the GetGridView method and &quot;processor&quot; for the GetSessionName method. Next, the base class has a couple of methods that the children class can also use. 
+                    One method is the GetPrice method, which converts the price string into a double and parses out the dollar sign. There is also a method called EqualComponent, which 
+                    takes in a component and compares whether the calling component is equivalent to the parameter component by comparing the properties of the two components. This method 
+                    is extended upon in each child class, where the child classes perform this comparison, but also compare the other properties that exist in the child class. So in the 
+                    example of the Processor class, the comparison would occur in checking the brand, model, clock, cache, socket, and price of the processor. The reason for this equality 
+                    check is that it is highly unlikely that two of the exact same components appear in the database, making it a valid check. Finally, there is a static method in the 
+                    Component class that get's the index of a component in a given list. This is important when dealing with the index of a component that is chosen from the Swap Parts 
+                    page. All of the hardcoded data for each of the components is stored inside a class caleed ComponentsFactory, and the data can be retrieved from using the static method 
+                    calls inside the class. All of these components are used in conjunction inside of the PreBuiltSystem class, which contains a pre-built computer configuration. The 
+                    class contains all of the six components as properties, as well as a system, price, and preBuiltIndex property. The system property contains a formatted string of the 
+                    description of the pre-built system that will be displayed on the Pre-Built Computer page for each computer. The preBuiltIndex is the index of the PreBuiltSystem for 
+                    this page. The price property is the total price of all of the components in the system, which is calculated in the TotalPrice method. This method takes the price of 
+                    all of the system and adds them together, then prepends a $ sign to the front.
                 </p>
-                
+                <p class="title4">
+                    Now that the implementation of the backend data structure is discussed, it's time to talk about the UI implementation, starting with the master page. The Site.master page is 
+                    in charge of ensuring that each page has the same elements on it. This page contains the DigitalComputers logo on the top left, the cart logo on the top right, the navigation 
+                    bar containing buttons to access the Home page, Pre-Built Computers page, Swap Parts page, Contacts page, and Feedback page. As well, there's a label that states the 
+                    current cost of the user's configuration. This label is hidden on pages that do not require it, such as the Contacts or Feedback page. Next, we will discuss the implementation 
+                    of the Information module, starting with the welcome page, which is the Default.aspx page, simply contains some paragraphs stating the purpose of the web store and how it 
+                    works. The Contacts page is similar, but it also contains an image, which is stored in the Server's Resources folder, of the DigitalComputers developer. There is also some 
+                    information about hte developer, the name, and an email address to reach him.
+                </p>
+                <p class="title4">
+                    Next, we will discuss the implementation of the Feedback Module. In the feedback module, the user is responsible for filling out their username and the text for their comment 
+                    to be able to post a feedback comment. The container for the feeback comments is a datatable containing two columns, which is the username and the comment text. If there are 
+                    no comments in the table, a label describing that there are no comments is displayed, otherwise, the program takes the feedback information that is stored in the session 
+                    under the name &quot;feedback&quot; and sets it as the DataSource of the gridview. When a user submits a feedback comment, a new FeedbackComments variable is created. This 
+                    FeedbackComments class is a simple data class that contains a name and comment property. This newly created FeedbackComments object is added to the list of feedback comments 
+                    that's stored in the session. This is done by first retrieving the list of FeedbackComments from the Session, then appending the new comment to the list, then setting the 
+                    Session variable back to this list. Afterwards, the gridView has it's DataSource reset to the list and Databound so the new comment is shown in the table. The two textboxes 
+                    are also cleared for a new comment.
+                </p>
+                <p class="title4">
+                    The next module under discussion is the Pre-Built Computers Module. The webpage for this part is simple, as it only contains a GridView with two columns, which expects the 
+                    System and Price variables from the PreBuiltSystem class. On the backend, the system checks for the preBuiltSystem variable in the session. This variable contains a list of 
+                    all of the prebuilt systems. This is done to prevent the system from regenerating the prebuilt system values everytime the page refreshes. In this case, the session is 
+                    acting similar to a cache. Afterwards, the list of preBuiltSystems is set as the datasource to the gridview and it is also databound to display the changes. As well, 
+                    there is a totalPrice value that is stored in the Session, which keeps track of the total cost of the configuration. If this variable exists in the Session, then retrieve 
+                    it and display it in the label from the master label. When a user selects a row, the index of the row they selected is retrieved from the event handler. This index is used 
+                    to retrieve the preBuiltSystem from the gridview's datasource. Using the retrieved preBuiltSystem, each component in the system is saved into the session, where the name of 
+                    the session name is the value retrieved from the GetSessionName function and the value is the part itself. As well, the overall price of the configuration is calculated and 
+                    saved into the totalPrice variable. Also note that is a Pre-Built Computer is selected, the row is highlighted but if the user leaves the page or refreshes the page, the 
+                    highlighting is removed, but the total price still exists. This is done because it is assumed that after the user leaves the page, the system would be modified and we do 
+                    not want the user coming back into the Pre-Built Computer page and the pre-built computer they selected overwrites their current configuration just to show the highlighting.
+                </p>
+                <p class="title4">
+                    The next module's implementation to be discussed is the Swap Parts Module. To re-iterate some of the UI components on this page, there are six gridviews, one for each 
+                    component. Each gridview contains the same rows as all of the properties in the component subclasses. This is done by specifying the expected columns in the gridview 
+                    and matching the properties in classes to the columns. Each of these gridviews include paging as well to decrease the length of the page. As well, each table also has 
+                    a column dedicated to a select option that allows that component to replace the respective component in their current configuration. As well, the label for the total 
+                    cost is also visible on this page. At the bottom of the page, there is a button to add the computer to the cart. Now looking at the behind-the-scenes code for this 
+                    page, we will see exactly how it works. On the page load (in the Page_Load function), it is required that the user has a prebuilt system selected from the 
+                    Pre-Built Computers page. This check is done by enduring that each of the components and the total price in the session is set already. If they are not set, then all 
+                    of the gridviews, labels, and add button is removed from the page and a label telling the user to choose a computer from the Pre-Built Computers page is displayed 
+                    instead. Once the user has a Pre-Built Computer selected, these Session variables will not longer be empty (null) amd each of the gridviews are populated with the 
+                    hard-coded data produced from the ComponentsFactory class. On the first load of the page, a row in each of the gridviews is highlighted (unless the componet appears 
+                    on another page that is not displayed). The indicies are retrieved by getting the index of the component from the list of the component using the GetIndexOfComponent 
+                    method in the Components class. As well, the total cost is displayed and all of the labels and the Add To Cart button is also displayed. Next, let's look at how paging 
+                    for the gridviews works. This was one of the challenging stages to wrap my head around in development, since it was difficult to get the row to select properly on 
+                    one page and not highlight on another. When a new page is requested for a gridview, the GridView_PageIndexChanging function is called. The index of the component 
+                    that resides in that gridview is retrieved. Next, wew check if the index of the element would reside in the index of the newly  requested page. The lower bound of the 
+                    items in the page is the pageIndex * the pageSize of the gridview and the upperbound is the (pageIndex + 1) * the pageSize. Note that the PageIndex is the new page 
+                    index that the user requested. If this is the case, the component's index mod the page size returns the element's index on that page. Otherwise, -1 is selected as a 
+                    row to remove any row selections. When a new row is selected (either from the user selecting or from calling the SelectRow function to hightlight a row), the 
+                    GridView_SelectedIndexChanged event handler is called. This event handler takes the real index of the element (which is the SelectedIndex + PageSize * PageIndex). 
+                    This index is used to get the component from the components list stored in the gridview's DataSource. Before storing the newly selected component into the session 
+                    state, the totalPrice value from the Session is retrieved and updated to match the new price of the newly selected item. After that, both the new component and the 
+                    total price is stored back into the session. Finally, the Add To Cart button has its own event handler called AddToCartButton_Click. This event handler first 
+                    ensures that all of the components and the total price exist inside the session state. Next, using all of the components in the session, a PreBuiltSystem is 
+                    created. Next, the session for the cart is retrieved (or if the session doesn't exist, then create it and add the system in). There is also a check to see if 
+                    EditingRow in the session is set (this will be discussed when looking at the implementation of the cart), in which case a row in the cart is replaced with the new 
+                    data, otherwise, this data is added to the cart. Note that the Session.Clear() method is called before storing the new cart data back into the session. This is 
+                    because we want all of the session variables cleared (all of the components and the total price) once the system is added to the cart.
+                </p>
+                <p class="tite4">
+                    For the final module, which is the Orders Module, we will discuss what the Cart looks like and how it operates. **Note that the Cart is the last step in the program, 
+                    as it it right before orders take place. The program stops here because it allows the user to see everything they would order, but also allows them to edit or delete 
+                    any components before they were to place an actual order. All that is missing is an order button to fully &quot;place the order&quot; so the cart is considered 
+                    &quot;placing the order&quot; when the user is satisfied with what is in the cart. Once again, note that there are two columns, one that specifies the details of the 
+                    system and one that displays the cost of the system. There is also another column that gives the user some options to edit or delete the computer from their cart. 
+                    Below this table is the total price of all of the components combined. Upon the page's load, there is a ConfigureCartPage function that is called. This function first 
+                    checks if the cart is empty, and if it is, then the gridview is hidden and a message stating that the Cart is empty is displayed. Otherwise, the preBuiltSystems stored 
+                    in the session's &quot;cart&quot; variable is retrieved and set as the datasource for the CartGridView. As well, each preBuiltSystems price is summed together to get 
+                    the total price of all of the systems, which is displayed in a label for the user to see. As well, the cost of current configuration label is hidden in this page. 
+                    When a row or preBuiltSystem is selected to delete, the CartGridView_RowDeleting event handler is called. This event handler takes the index of the row that was selected 
+                    to delete, gets the list of preBuiltSystems from the session, removes the preBuiltSystem at that index, and stores the list back into the cart variable in the session. 
+                    Afterwards, the ConfigureCartPage method is called again (which will update the GridView's data and if there are no more elements in the cart, then the display message 
+                    will show). There is also an option for the user to edit a configuration in their cart. When the user presses the &quot;edit&quot; option, the preBuiltSystem from the 
+                    row they selected is retrieved from the cart variable in the session. All of the components in the preBuiltSystem are stored indiviually into the session (using their 
+                    GetSessionName method as the name of the session), the total price of the session is saved as the totalPrice variable, and there is a new variable called EditingRow, 
+                    that contains the index of the row that the user selected to edit. This variable is set to ensure that the row in the cart is updated, rather than appending a new 
+                    preBuiltComputer to the cart. As seen in the Swap Parts module, there is a check when the user presses the Add To Cart button, which checks to see if this variable is 
+                    set. If it is, then the row in the list of preBuiltSystems is replaced with the configuration that the user now has, otherwise the configuration is added onto the cart.
+                </p>
                 <hr />
 
                 <span class="title2">Setup, Run, and Use Guide</span>
                 <p class="title4">
-                    
+                    To setup the application, ensure that the Components.cs, ComponentsFactory.cs, Display.cs, FeedbackComments.cs, HardDrive.cs, OperatingSystem.cs, PreBuiltSystem.cs, 
+                    Processor.cs, RAM.cs, and SoundCard.cs files are located in the part3/App_Code folder. As well, endure that the Contact_Image.jpg, DE_Logo.png, and shopping_cart.png 
+                    images are stored in the part3/Resources folder. Also not that there are jquery scripts in the Scripts folder, which may be useful for any JavaScript function calls 
+                    (although none are used in this part), and taht the Site.css file exists in the part3/Styles folder. Otherwise, ensure that the Cart, Contacts, Default, Feedback, 
+                    PreBuiltComputers, Site.master, and SwapParts web design and cs pages are present in the part3 folder. To run the program in Visual Studios, ensure that the solution 
+                    is built before running it. Note that the application works on Google Chrome, Mozilla Firefox, Internet Explorer, and Opera web browsers, but is tested mainly on 
+                    Google Chrome.
+                </p>
+                <p class="title4">
+                    To use application, first start by reading the Welcome page. Next navigate to the Pre-Built Computers page by pressing the Pre-Built Computers tab. Review the 
+                    systems that are available here by looking at the components that each system has and the price of the system. After you have decided on a computer, press the 
+                    select button on the left-most column to select the system. The row should be highlighted in green and the Cost of Current Configuration label should display 
+                    the price of the configuration you chose. Next, move to the Swap Parts page to customize the computer in any way you choose. The parts in your current configuration 
+                    should be highlighted in green. In a similar fashion to the Pre-Built Computers section, you can select a component you want by pressing the Select option in the 
+                    left-most column of each gridview. Also note that if there is no highlighted row in a gridview, the component you have in your configuration is not currently on 
+                    the page. You can change pages to load more component by pressing the paging button under each gridview. Notice the Cost of Current Configuration label at the 
+                    top left corner of the page update whenever a new component is selected. Once your configuration is complete, press the Add to Cart button at the bottom of the 
+                    page. This will bring you to the Cart page (which can also be accessed by pressing the top-right cart icon). You configuration should be displayed here, where 
+                    each of the systems components and their price is displayed in a row and the total price of everything in your cart is displayed at the bottom of the page. Also 
+                    note the Edit and Delete options at the left-most column of the table. At this point you can choose to go back to the Pre-Built Computers page and start 
+                    configuring another system, choose to edit a configured system by pressing the Edit option in the left-most column, or deleting the system by pressing the delete 
+                    option that's next to the Edit option. If you choose the Edit option, the web application will transfer you to the Swap Parts page where you can continue to 
+                    configure your system. If you choose the delete option, then the configuration will be deleted and your total cost will be updated. You can go to the Contacts 
+                    page to view the developer of the webpage and email him any questions, and you can go the Feedback page to enter any feedback you have about the website, 
+                    computer components, and overall experience. Enter a name and comment text and press the Submit button to submit your feeback. It should update in the feedback 
+                    box below.
                 </p>
 
                 <hr />
@@ -467,6 +802,17 @@
 
             <div class="titleDiv" hidden>
                 <span class="title1">Note for the Instructor</span>
+                <span class="title2">Notes on Part 3</span>
+                <p class="title4">
+                    Note that not all components required to build a computer are used in the application (so details on things) 
+                    such as the MOBO (motherboard), PSU (power supply unit), case, and GPU (graphics processing unit) are not included
+                    to make the application more concise in terms of the purpose of the assignment.
+                </p>
+                <span class="title2">Notes on Part 3 and 4</span>
+                <p class="title4">
+                    Note that for the resources of the two parts, the DE_Logo.png and shopping_cart.png were hand drawn images and were not 
+                    taken off the web. The Contact_Image.jpg image is an image of me.
+                </p>
                 <p class="title4">
                     mysql -h localhost -u root
                     USE mysql;
