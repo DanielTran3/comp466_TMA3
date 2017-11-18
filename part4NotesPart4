@@ -1,0 +1,60 @@
+For the implementation of the databases, there were several possible routes that 
+could be taken to achieve the desired functionality of the website. I will explain 
+some of the possibilities and discuss the pros and cons of each implementation and 
+why I decided implement the software the way I did.
+
+First, there was the possibility of using an mdf file, which is a database schema 
+file, or directly connecting to a MySQL server. I chose to directly connect to a 
+MySQL server because it seems more appropriate for the application, where real-time 
+updates to the database would appear quickly on the website.
+
+Next, there are a couple of different ways to populate the gridview that display 
+information to the users. One way is using a MySqlDataReader and setting each 
+gridview's DataSource to the Reader output 
+(ex. gridview.DataSource = reader.ExecuteReader()). This is a simple way of 
+easily displaying the contents of the database to the user. The downside to this 
+is that a MySqlDataReader is not bi-directional, meaning that it is not possible 
+to using paging for the datatables. This is detrimental if there are a lot of rows 
+in the table because the webpage would grow to be very large. A fix to this is 
+using a MySqlDataAdapter instead and filling a DataTable with the information from 
+the database. This would accomplish the same thing as the DataReader, but requires 
+slightly more logic in accomodating the datatable. The downside to both of these 
+methods is that there is no DataSource available to retrieve data from. Instead, 
+we would be required to extract each cell in the gridview's row and combining the 
+strings.
+
+
+In the database, the prebuilt systems are coded as containing the ID of rows in 
+each of the component tables, such as the Display table or the HardDrive table. 
+This is done so the system is composed of existing parts in other tables, rather 
+than hardcoding different parts into a large string for each prebuilt system. It 
+makes more sense that a prebuilt system should reference existing components, 
+rather than having its own hardcoded list of components. In a similar fashion, 
+the same thing is done forr the current components that the user has selected. 
+Their selections will be selecting and saving the ID values of the actual 
+component tables. 
+
+
+A constraint for the order of the columns in the table is that the ID must appear 
+in the first column and the price has to appear in the last column.
+
+As well, the currentOrder table is constructed such that the name of the columns 
+match the corresponding name of the tables for the components. This makes it 
+easier for the programmer to understand what each of these rows actually mean, 
+as well as query the correct table when querying the currentOrders and when 
+nested select queries are used.
+
+When filling the gridview with data from the database (using MySqlDataAdapter),
+The table only contains rows equal to the number of rows present in the table. 
+This is important to know for paging. For example, consider a table with paging 
+for every 5 rows and the database contains a table with 6 rows. On the first 
+page of the gridview, the gridview only contains 5 rows (gridview.Rows == 5), 
+but on the second page, the gridview only contains one row (the 6th row, or 
+gridview.Rows == 1)
+
+POSSIBLY USE RANK INSTEAD OF ID IN WHERE QUERY BECAUSE DELETES ARE A PROBLEM
+CAN DO ORDER BY ID THEN RANK 
+
+
+Nested Select Query Example
+http://www.informit.com/articles/article.aspx?p=26856&seqNum=3

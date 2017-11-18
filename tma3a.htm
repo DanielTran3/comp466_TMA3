@@ -200,21 +200,51 @@
                 
                 <span class="title2">Interpretation of Description and Requirements</span>
                 <p class="title4">
-
+                    A web application, developed using ASP.NET in C#, for running a slideshow of pictures is to be developed. The 
+                    information about the pictures should be stored on the server in a database or text file, and the information 
+                    can include the name of the image and its location (or combined into a path to the image) and the caption for 
+                    ths image. I interpret this as, the path to the image and the image caption are stored together in a text file, 
+                    for every image that will be used, where the images are stored in a specified directory on the server and the 
+                    text file, which is also stored on the server, can be read to retrieve the location of the file on the server 
+                    and the caption of the image. As well, there should be a caption displayed under each image, where the caption 
+                    is the same caption that is stored in the text file. The should be a toggle button that switches between start 
+                    and stop, to start and stop the slideshow, a button that toggles between random and sequential, to display the 
+                    images in a random or sequential order. As well, there should be two buttons, one for forward and one for 
+                    backward, which can only be used in sequential mode, disabled in random mode. This allows the images to be 
+                    displayed in order in the forward or backward direction. As well, the same images from assignment 1 part 3 can 
+                    be used because the assignment is similar to this one and also requires at least 20 pictures.
                 </p>
-
+            
                 <hr />
-
+            
                 <span class="title2">Analysis and Design of the Web Application</span>
                 <p class="title4">
-
+                    Since the web application is to be created using ASP.NET and C#, all of the user interface and server based 
+                    logic resides in the web design page and the backend cs file for the page. The text file and images should 
+                    reside in a folder dedicated to containing extraneous files such as images and text files. The file location 
+                    should be the relative file path to the images and it should always point to the image files in this folder. 
+                    The text file is be designed to be line separated for each image and comma separated for the location and 
+                    image caption. The form should be designed to include the title of the application, as well as buttons for 
+                    the start/stop, random/sequential, forward, and backward. These buttons will be lined up horizontally to 
+                    make an area where the user can easily find and use the buttons. As well, an additional feature to allow the 
+                    user to control the time between image transitions would increase the useability and functionality of the 
+                    application. This is implemented as a textbox that accepts the number of seconds between image transitions 
+                    and a button to apply the change. Underneath these buttons, the image will be displayed and below the image, 
+                    a label containing the image caption will be displayed. For the forward and backward buttons, they should 
+                    only be available to press if the mode is sequential. Otherwise, the mode will be random and these buttons
+                    should be grayed out and unuseable.
                 </p>
-
+            
                 <hr />
-
+            
                 <span class="title2">Documentation of Implementation</span>                
                 <p class="title4">
-
+                    To begin the discussion of implementation, let's look at the user interface implementation. The title of the 
+                    application is displayed as a h1 element and is centered on the page. A paragraph element contains all of the 
+                    buttons, as well as the input to change the image transition time. Below this element is a paragraph containing 
+                    the ScriptManager, which is used in conjunction with the timer in the application (the timer will be discussed 
+                    later on). Below this is a div element containing a timer, an image element, and a label element below the 
+                    image element.  
                 </p>
 
                 <hr />
