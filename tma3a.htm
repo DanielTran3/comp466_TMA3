@@ -407,9 +407,120 @@
 
                 <span class="title2">Analysis and Design of the Web Application</span>
                 <p class="title4">
+                    The design of the application is, once again, done using ASP.NET in C#. Looking at the first requirement again, here is the report of the findings 
+                    from studying the designs and functionalities of some online web stores such as Best Buy, Amazon, and Memory Express.
+                </p>
+                <p class="title4">
+                    Online stores such as Bestbuy.ca, Amazon.ca, and MemoryExpress.com all have a similar design format, along with similar functionalities. Generally, the main 
+                    page of these websites contain a search bar at the top that allows users to browse for items by the name or category of the item. Alongside this search bar, 
+                    there is usually a bar next to (in the case of Bestbuy.ca) or underneath (in the ) case of Amazon.ca and MemoryExpress.ca) that contains dropdown menus containing 
+                    different categories of items. These drop down menus are quick ways to filter out searches, especially if the website sells a plethora of different items. For 
+                    Bestbuy and Amazon, they sell lots of different categories of items, such as electronics, movies, large appliances, toys, car components, and much more. Thus, 
+                    these categories are more broad. When looking at an online store such as MemoryExpress, which specializes in computers, laptops, and computer components, 
+                    we see that the categories are less broad. There are different categories for specific computer parts, such as Power Supplies (PSU), Central Processing Units 
+                    (CPU), Graphics Processing Units (GPU), Memory, and more. These categories would generally be a subcategory of the computer category for Amazon or Bestbuy. A 
+                    direct example can be shown through Bestbuy, where computer components are categorized in the Computers, Tablets &amp; Accessories Tab, and within that, the 
+                    Computer Accessories &amp; Components inside the Video Cards &amp; PC Components section. Once a category is chosen, there is usually a gridview that displays small 
+                    images of the items, along with their associated price and 5-Star rating value. Generally, these websites also provide a side panel that provides extra options 
+                    for filtering the items in the selected category. Looking specifically at computer parts as a case study, (as the possible filtering values can vary drastically 
+                    depending on the item selected), we might see things such as the brand (AMD vs Intel would be an example for CPUs), Memory (such as 2x4GB for RAM (Random-Access
+                    Memory)), or Type (such as Desktop or Server). On more general websites such as Bestbuy or Amazon, we would generally see some sort of price filtering, where the 
+                    user can set a price range for the items they would see. Above the gridview, there is usually another bar that allows for sorting or changing the view of how the items 
+                    are displayed. There is generally a number count of the number of items that are in the category or result a search if a search was performed, a dropdown 
+                    &quot;Sort By&quot; menu to sort the items, and buttons that can change if the images are displayed in a list view or a grid view. General options for the sort 
+                    by menu are &quot;Best Seller&quot;, &quot;Price: Low to High&quot;, &quot;Price: High to Low&quot;, &quot;Title: (A-Z)&quot;, &quot;Title: (Z-A)&quot;,
+                    &quot;Highest Rated&quot;, and &quot;Newest&quot;. Upon clicking on one of the items in the gridview/listview, the general layout of the proceeding page is 
+                    the full name of the item, followed by the items price, number of items in stock, shipping costs (if they apply), any in-store locations with their associated 
+                    quantity (if they apply, examples are Bestbuy and MemoryExpress, but not Amazon). There is also a larger image of the item with different images that show any 
+                    accessories or different angles of the items. Using the computer components use case one more, there is an overivew of the item along with more details specs. 
+                    Online stores such as Bestbuy and Amazon like having multiple recommened or associated items following the details section. Below all of that, there is 
+                    reviews section that displays other buyers 5 star review rating and any comments they have about the product. All of the online stores also have tabs for contacting 
+                    the different stores or for online support, as well as tabs that provide more information about the store.
+                </p>
+                <p class="title4">
+                    Note that the research is done on the aspects that these web stores have. Many of these functionalities are not applied in this program due to the complexity of 
+                    some of the technologies.
+                </p>
+                <p class="title4">
+                    Before showing the drawings of the interface, let's discuss the modules first, since they are directly related to the web pages that will be shown and the drawings 
+                    of the interface. There are a lot of modules, such as:
+                </p>
+                <ul class="title4">
+                    <li>
+                        Pre-Built Computers Module: This module contains a list of the pre-built, configured computers that the Digital Computers Web Store offers. This is the starting 
+                        point for the user to purchase a computer
+                    </li>
+                    <li>
+                        Swap Parts Module: This module is the second step, after the user selects a pre-built computer. This module displays the items available in the Digital Computers 
+                        inventory for the user to swap out parts in their computer configuration. This is the customization portion of the module.
+                    </li>
+                    <li>
+                        Feedback Module: This module allows users to comment on their experience with the web store, comment reviews of their items, and discuss improvements for the 
+                        application.
+                    </li>
+                    <li>
+                        Orders Module: This module allows the user to view the computers in their cart, along with the prices for each computer and the total price of everything in the 
+                        cart. As well, if the user is unsatisfied with any of the items in the cart, they can click edit the computer and change the configuration or they can delete 
+                        the computer and remove it from the cart.
+                    </li>
+                    <li>
+                        Information Module: This module consists of any modules that provide extra information. This includes the welcome screen and the contacts page.
+                    </li>
+                </ul>
+                <p class="title4">
+                    Some of the drawings in terms of interface for the design of the website are shown below:
+                    <br />
+                    Here is a draft for what the welcome page to the application would look like.
+                    <img src="./shared/Part3_Page_1.png" />
+                    <br />
+                    The welcome page has some information about what the web application is and how to use it. The text is displayed in the main content area of the page.
+                    <br />
+                    Here is a draft for what the pre-built computers module would look like.
+                    <img src="./shared/Part3_Page_2.png" />
+                    <br />
+                    In this image, you can see that the Pre-Built Computers module is selected. There will be a list of computer specifications and their associated price (separated 
+                    into two columns). This page allows the user to select a pre-built computer configuration. 
+                    <br />
+                    The next image shows the Swap Parts module, which allows the user to customize the configuration they chose.
+                    <img src="./shared/Part3_Page_3.png" />
+                    <br />
+                    The above image shows two of the six components that the user can customize (the scroll bar on the right side denotes that there are more parts the user can select 
+                    under the parts shown). Each component has an associated table that displays the items in the inventory for each component. The table is separated into two columns, 
+                    once for the description and the other for the price. The green highlighted row in each table defines which row is selected in the current configuration. As well, 
+                    each of the tables are paged to ensure that the page can load quickly and that the page doesn't extend too long. This is done for organization
+                    <br />
+                    The next image shows the Contacts module, which will show contact information for the developer of the web application.
+                    <img src="./shared/Part3_Page_4.png" />
+                    <br />
+                    The next image shows the Feedback form module, which allows users to add comments to the comments section below the inputs section on the page.
+                    <img src="./shared/Part3_Page_5.png" />
+                    <br />
+                    The user can enter their username and comment text, then submit the comment. All comments will be displayed in the table below, where the first column of the table 
+                    is the username of the user who created the comment and the second column is the comment itself.
+                    <br />
+                    The next image shows the Orders module, which allows users to view the current items in their cart, along with all of the details and prices for each component
+                    <img src="./shared/Part3_Part_6.png" />
+                    <br />
+                    Here you can click the edit button to edit the configuration, or you can click the delete button to remove the configuration from the cart.
+                    <br />
+                    Also looking at the top of all of the web pages, you can see the web application logo at the top left of the application. As well, there is a cart at the top right 
+                    of the application that would redirect the user to their cart so they can view their current orders. Under these two elements is the navigation menu in the form of a 
+                    horizontal bar, which contains buttons to allow the user to access each of the modules in the application.
+                    <br />      
+                </p>
+                <p class="title4">
+                    In an ASP.NET C# application, there is a master form that displays the contents of that page onto any pages that inherit the master page. This is useful in 
+                </p>
+                <p class="title4">
                     
                 </p>
-
+                <p class="title4">
+                    
+                </p>
+                <p class="title4">
+                    
+                </p>
+                                    
                 <hr />
 
                 <span class="title2">Documentation of Implementation</span>                
