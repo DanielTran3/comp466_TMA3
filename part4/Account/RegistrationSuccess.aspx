@@ -8,6 +8,8 @@
         Registration Successful!
     </h1>
     <h2>
-        <asp:Button ID="RegistrationSuccessfulButton" runat="server" CssClass="whiteButton" Text="Continue" OnClick="RegistrationSuccessContinueButton_Click" />
+        Press the button below to continue</h2>
+    <h2>
+        &nbsp;<asp:Button ID="RegistrationSuccessfulButton" runat="server" CssClass="whiteButton" Text="Continue" OnClick="RegistrationSuccessContinueButton_Click" />
     </h2>
 </asp:Content>

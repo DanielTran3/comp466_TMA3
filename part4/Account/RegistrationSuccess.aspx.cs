@@ -14,6 +14,6 @@ public partial class Account_RegistrationSuccess : System.Web.UI.Page
 
     protected void RegistrationSuccessContinueButton_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Default.aspx");
+        Response.Redirect("~/Account/Login.aspx");
     }
 }
