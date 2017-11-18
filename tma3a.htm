@@ -241,17 +241,57 @@
                 <p class="title4">
                     To begin the discussion of implementation, let's look at the user interface implementation. The title of the 
                     application is displayed as a h1 element and is centered on the page. A paragraph element contains all of the 
-                    buttons, as well as the input to change the image transition time. Below this element is a paragraph containing 
-                    the ScriptManager, which is used in conjunction with the timer in the application (the timer will be discussed 
-                    later on). Below this is a div element containing a timer, an image element, and a label element below the 
-                    image element.  
+                    buttons, except the button for setting the transition time. The input textbox for the transition time and the 
+                    Below this element is a paragraph element containing the input to change the image transition time and the 
+                    button to set it. Below this is the ScriptManager, which is used in conjunction with the timer in the 
+                    application (the timer will be discussed later on). Below this is a div element containing a timer, an image 
+                    element, and a label element below the image element. As for the backend server side code, the Photos.cs class 
+                    is in charge of retrieving the images from the text file to display to the user. The Photos class contains 
+                    a list of a list of strings, which stores the values produced in the StorePhotoDetails method. This method 
+                    receives the lines from the text file and parses the value based on commas. The list ends up containing a 
+                    list of strings, where the inner list contains the file path and the caption. Next, there is a 
+                    currentPhotoIndex property that contains the current photo index. This index is in respect to the size 
+                    of the photoDetails list, which matches the number of images that are used in the slideshow. This variable 
+                    is updated to a new value depending on the current configuration of the web page. For example, the index is 
+                    decremented if the configuration is in sequential mode with backwards specified. There is also a forward 
+                    property that is a boolean, which specifies if the photos are going to be displayed in a forward or backward 
+                    manner. Another boolean property called random is used to specify if the photos are going to be displayed 
+                    randomly (random == true) or sequentially. The function that performs all of the image index updates is the 
+                    UpdateCurrentPhotoIndex method. First it checks to see if the mode is random. If it is, it randomly generates 
+                    an index from 0 to the maximum number of images. Otherwise, the mode is sequential, in which case it checks 
+                    to see if the images are going to be displayed forward or backward. In both of these checks, the boundary 
+                    values need to be checked to ensure that the index is always valid (ex. so we don't get a -1 index or 
+                    23 for an index if there are only 22 images). In the photoSlideshow.aspx.cs file, the user inputs are taken 
+                    into account. On every page load, the textfile containing the photos is read and stored inside a Photos 
+                    instance. As part of the application, the current photo index, forward value, random value, and interval 
+                    time is stored in a ViewState so the user's inputs persist on page refreshes. When the user pressses the 
+                    start/stop button, the PhotoTimer, which is the timer for the application, is enabled/disabled. If the 
+                    user presses the sequential/random button then the random property in the photos instance is set. If the 
+                    button changes from sequential to random, then the random property is set to false and the forward and 
+                    backward buttons are enabled. The opposite occurs if the button changes from random to sequential. As 
+                    well, this value is stored in a ViewState. If the forward button or the backward button is pressed, then the 
+                    photos instance's forward property is set to true and false, respectively. This property is stored in the 
+                    ViewState as well. Next, if the interval button is pressed, it will only change the PhotoTimer's interval 
+                    if the value entered into the textbox is an integer. It will convert the inputted value from seconds to 
+                    milliseconds and store the value into a ViewState variable, after updating the PhotoTimer's interval. Finally, 
+                    There is a PhotoTimer_Tick event handler, which handles the event raised by the timer after the specified 
+                    interval time is passed. On this event, the current photo is updated depending on the current configuration 
+                    of the web page and the photos instance gets the new photo location and caption. The image element's 
+                    ImageUrl property is updated to the new location and the label's text is updated to the newly retrieved caption.
                 </p>
 
                 <hr />
 
                 <span class="title2">Setup, Run, and Use Guide</span>
                 <p class="title4">
-
+                    For the setup of the program, ensure that all of the image files are stored in the shared folder, and that the 
+                    textfile containing the file locations and captions is stored in the part2/App_Data folder. To run the application, 
+                    _______________________________________
+                    To use the program, you can start and stop images by pressing the start and stop button. You can change the images 
+                    from being displayed randomly or sequentially by toggling the random/sequential button. If the button is toggled 
+                    to sequential (Random shows on the button's text), then the forward and backwards buttons will be enabled. Clicking 
+                    one of these buttons will change the order that the images are displayed in. To change the speed of images being 
+                    displayed, enter a whole number value into the textbox and press the Set Interval button.
                 </p>
             </div>
             <div class="titleDiv" hidden>
