@@ -63,6 +63,7 @@ public partial class Feedback : System.Web.UI.Page
             }
         }
 
+        this.NoFeedbackLabel.Visible = this.FeedbackGridView.Rows.Count == 0 ? true : false;
         this.UsernameTextbox.Text = string.Empty;
         this.FeedbackTextbox.Text = string.Empty;
     }
