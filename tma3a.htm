@@ -922,7 +922,8 @@
                     The first operation is the delete operation, which will perform a delete query on the ID of the orders table for the selected order. The 
                     other operation is the edit operation, which will insert the columns of the selected order into the currentOrder table. If there is already 
                     an currentorder, then the currentorder row for the user is updated to the selected row's value. The editID column is also set to the ID of 
-                    the order that the user selected.
+                    the order that the user selected. As well, when an order is being edited, the delete option disappears, similar to what happens in Part 3, 
+                    and for the same reasons.
                 </p>
                 <p class="title4">
                     For the site master page, everything remains the same as Part 3, except now there is a label and option for the user to login and logout from, 
@@ -935,7 +936,41 @@
 
                 <span class="title2">Setup, Run, and Use Guide</span>
                 <p class="title4">
+                    To setup the program, ensure that the ForgotPassword, Login, Register, and RegistrationSuccess design and cs files are in the part4/Account folder 
+                    and that the Web.config folder also resides in the Account folder. Ensure that the Web.config file allows all users to access the Register, 
+                    ForgotPassword, ForgotPasswordSuccessful, and RegistrationSuccess pages, such that authentication is not required for users to enter these pages. Next, 
+                    ensure that the Component, Display, HardDrive, LoginController, OperatingSystem, PreBuiltSystem, Processor, RAM, and SoundCard cs files exist in 
+                    the part4/App_Code folder. Ensure that the part4/BIN folder contains the AjaxControlToolkit.dll and the MySql.Data.dll files. Make sure that the 
+                    Resources folder contains the Contact_Image.jpg, DE_Logo.png, and shopping_cart.png files to allow the images in the web page to render properly. Also 
+                    ensure that the Site.css file is in the part4/Styles folder. Outside of all of this, ensure that the Cart, Contacts, Defualt, Feedback, PreBuiltComputers, 
+                    and Swap parts design and cs files exist in the part4 folder, and that the extra Global.asax, Site.master and Site.master.cs, and the Web.config files 
+                    also exist in the part4 folder. Also ensure that XAMPP is open and that the Apache and MySQL server services are running.
+                </p>
+                <p class="title4">
+                    To use the application, start by opening the ____________________________________________________________________________________________________________. 
+                    Read the welcome page to understand how the application works. Next, create an account by entering the Register page and entering your credentials. After 
+                    this, login by entering the credentials of your account. If you ever forget your password, you can press the Forgot Password? link to try and reset your 
+                    password. On the Forgot Password page, you first start by entering your username. Afterwards, the Security Question you saved before will be displayed. 
+                    Answer the security question properly and enter your new password, then press submit. If everything is correct, your account will be updated with the 
+                    new password. After that, you can login with your credentials. 
 
+                    Next navigate to the Pre-Built Computers page by pressing the Pre-Built Computers tab. Review the 
+                    systems that are available here by looking at the components that each system has and the price of the system. After you have decided on a computer, press the 
+                    select button on the left-most column to select the system. The row should be highlighted in green and the Cost of Current Configuration label should display 
+                    the price of the configuration you chose. Next, move to the Swap Parts page to customize the computer in any way you choose. The parts in your current configuration 
+                    should be highlighted in green. In a similar fashion to the Pre-Built Computers section, you can select a component you want by pressing the Select option in the 
+                    left-most column of each gridview. Also note that if there is no highlighted row in a gridview, the component you have in your configuration is not currently on 
+                    the page. You can change pages to load more component by pressing the paging button under each gridview. Notice the Cost of Current Configuration label at the 
+                    top left corner of the page update whenever a new component is selected. Once your configuration is complete, press the Add to Cart button at the bottom of the 
+                    page. This will bring you to the Cart page (which can also be accessed by pressing the top-right cart icon). You configuration should be displayed here, where 
+                    each of the systems components and their price is displayed in a row and the total price of everything in your cart is displayed at the bottom of the page. Also 
+                    note the Edit and Delete options at the left-most column of the table. At this point you can choose to go back to the Pre-Built Computers page and start 
+                    configuring another system, choose to edit a configured system by pressing the Edit option in the left-most column, or deleting the system by pressing the delete 
+                    option that's next to the Edit option. If you choose the Edit option, the web application will transfer you to the Swap Parts page where you can continue to 
+                    configure your system. If you choose the delete option, then the configuration will be deleted and your total cost will be updated. You can go to the Contacts 
+                    page to view the developer of the webpage and email him any questions, and you can go the Feedback page to enter any feedback you have about the website, 
+                    computer components, and overall experience. Enter some text for the comment and press the Submit button to submit your feeback. It should update in the feedback 
+                    box below.
                 </p>
             </div>
 
