@@ -844,11 +844,93 @@
 
                 <span class="title2">Documentation of Implementation</span>                
                 <p class="title4">
-                    
+                    There is a lot of changes that happened in each of the pages for this assignment, and many new pages that have been added. This 
+                    documentation of implementation will less about the UI component and more about the backend implementation.
+
+
                     If a user has forgotten their password and wants to recover it, they can enter their username into the valid username box 
                     (the New Password, Security Question, and Answer inputs will be disabled). 
                 </p>
-
+                <p class="title4">
+                    Starting off with the pages from the Customer management module, the Registration page will be discussed first. Before pressing the 
+                    submit button, the program ensures that the value in password and the value in confirm password are both matching before the system 
+                    can continue. When the submit button is pressed, all of the fields must be filled out before the system tries to insert anything into 
+                    the database. As well, before an insert is done, the program will query the users table for the inputted username, and if that username 
+                    exists, then an insert is not performed and an error message appears for the user. Otherwise, a new user is created in the users table, 
+                    containing the information that they entered on this page. In the login page, when the Login button is pressed, the programs queries 
+                    the users table for to see if the username exists in the table first. If the username does not exist, then the user is prompted. 
+                    Otherwise, another select query is done one the basis that the inputted username and password matches a row in the users table. If there 
+                    is no match, then the user is prompted with an error message that either their username or their password is incorrect. If a row is 
+                    found, the username is stored in a session that lasts two hours. This session allows the user to stay logged in and use the store. 
+                    If the user forgot their password, they can navigate to the Forgot Password page. This page first only allows the user to enter their 
+                    username. This username is then used in a select query to find the security question and answer for that particular username. Afterwards, 
+                    the username and security question is locked (with the username and value of the security question in the text boxes), and the user is 
+                    now allowed to to enter a new password and the answer to the security question. Once the user has entered the values into these boxes 
+                    and presses the submit button again, the program performs an update query, where the password is set to the new password on the 
+                    condition that the username, security question, and security answer matches a row in the users table. Otherwise, the user is prompted with 
+                    an error. If the user wants to reset the textboxes, they can with the reset button.
+                </p>
+                <p class="title4">
+                    In terms of the Information Modules (Welcome, Contacts and Feedback pages), the pages remain relatively the same as Part 3. The only changes 
+                    is in the feedback page, where now the username is locked to the username in the session. The gridview is now populated from the database 
+                    using a select query on the feedback table. When the user submits a feedback comment, their comment is inserted into the feedback table.
+                </p>
+                <p class="title4">
+                    Now looking at the Pre-Built Computers page, the difference here now is that the datasource uses data retrieved from the prebuiltSystem 
+                    table. The query uses the ID in each row of this table to get the a row in the respective component table. The select query specifies 
+                    all of the columns to retrieve, to ensure that there is an order of data when retrieving it. The data from the database is used to 
+                    create the same component and preBuiltSystem object classes that was present in Part 3. This makes it easier to group the data and the 
+                    preBuiltSystem class already has string formatting, based on the component classes, to display the description of each pre-built computer. 
+                    The total price of each computer is retrieved from the currentOrder table once the user selected a pre-built computer. When a user presses 
+                    the select option in the first column of the gridview, the program will perform a select query to get the ID of all of the components in 
+                    the prebuilt computer of that selected row. These ID values are inserted into the currentOrder table to set the components for the user's 
+                    current order. If the user already has a current order, then an update is performed on the user's current order instead. Note that there 
+                    is only one row in the table per user.
+                </p>
+                <p class="title4">
+                    Next, let's look at the Swap Parts page, where the user can customize the computer they selected from the Pre-Built Computers page. When 
+                    the page is loaded, it ensures that the user has a current order by querying the currentOrder table, using the username of the current 
+                    user, and triesto see if a row is returned. If the user has no current order, then the gridview is hidden and the user is told to go to 
+                    the Pre-Built Computers page first. If the user does have a current order, then each of the gridviews for the components are filled with 
+                    the data from the database. This is done in the BindDatabaseToGridView function, which creates a MySqlDataAdapter that contains data from 
+                    a select query on the appropriate table in the database. This adapter fills a datatable, which is then used as the datasource for the 
+                    gridview. Also note that the ID of each row for each component is also returned. There is a dedicated column in the gridview for the ID. 
+                    The column is first set to visible before the datasource is added, then set to not visible afterwards. The column must be visible before 
+                    setting the datasource or else the values will not be set in the column. This is done for each of the component gridviews. On the initial 
+                    loading of the page loading of the page (not on postback), the rows in each table are selected depending on what components exist in the 
+                    user's current order. This is done using the SelectCurrentComponents command, which performs a query on the current order table to get the 
+                    ID of the component. Afterwards, the program iterates through all of the visible rows in the gridview and checks to see if the retrieved 
+                    ID matches any of the IDs in the of the rows. If it does not, then no rows are highlighted. Otherwise, the appropriate row is highlighted. 
+                    When a user selects a component in one of the gridviews, the GridView_SelectedIndexChanged event handler is called. It finds the gridview 
+                    that generated the event and calls the UpdateCurrentSelection method. This method will query for the total price of the current configuration 
+                    and save that value to be modified later. Next, the program queries for the old price based on the old index before the select and gets 
+                    the price of that row. Next, the current order is updated to contain the ID of the newly selected row. The total price of the configuration 
+                    is updated by removing the price of the old component and adding the price of the newly selected component. After the user is satisfied with 
+                    the configuration of their system, they can press the Add to Cart button. This button will first check if the editId column has a value. 
+                    If no value is set, then the program will perform an insert into the orders table, inserting all of the IDs of each component in the current 
+                    order into the orders table. If the editId column has a value, then an update query is performed to update the specified row in the orders 
+                    table with the new data. Afterwards, a delete query is executed to delete the users current order.
+                </p>
+                <p class="title4">
+                    Moving onto the Cart page, this page handles all of the user's orders. It starts by calling the ConfigureCartPage function performs a similar 
+                    operation to the Pre-Built Computers page in terms of initialization. It performs the same query to retrieve all of the columns of all of 
+                    the components in each row of the orders table, creates the six components based on the read data, and combines all of these components to 
+                    make a prebuiltSystem object. Note that it is no longer a prebuilt system, but the class is used as a container in this case for the 
+                    user's system. All of these prebuiltSystem objects are added to a list and set to the gridviews datasource, unless there are no orders, in 
+                    which the gridview is hidden. As well, a query is performed on the orders table to retrieve all of the totalPrice column values. These 
+                    values are added together and displayed as the total of all of the orders. Now there are two operations that can be performed on this page. 
+                    The first operation is the delete operation, which will perform a delete query on the ID of the orders table for the selected order. The 
+                    other operation is the edit operation, which will insert the columns of the selected order into the currentOrder table. If there is already 
+                    an currentorder, then the currentorder row for the user is updated to the selected row's value. The editID column is also set to the ID of 
+                    the order that the user selected.
+                </p>
+                <p class="title4">
+                    For the site master page, everything remains the same as Part 3, except now there is a label and option for the user to login and logout from, 
+                    which did not exist in Part 3 since there was no customer management module. 
+                </p>
+                <p class="title4">
+                    Note that all of the gridviews used in the Pre-Built Computers, Swap Parts, and Cart page contain the same column structure as Part 3.    
+                </p>
                 <hr />
 
                 <span class="title2">Setup, Run, and Use Guide</span>
