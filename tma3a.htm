@@ -989,29 +989,6 @@
                     on my interpretation of the assignment, so please refer to the documentation to find these assumptions and how I understood 
                     the assignment.
                 </p>
-                <p class="title4">
-                    mysql -h localhost -u root
-                    USE mysql;
-                    create user 'iw3htp'@'localhost' identified by 'password';
-                    grant select, insert, update, delete, create, drop, references,
-                    execute on *.* to 'iw3htp'@'localhost';
-                    mysql -h localhost -u iw3htp -p
-
-                    ---
-
-                    CREATE DATABASE users;
-                    USE users;
-
-                    CREATE TABLE credentials (
-                        username VARCHAR(30) NOT NULL , 
-                        password VARCHAR(30) NOT NULL,
-                        PRIMARY KEY(username));
-                    CREATE TABLE bookmarks (
-                        username VARCHAR(30) NOT NULL , 
-                        url VARCHAR(30) NOT NULL,
-                        FOREIGN KEY (username) REFERENCES credentials(username),
-                        UNIQUE (username, url));
-                </p>
             </div>
         </div>
     </body>
