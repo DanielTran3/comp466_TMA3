@@ -679,45 +679,10 @@
                 </p>
                 <ul class="title4">
                     <li>
-                        <a href="https://stackoverflow.com/questions/18902887/how-to-configuring-a-xampp-web-server-for-different-root-directory">
-                            Changing XAMPP config folder (answer: insCode)
+                        <a href="">
                         </a>
                     </li>
-                    <li>
-                        <a href="https://stackoverflow.com/questions/6515497/getting-cookie-value-from-php-form">
-                            Change files if cookies exist
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://stackoverflow.com/questions/3922989/how-to-check-if-page-exists-using-javascript">
-                            Check if page exists (answer: fwielstra)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://php.net/manual/en/function.mysql-fetch-assoc.php">
-                            Using mysql_fetch_assoc
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://stackoverflow.com/questions/6616539/post-ajax-data-to-php-and-return-data">
-                            JS AJAX call
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://stackoverflow.com/questions/686155/remove-a-cookie">
-                            Clearing a cookie
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url">
-                            http(s) URL regular expression
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://stackoverflow.com/questions/41279524/xmlhttprequest-only-working-for-local-host">
-                            Allowing http request from localhost
-                        </a>
-                    </li>
+                    
                 </ul>
             </div>
         
@@ -777,21 +742,111 @@
                 
                 <span class="title2">Interpretation of Description and Requirements</span>
                 <p class="title4">
-
+                    The development of this web application is based off of the application developed in Part 3. This means that the 
+                    development done in Part 3 is used as the base for this assignment, and the extensions done in this part will help 
+                    transform the application into a fully functional online computer store without transactions.
                 </p>
-
+                <p class="title4">
+                    The tasks for this assignment requires that a customer management module is added to the store. This means that users 
+                    can register for an account, authenticate or login to an existing account, and recover their password if they lose it. 
+                    The application also wants an order management module, which allows a registered or logged in user to create orders, 
+                    modify existing orders, and delete orders from their list of orders. Finally, a back-end database is required to store 
+                    the components in the stores inventory, rather than hard-coding the data into HTML or into class objects. As well the 
+                    customer management information should also be stored in the database. Included in the database, there should be each 
+                    of the user's order details stored in the order management system. The information for each computer configuration that 
+                    the user has should also be stored in the database as part of the orders. This includes things such as the components 
+                    in the computer (the details of the order) and the pricing of the computer, along with the overall pricing of all of 
+                    the systems in the user's order. This information should also be retrievable to be formatted and displayed to the user.  
+                </p>
+                <p class="title4">
+                    The design of the database tables should be shown and the purpose of each table should be detailed. I interpret the 
+                    &quot;show the design of the database tables&quot; as displaying how the table is made and what columns exist in 
+                    each table. As well, the functionality of each program and page in the application should be explained. Source code can 
+                    also be taken (but if this is done, the original developer should be credited). The majority of the main code must be 
+                    written by me. Finally, the assignment should be accessible to the tutor to assess, and the website should be tested to 
+                    work locally before being handed in.
+                </p>
                 <hr />
 
                 <span class="title2">Analysis and Design of the Web Application</span>
                 <p class="title4">
-
+                    In the Analysis and Design of the Web Application and Documentation of Implementation sections, only new additions to the 
+                    application will be analyzed and documented, since the base documentation was done in Part 3. This will help reduce the 
+                    redundancy in documentation and reflect the direct modification to the web application.
                 </p>
-
+                <p class="title4">
+                    The first task requires a customer management module to be created that allows users to register, authenticate, and recover 
+                    their password. Thus, there should be three pages to facilitate these requirements. The first page would be a register page, 
+                    which requires a username, password (and password confirmation), a security question and answer. The purpose of the security 
+                    question is for password recovery on the password recovery page. The user chooses the a security question and answers it. If 
+                    the user wants to recover the password to an account they forgot their password to, they wold navigate to the ForgotPassword 
+                    page. Here the user can enter their username and new password. Their security question will be retrieved from the database 
+                    based on the users username. If the answer to the security question is correct, then the users account will be updated with 
+                    the new password. On the login page, there is simply a Username and Password textbox that takes in the user's username and 
+                    password to authenticate the user, if the entered credentials were correct. As well, this page will contain links to the 
+                    Register page and the Forgot Password page. 
+                </p>
+                <p class="title4">
+                    The next task requires an order management module to be designed and implemented. When a user is logged in, they should be able 
+                    to see what items they currently have in their cart, as well as the computer configuration that they are currently creating. 
+                    This module is based in the Cart, where the user is able to see all of the details for each computer that they've added to the 
+                    cart and be able to edit or delete any of the items in the cart. All of this information, as well as the options for the user to 
+                    edit or delete an item is displayed in a gridview. The order management system should retrieve information from the database 
+                    relating to the currently logged in user in order to get their orders. As part of the system, the database should also contain 
+                    the information about the user's current configuration. This allows the system to keep track of what components the user 
+                    has in their system, and creates a place for the components in the selected configuration to transfer to. Essentially, this 
+                    page is the same as the Order management module developed in Part 3, but backed by a database instead of sessions.  
+                </p>
+                <p class="title4">
+                    Finally, the last step is to ensure that the entire online store has a database implemented in the back-end. All of the hard coded 
+                    data in Part 3 is to be replaced by inserts/updates/deletes/selects to/from the database to the webpage. The database should 
+                    also keep track of the customers account information and order information. Note that Sessions are still used to store the currently 
+                    logged in user. Otherwise, Sessions are no longer used. As stated earlier, the order information is also stored in the database. The 
+                    database configuration looks like the following: 
+                    <img src="./shared/database_configuration.png" alt="An ER Diagram showing the relationship between the tables in the database"/>
+                </p>
+                <p class="title4">
+                    Also note that the lines in the ER Diagram is color coded to be able to view the relationship lines easier. As well, the lines are 
+                    not lined up to the column in the table that is part of the relationship, but there is a line for each reference in the tables. The 
+                    SQL code to create the tables can be found in the DigitalElectronics.sql file in the part4/documents folder. The data for each of 
+                    the component tables can also be found in that file.
+                </p>
+                <p class="title4">
+                    Now I will discuss the purpose of each of these tables. The users table is part of the customer management module and keeps track 
+                    of customer credentials. It is used for signups, logins, and password recovery. Also, the username in this table is used to keep track 
+                    of what orders the user has. The orders table keeps track of all of the orders that the user has made. The order table has columns 
+                    referencing a row in every component table (Display, HardDrive, OperatingSystem, Processor, RAM, and SoundCard). The currentOrder 
+                    table has the same structure as the orders table, but also has an editId column which is set only if an order is being edited. Otherwise, 
+                    this value is left blank. The currentOrders table is used to keep track of the current order (or current computer configuration 
+                    that the user has). The feedback table contains the username and text for the feedback. The table contains all of the feedback 
+                    comments of all of the users in the database. There is also a prebuiltSystem table that contains columns for all of the components 
+                    as well. Finally, there are six tables, one for every component. Essentially, these component tables and the prebuiltSystems table 
+                    model the object classes that was created in Part 3.
+                </p>
+                <p class="title4">
+                    For the explanation of the functionality of each web page, note that some of the web pages were designed and discussed in Part 3. These 
+                    web pages will be briefly discussed here, but if you want more information on them, please refer back to Part 3. More emphasis will be 
+                    placed on the newer pages developed in this part. Starting with the customer management module, there is a Registration.aspx page that 
+                    is used to create a new user in the database. The information they enter here will be used to authenticate the user and facilitate 
+                    password recovery in the future, if required. The Login.aspx page that accepts the credential of users and allows the user to login. 
+                    The ForgotPassword.aspx page allows a user to create a new password for their account if they forgot their old password but can 
+                    enter the correct answer to the security question. These web pages were discussed earlier in this section. The Default.aspx page is 
+                    the welcome page and it's purpose is to inform the user of how to use the program. The Pre-Built Computers page contains a gridview 
+                    to display all of the prebuilt computers that a user can select from as a starting point before customization. The Swap Parts 
+                    page contains all of the parts in the store's inventory and allows the user to customize the components in the system they want to 
+                    order. The rows in the tables are highlighted to show the components that the user currently has in their system to make things more 
+                    easy to work with, visually. The contacts page provides some information about the developer of the site and the Feedback page provides 
+                    a place for users to write comments about the system, components, and the overall experience of the site. Finally, the Cart page 
+                    contains a list of all of the systems that the user is going to order. All of the descriptions of each system and their prices are 
+                    displayed here. The user can also edit any system or delete any system from their cart at this point.
+                </p>
                 <hr />
 
                 <span class="title2">Documentation of Implementation</span>                
                 <p class="title4">
-
+                    
+                    If a user has forgotten their password and wants to recover it, they can enter their username into the valid username box 
+                    (the New Password, Security Question, and Answer inputs will be disabled). 
                 </p>
 
                 <hr />
@@ -813,7 +868,9 @@
                 <span class="title2">Notes on Part 3 and 4</span>
                 <p class="title4">
                     Note that for the resources of the two parts, the DE_Logo.png and shopping_cart.png were hand drawn images and were not 
-                    taken off the web. The Contact_Image.jpg image is an image of me.
+                    taken off the web. The Contact_Image.jpg image is an image of me. Also note that there were several assumptions based 
+                    on my interpretation of the assignment, so please refer to the documentation to find these assumptions and how I understood 
+                    the assignment.
                 </p>
                 <p class="title4">
                     mysql -h localhost -u root
